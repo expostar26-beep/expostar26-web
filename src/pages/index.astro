@@ -91,7 +91,7 @@ import Layout from '../layouts/Layout.astro';
       
       if (window.supabase) {
         const client = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
-        const { data, error } = await client.from('expositores').select('*');
+        const { data } = await client.from('expositores').select('*');
         
         if (data && data.length > 0 && grid) {
           grid.innerHTML = data.map(item => `
