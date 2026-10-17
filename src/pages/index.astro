@@ -4,9 +4,20 @@ import { createClient } from '@supabase/supabase-js';
 
 const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL || 'https://vpbpedholrdeuisxaanw.supabase.co';
 const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY || '';
-const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
-const { data: expositores } = await supabase.from('expositores').select('*');
+let expositores = [];
+
+if (supabaseUrl && supabaseAnonKey) {
+  try {
+    const supabase = createClient(supabaseUrl, supabaseAnonKey);
+    const { data, error } = await supabase.from('expositores').select('*');
+    if (data && !error) {
+      expositores = data;
+    }
+  } catch (e) {
+    console.error("Error al conectar con Supabase durante la compilación:", e);
+  }
+}
 ---
 
 <Layout title="EXPO REGIÓN ESTRELLA 2026 | Coquimbo en Plaza Ñuñoa">
@@ -41,7 +52,7 @@ const { data: expositores } = await supabase.from('expositores').select('*');
     <section id="expositores" class="max-w-6xl mx-auto px-6 py-20">
       <div class="text-center mb-16">
         <h2 class="text-3xl md:text-4xl font-bold mb-4">Catálogo de Expositores</h2>
-        <p class="text-slate-400 max-w-xl mx-auto">Conoce los 40+ módulos participantes de la Región de Coquimbo.</p>
+        <p class="text-slate-400 max-w-xl mx-auto">Conoce los módulos participantes de la Región de Coquimbo en Plaza Ñuñoa.</p>
       </div>
       
       <div class="grid md:grid-cols-3 gap-8">
@@ -64,8 +75,9 @@ const { data: expositores } = await supabase.from('expositores').select('*');
             </div>
           ))
         ) : (
-          <div class="col-span-3 text-center py-12 text-slate-500">
-            Cargando módulos desde Supabase...
+          <div class="col-span-3 text-center py-12 bg-slate-900/40 rounded-2xl border border-slate-800/60 text-slate-400">
+            <p class="text-lg font-medium mb-2">Bienvenido a EXPO REGIÓN ESTRELLA 2026</p>
+            <p class="text-sm text-slate-500">Configura la clave anon de Supabase en Cloudflare Pages para listar los módulos en tiempo real.</p>
           </div>
         )}
       </div>
