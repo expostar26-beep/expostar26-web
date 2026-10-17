@@ -1,22 +1,157 @@
 ---
-import '../styles/global.css';
+import Layout from '../layouts/Layout.astro';
+import { createClient } from '@supabase/supabase-js';
 
-interface Props {
-  title: string;
+const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL || 'https://vpbpedholrdeuisxaanw.supabase.co';
+const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY || 'sb_publishable_ji__4tPhhs1n1B8G6r8lcQ_4wVmFyzv';
+
+let expositores = [];
+
+if (supabaseUrl && supabaseAnonKey) {
+  try {
+    const supabase = createClient(supabaseUrl, supabaseAnonKey);
+    const { data, error } = await supabase.from('expositores').select('*');
+    if (data && !error) {
+      expositores = data;
+    }
+  } catch (e) {
+    console.error("Error al conectar con Supabase durante la compilación:", e);
+  }
 }
-
-const { title } = Astro.props;
 ---
 
-<!doctype html>
-<html lang="es" class="dark">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>{title}</title>
-  </head>
-  <body class="bg-slate-950 text-white min-h-screen">
-    <slot />
-  </body>
-</html>
+<Layout title="EXPO REGIÓN ESTRELLA 2026 | Coquimbo en Plaza Ñuñoa">
+  <main class="min-h-screen bg-slate-950 text-white font-sans selection:bg-indigo-500 selection:text-white pb-20">
+    
+    <!-- NAVBAR -->
+    <nav class="max-w-6xl mx-auto px-6 py-6 flex justify-between items-center border-b border-slate-800/60">
+      <div class="flex items-center gap-2">
+        <span class="text-2xl">⭐</span>
+        <span class="font-extrabold text-xl tracking-wider text-white">REGIÓN ESTRELLA</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="#expositores" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">Pabellones</a>
+        <a href="/registro" class="text-sm font-semibold px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 transition-all text-white shadow-md shadow-indigo-600/20">
+          Obtener Pase QR
+        </a>
+      </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="relative overflow-hidden bg-gradient-to-b from-indigo-950/60 via-slate-950 to-slate-950 py-20 px-6 text-center border-b border-slate-800/80">
+      <div class="max-w-4xl mx-auto relative z-10">
+        <span class="inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 mb-6 uppercase">
+          6 al 8 de Noviembre • Plaza Ñuñoa, Santiago
+        </span>
+        <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-emerald-400 to-amber-300 mb-6">
+          EXPO REGIÓN ESTRELLA
+        </h1>
+        <p class="text-xl md:text-2xl text-slate-300 font-light mb-10 max-w-2xl mx-auto leading-relaxed">
+          La Región de Coquimbo se levanta y despliega lo mejor de sus valles, costas y emprendimientos.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a href="#expositores" class="px-8 py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 font-bold transition-all shadow-lg shadow-emerald-500/20 hover:scale-105">
+            Explorar Pabellones
+          </a>
+          <button data-cal-link="expostar26/b2b" class="px-8 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 font-semibold border border-slate-700 transition-all cursor-pointer hover:border-slate-500">
+            Citas B2B (Cal.com)
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- MÓDULOS Y EXPOSITORES (SUPABASE) -->
+    <section id="expositores" class="max-w-6xl mx-auto px-6 py-20">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">Catálogo de Expositores</h2>
+        <p class="text-slate-400 max-w-xl mx-auto">Conoce los módulos participantes de la Región de Coquimbo en Plaza Ñuñoa.</p>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-8">
+        {expositores && expositores.length > 0 ? (
+          expositores.map((item) => (
+            <div class="bg-slate-900/60 border border-slate-800 hover:border-indigo-500/50 rounded-2xl p-6 backdrop-blur-sm transition-all flex flex-col justify-between group hover:-translate-y-1">
+              <div>
+                <div class="flex justify-between items-start mb-4">
+                  <span class="text-xs font-bold px-3 py-1 rounded-md bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+                    Módulo #{item.modulo_numero}
+                  </span>
+                  <span class="text-xs text-emerald-400 font-medium">{item.rubro}</span>
+                </div>
+                <h3 class="text-xl font-bold mb-2 text-white group-hover:text-indigo-400 transition-colors">{item.nombre}</h3>
+                <p class="text-slate-400 text-sm mb-6 leading-relaxed">{item.descripcion}</p>
+              </div>
+              <button data-cal-link={`expostar26/modulo-${item.modulo_numero}`} class="w-full text-center text-xs font-semibold py-2.5 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white transition-all cursor-pointer shadow-md shadow-indigo-600/10">
+                Agendar Cita B2B
+              </button>
+            </div>
+          ))
+        ) : (
+          <div class="col-span-3 text-center py-12 bg-slate-900/40 rounded-2xl border border-slate-800/60 text-slate-400">
+            <p class="text-lg font-medium mb-2">Bienvenido a EXPO REGIÓN ESTRELLA 2026</p>
+            <p class="text-sm text-slate-500">Conexión lista a Supabase. Si no ves los módulos, verifica los permisos RLS en la tabla 'expositores'.</p>
+          </div>
+        )}
+      </div>
+    </section>
+
+    <!-- WIDGET CHATBOT IA FLOTANTE -->
+    <div id="ai-chat" class="fixed bottom-6 right-6 z-50">
+      <button id="chat-toggle" class="w-14 h-14 bg-indigo-600 hover:bg-indigo-500 text-white rounded-full shadow-2xl flex items-center justify-center text-2xl transition-all cursor-pointer hover:scale-110">
+        💬
+      </button>
+      
+      <div id="chat-box" class="hidden absolute bottom-18 right-0 w-80 md:w-96 bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl flex-col overflow-hidden">
+        <div class="bg-indigo-600 p-4 font-bold flex justify-between items-center text-white">
+          <span>🤖 Asistente EXPOSTAR26</span>
+          <button id="chat-close" class="text-slate-300 hover:text-white cursor-pointer">✕</button>
+        </div>
+        <div id="chat-messages" class="p-4 h-64 overflow-y-auto space-y-3 text-sm text-slate-300">
+          <div class="bg-slate-800 p-3 rounded-xl max-w-[85%]">
+            ¡Hola! Soy tu asistente de la Expo Región Estrella 2026. ¿En qué puedo ayudarte hoy?
+          </div>
+        </div>
+        <div class="p-3 border-t border-slate-800 flex gap-2">
+          <input id="chat-input" type="text" placeholder="Haz una pregunta..." class="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500" />
+          <button id="chat-send" class="bg-indigo-600 hover:bg-indigo-500 px-3 py-2 rounded-xl text-xs font-bold text-white cursor-pointer">Enviar</button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- SCRIPT CAL.COM INTEGRACIÓN -->
+  <script is:inline>
+    (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; new C(); typeof C.cal === "undefined" && (C.cal = function () { let cal = C.cal; let ar = arguments; if (!cal.q) { cal.q = []; } p(cal, ar); }); })(window, "https://app.cal.com/embed/embed.js", "init");
+    Cal("init", {origin:"https://cal.com"});
+    Cal("ui", {"styles":{"branding":{"brandColor":"#4f46e5"}},"hideEventTypeDetails":false,"layout":"month_view"});
+  </script>
+
+  <!-- SCRIPT CHATBOT INTERACTIVO -->
+  <script is:inline>
+    const toggle = document.getElementById('chat-toggle');
+    const close = document.getElementById('chat-close');
+    const box = document.getElementById('chat-box');
+    const send = document.getElementById('chat-send');
+    const input = document.getElementById('chat-input');
+    const messages = document.getElementById('chat-messages');
+
+    toggle?.addEventListener('click', () => box?.classList.toggle('hidden'));
+    close?.addEventListener('click', () => box?.classList.add('hidden'));
+
+    const handleSend = () => {
+      const text = input.value.trim();
+      if (!text) return;
+      messages.innerHTML += `<div class="bg-indigo-600 text-white p-3 rounded-xl ml-auto max-w-[85%]">${text}</div>`;
+      input.value = '';
+      messages.scrollTop = messages.scrollHeight;
+      setTimeout(() => {
+        messages.innerHTML += `<div class="bg-slate-800 p-3 rounded-xl max-w-[85%]">La Expo Región Estrella se realiza del 6 al 8 de Noviembre en Plaza Ñuñoa. Contamos con módulos de pisco, gastronomía, artesanía y turismo.</div>`;
+        messages.scrollTop = messages.scrollHeight;
+      }, 600);
+    };
+
+    send?.addEventListener('click', handleSend);
+    input?.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleSend(); });
+  </script>
+</Layout>
