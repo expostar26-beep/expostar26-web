@@ -1,21 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { createClient } from '@supabase/supabase-js';
-
-const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL || 'https://vpbpedholrdeuisxaanw.supabase.co';
-const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY || 'sb_publishable_ji__4tPhhs1n1B8G6r8lcQ_4wVmFyzv';
-
-let expositores = [];
-
-if (supabaseUrl && supabaseAnonKey) {
-  try {
-    const supabase = createClient(supabaseUrl, supabaseAnonKey);
-    const { data } = await supabase.from('expositores').select('*');
-    if (data && data.length > 0) expositores = data;
-  } catch (e) {
-    console.error("Error al obtener expositores en build:", e);
-  }
-}
 ---
 
 <Layout title="EXPO REGIÓN ESTRELLA 2026 | Coquimbo en Plaza Ñuñoa">
@@ -66,29 +50,9 @@ if (supabaseUrl && supabaseAnonKey) {
       </div>
       
       <div id="grid-expositores" class="grid md:grid-cols-3 gap-8">
-        {expositores.length > 0 ? (
-          expositores.map((item) => (
-            <div class="bg-slate-900/60 border border-slate-800 hover:border-indigo-500/50 rounded-2xl p-6 backdrop-blur-sm transition-all flex flex-col justify-between group hover:-translate-y-1">
-              <div>
-                <div class="flex justify-between items-start mb-4">
-                  <span class="text-xs font-bold px-3 py-1 rounded-md bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
-                    Módulo #{item.modulo_numero}
-                  </span>
-                  <span class="text-xs text-emerald-400 font-medium">{item.rubro}</span>
-                </div>
-                <h3 class="text-xl font-bold mb-2 text-white group-hover:text-indigo-400 transition-colors">{item.nombre}</h3>
-                <p class="text-slate-400 text-sm mb-6 leading-relaxed">{item.descripcion}</p>
-              </div>
-              <button data-cal-link={`expostar26/modulo-${item.modulo_numero}`} class="w-full text-center text-xs font-semibold py-2.5 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white transition-all cursor-pointer shadow-md shadow-indigo-600/10">
-                Agendar Cita B2B
-              </button>
-            </div>
-          ))
-        ) : (
-          <div class="col-span-3 text-center py-12 bg-slate-900/40 rounded-2xl border border-slate-800/60 text-slate-400">
-            <p class="text-lg font-medium mb-2">Cargando catálogo de la Expo...</p>
-          </div>
-        )}
+        <div class="col-span-3 text-center py-12 bg-slate-900/40 rounded-2xl border border-slate-800/60 text-slate-400">
+          <p class="text-lg font-medium mb-2">Cargando catálogo en vivo desde Supabase...</p>
+        </div>
       </div>
     </section>
 
@@ -117,7 +81,7 @@ if (supabaseUrl && supabaseAnonKey) {
 
   </main>
 
-  <!-- SCRIPT CLIENTE PARA CARGAR DATOS EN TIEMPO REAL SI FALLÓ EL STATIC BUILD -->
+  <!-- SCRIPT CLIENTE PARA CARGAR SUPABASE DIRECTO -->
   <script is:inline src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script is:inline>
     document.addEventListener('DOMContentLoaded', async () => {
@@ -127,9 +91,9 @@ if (supabaseUrl && supabaseAnonKey) {
       
       if (window.supabase) {
         const client = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
-        const { data, error } = await client.from('expositores').select('*');
+        const { data } = await client.from('expositores').select('*');
         
-        if (data && data.length > 0) {
+        if (data && data.length > 0 && grid) {
           grid.innerHTML = data.map(item => `
             <div class="bg-slate-900/60 border border-slate-800 hover:border-indigo-500/50 rounded-2xl p-6 backdrop-blur-sm transition-all flex flex-col justify-between group hover:-translate-y-1">
               <div>
