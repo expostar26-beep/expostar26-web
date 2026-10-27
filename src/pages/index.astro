@@ -574,7 +574,6 @@
       } else {
         musicLayer.pause();
         voiceLayer.pause();
-        window.speechSynthesis.cancel();
         isRadioActive = false;
         if (playBtnEl) playBtnEl.textContent = "▶ Reproducir";
         if (trackNameEl) trackNameEl.textContent = "Radio pausada";
@@ -592,11 +591,12 @@
       const optionsTime = { timeZone: 'America/Santiago', hour: '2-digit', minute: '2-digit', hour12: false };
       const horaActualChile = new Intl.DateTimeFormat('es-CL', optionsTime).format(new Date());
 
+      // Cada 2 canciones reproducimos una cápsula de voz real/podcast para eliminar por completo la voz sintética robótica
       if (podcastCounter >= 2 && podsPlaylist.length > 0) {
         podcastCounter = 0;
         const pod = podsPlaylist[Math.floor(Math.random() * podsPlaylist.length)];
-        if (trackNameEl) trackNameEl.textContent = `🎙️ Mini-Podcast | Al aire: ${pod.name}`;
-        fadeVolume(musicLayer, musicLayer.volume, 0.2, 800);
+        if (trackNameEl) trackNameEl.textContent = `🎙️ Cápsula de Locución | ${pod.name}`;
+        fadeVolume(musicLayer, musicLayer.volume, 0.15, 800);
         voiceLayer.src = pod.file;
         voiceLayer.play().then(() => {
           voiceLayer.onended = () => {
@@ -614,22 +614,17 @@
       const track = musicPlaylist[musicIndex];
       if (trackNameEl) trackNameEl.textContent = `🕒 ${horaActualChile} Chile | Al aire: ${track.name}`;
 
-      speakContinuity(`Son las ${horaActualChile} horas en nuestra brillante Región Estrella. Escuchamos a continuación el tema: ${track.name}.`, () => {
-        if (!isRadioActive) return;
-        musicLayer.src = track.file;
-        musicLayer.play().then(() => {
-          musicLayer.onended = () => {
-            if (!isRadioActive) return;
-            podcastCounter++;
-            speakContinuity(`Disfrutabas de ${track.name} en la señal oficial de la Expo.`, () => {
-              musicIndex = (musicIndex + 1) % musicPlaylist.length;
-              if (isRadioActive) playNextSmartSequence();
-            });
-          };
-        }).catch(err => {
+      musicLayer.src = track.file;
+      musicLayer.play().then(() => {
+        musicLayer.onended = () => {
+          if (!isRadioActive) return;
+          podcastCounter++;
           musicIndex = (musicIndex + 1) % musicPlaylist.length;
           playNextSmartSequence();
-        });
+        };
+      }).catch(err => {
+        musicIndex = (musicIndex + 1) % musicPlaylist.length;
+        playNextSmartSequence();
       });
     }
 
@@ -647,30 +642,6 @@
         else audioElement.volume = endVol;
       }
       requestAnimationFrame(step);
-    }
-
-    function speakContinuity(text, callback) {
-      if (!('speechSynthesis' in window)) { if (callback) callback(); return; }
-      window.speechSynthesis.cancel();
-      
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'es-CL';
-      utterance.rate = 0.95;
-      utterance.pitch = 1.02;
-
-      const voices = window.speechSynthesis.getVoices();
-      const naturalVoice = voices.find(v => v.lang.startsWith('es') && (v.name.includes('Google') || v.name.includes('Natural') || v.name.includes('Helena') || v.name.includes('Laura') || v.name.includes('Sabina')));
-      if (naturalVoice) {
-        utterance.voice = naturalVoice;
-      }
-
-      utterance.onend = () => { if (callback) callback(); };
-      utterance.onerror = () => { if (callback) callback(); };
-      window.speechSynthesis.speak(utterance);
-    }
-
-    if ('speechSynthesis' in window) {
-      window.speechSynthesis.onvoiceschanged = () => { window.speechSynthesis.getVoices(); };
     }
 
     function updateAstroData() {
@@ -735,6 +706,7 @@
       "Emprendedores Regionales": "⭐"
     };
 
+    // FORZADO DE FOTOS UNICAS: Asignación directa garantizada para las 6 tarjetas
     const IMAGENES_EXPOSITORES = [
       "/imagen_aerea.jpeg",
       "/sour.jpeg",
@@ -752,8 +724,9 @@
         const { data: expositores, error } = await client.from('expositores').select('*');
         if (error || !expositores || expositores.length === 0) { renderFallback(); return; }
         
+        // Forzamos que cada tarjeta use obligatoriamente su imagen única del arreglo local
         grid.innerHTML = expositores.map((exp, index) => {
-          const imgForCard = exp.imagen && exp.imagen.trim() !== "" ? exp.imagen : (IMAGENES_EXPOSITORES[index % IMAGENES_EXPOSITORES.length]);
+          const imgForCard = IMAGENES_EXPOSITORES[index % IMAGENES_EXPOSITORES.length];
           return renderCardWithImage(exp, imgForCard);
         }).join('');
       } catch (err) { renderFallback(); }
@@ -789,12 +762,12 @@
       const grid = document.getElementById('expositores-grid');
       if(!grid) return;
       const MOCK_EXPOSITORES = [
-        { nombre: "Inmobiliaria & Proyectos Coquimbo", pabellon: "Inmobiliaria", modulo: "A-01", comuna: "La Serena", descripcion: "Proyectos habitacionales e inversión inmobiliaria en la costa regional.", imagen: "/imagen_aerea.jpeg" },
-        { nombre: "Pisco Elqui & Valles", pabellon: "Gastronomía & Pisqueras", modulo: "A-12", comuna: "Paihuano", descripcion: "Destilados prémium con denominación de origen y viñas del Valle.", imagen: "/sour.jpeg" },
-        { nombre: "Turismo & Patrimonio Regional", pabellon: "Turismo & Municipios", modulo: "B-01", comuna: "La Serena", descripcion: "Oferta turística, cultural y patrimonial de la zona.", imagen: "/sour2.jpeg" },
-        { nombre: "Proveedores Mineros del Norte", pabellon: "Minería & Proveedores", modulo: "C-04", comuna: "Ovalle", descripcion: "Soluciones tecnológicas e industrias de soporte para la gran minería.", imagen: "/quesos.jpeg" },
-        { nombre: "Emprendedores del Limarí", pabellon: "Emprendedores Regionales", modulo: "D-05", comuna: "Ovalle", descripcion: "Quesos de cabra, artesanía en combarbalita y frutos de los valles.", imagen: "/pan.jpeg" },
-        { nombre: "Asociación Gremial Coquimbo", pabellon: "Emprendedores Regionales", modulo: "D-09", comuna: "Coquimbo", descripcion: "Muestra gremial y comercial desplegada en Plaza Ñuñoa.", imagen: "/gente.jpeg" }
+        { nombre: "Inmobiliaria & Proyectos Coquimbo", pabellon: "Inmobiliaria", modulo: "A-01", comuna: "La Serena", descripcion: "Proyectos habitacionales e inversión inmobiliaria en la costa regional." },
+        { nombre: "Pisco Elqui & Valles", pabellon: "Gastronomía & Pisqueras", modulo: "A-12", comuna: "Paihuano", descripcion: "Destilados prémium con denominación de origen y viñas del Valle." },
+        { nombre: "Turismo & Patrimonio Regional", pabellon: "Turismo & Municipios", modulo: "B-01", comuna: "La Serena", descripcion: "Oferta turística, cultural y patrimonial de la zona." },
+        { nombre: "Proveedores Mineros del Norte", pabellon: "Minería & Proveedores", modulo: "C-04", comuna: "Ovalle", descripcion: "Soluciones tecnológicas e industrias de soporte para la gran minería." },
+        { nombre: "Emprendedores del Limarí", pabellon: "Emprendedores Regionales", modulo: "D-05", comuna: "Ovalle", descripcion: "Quesos de cabra, artesanía en combarbalita y frutos de los valles." },
+        { nombre: "Asociación Gremial Coquimbo", pabellon: "Emprendedores Regionales", modulo: "D-09", comuna: "Coquimbo", descripcion: "Muestra gremial y comercial desplegada en Plaza Ñuñoa." }
       ];
       grid.innerHTML = MOCK_EXPOSITORES.map((exp, idx) => renderCardWithImage(exp, IMAGENES_EXPOSITORES[idx])).join('');
     }
