@@ -591,7 +591,6 @@
       const optionsTime = { timeZone: 'America/Santiago', hour: '2-digit', minute: '2-digit', hour12: false };
       const horaActualChile = new Intl.DateTimeFormat('es-CL', optionsTime).format(new Date());
 
-      // Cada 2 canciones reproducimos una cápsula de voz real/podcast para eliminar por completo la voz sintética robótica
       if (podcastCounter >= 2 && podsPlaylist.length > 0) {
         podcastCounter = 0;
         const pod = podsPlaylist[Math.floor(Math.random() * podsPlaylist.length)];
@@ -706,35 +705,67 @@
       "Emprendedores Regionales": "⭐"
     };
 
-    // FORZADO DE FOTOS UNICAS: Asignación directa garantizada para las 6 tarjetas
-    const IMAGENES_EXPOSITORES = [
-      "/imagen_aerea.jpeg",
-      "/sour.jpeg",
-      "/sour2.jpeg",
-      "/quesos.jpeg",
-      "/pan.jpeg",
-      "/gente.jpeg"
-    ];
+    // Función que asigna una imagen totalmente ad hoc según el tipo/nombre del expositor
+    function getAdHocImage(exp, index) {
+      const nombre = (exp.nombre || '').toLowerCase();
+      const pabellon = (exp.pabellon || '').toLowerCase();
+
+      if (nombre.includes('inmobiliaria') || pabellon.includes('inmobiliaria')) {
+        return '/imagen_aerea.jpeg';
+      }
+      if (nombre.includes('pisco') || pabellon.includes('pisqueras')) {
+        return '/sour.jpeg';
+      }
+      if (nombre.includes('turismo') || pabellon.includes('turismo')) {
+        return '/sour2.jpeg';
+      }
+      if (nombre.includes('mineros') || pabellon.includes('minería')) {
+        return '/quesos.jpeg';
+      }
+      if (nombre.includes('limarí') || nombre.includes('queso')) {
+        return '/pan.jpeg';
+      }
+      if (nombre.includes('gremial') || pabellon.includes('emprendedores')) {
+        return '/gente.jpeg';
+      }
+
+      const imagenesFallback = [
+        '/imagen_aerea.jpeg',
+        '/sour.jpeg',
+        '/sour2.jpeg',
+        '/quesos.jpeg',
+        '/pan.jpeg',
+        '/gente.jpeg'
+      ];
+      return imagenesFallback[index % imagenesFallback.length];
+    }
 
     async function loadExhibitors() {
       const grid = document.getElementById('expositores-grid');
-      if(!grid) return;
+      if (!grid) return;
+
       try {
         const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         const { data: expositores, error } = await client.from('expositores').select('*');
-        if (error || !expositores || expositores.length === 0) { renderFallback(); return; }
-        
-        // Forzamos que cada tarjeta use obligatoriamente su imagen única del arreglo local
+
+        if (error || !expositores || expositores.length === 0) {
+          renderFallback();
+          return;
+        }
+
         grid.innerHTML = expositores.map((exp, index) => {
-          const imgForCard = IMAGENES_EXPOSITORES[index % IMAGENES_EXPOSITORES.length];
-          return renderCardWithImage(exp, imgForCard);
+          const imgAdHoc = getAdHocImage(exp, index);
+          return renderCardWithImage(exp, imgAdHoc);
         }).join('');
-      } catch (err) { renderFallback(); }
+      } catch (err) {
+        renderFallback();
+      }
     }
 
     function renderCardWithImage(exp, customImg) {
       const icono = ICONOS_PABELLON[exp.pabellon] || "⭐";
       const calUrl = exp.cal_link || CAL_COM_URL_DEFAULT;
+
       return `
         <div class="card">
           <div style="width:100%; height:180px; max-height:180px; overflow:hidden; position:relative; background:#020617; border-bottom:1px solid rgba(255,255,255,0.08); flex-shrink:0;">
@@ -760,7 +791,7 @@
 
     function renderFallback() {
       const grid = document.getElementById('expositores-grid');
-      if(!grid) return;
+      if (!grid) return;
       const MOCK_EXPOSITORES = [
         { nombre: "Inmobiliaria & Proyectos Coquimbo", pabellon: "Inmobiliaria", modulo: "A-01", comuna: "La Serena", descripcion: "Proyectos habitacionales e inversión inmobiliaria en la costa regional." },
         { nombre: "Pisco Elqui & Valles", pabellon: "Gastronomía & Pisqueras", modulo: "A-12", comuna: "Paihuano", descripcion: "Destilados prémium con denominación de origen y viñas del Valle." },
@@ -769,7 +800,10 @@
         { nombre: "Emprendedores del Limarí", pabellon: "Emprendedores Regionales", modulo: "D-05", comuna: "Ovalle", descripcion: "Quesos de cabra, artesanía en combarbalita y frutos de los valles." },
         { nombre: "Asociación Gremial Coquimbo", pabellon: "Emprendedores Regionales", modulo: "D-09", comuna: "Coquimbo", descripcion: "Muestra gremial y comercial desplegada en Plaza Ñuñoa." }
       ];
-      grid.innerHTML = MOCK_EXPOSITORES.map((exp, idx) => renderCardWithImage(exp, IMAGENES_EXPOSITORES[idx])).join('');
+      grid.innerHTML = MOCK_EXPOSITORES.map((exp, idx) => {
+        const imgAdHoc = getAdHocImage(exp, idx);
+        return renderCardWithImage(exp, imgAdHoc);
+      }).join('');
     }
 
     const BANCO_PREGUNTAS = [
