@@ -540,20 +540,26 @@
       { name: "Jazz Blues", file: "/audio/music/Jazz_blues.mp3" },
       { name: "Qué Sabes Tú", file: "/audio/music/Qué_sabes_tú.mp3" },
       { name: "Cambiee", file: "/audio/music/cambiee.mp3" },
-      { name: "Salir (Tributo a Robe)", file: "/audio/music/Salir.mp3" }
+      { name: "Salir (Tributo a Robe)", file: "/audio/music/Salir.mp3" },
+      { name: "Bajo el Cielo más Azul", file: "/audio/music/Bajo_el_cielo_más_azul.mp3" },
+      { name: "Donde el Cielo es más Azul", file: "/audio/music/Donde_el_cielo_es_más_azul.mp3" },
+      { name: "Brisa de Uva y Mar", file: "/audio/music/Brisa_de_Uva_y_Mar.mp3" },
+      { name: "Latido de mi Tierra", file: "/audio/music/Latido_de_mi_tierra.mp3" },
+      { name: "Región Estrella", file: "/audio/music/Región_Estrella.mp3" },
+      { name: "Somos la Región Estrella", file: "/audio/music/Somos_la_Región_Estrella.mp3" }
     ];
 
     const podsPlaylist = [
-      { name: "La Región Estrella se Prepara", file: "/audio/pods/La_Región_Estrella_se_prepara.mp3" },
-      { name: "Nadie se Queda Fuera", file: "/audio/pods/Nadie_se_queda_fuera_de_la_Región_Estrella.mp3" },
-      { name: "Bajo los Cielos", file: "/audio/pods/Bajo_los_cielos.mp3" },
-      { name: "Vivir la Experiencia", file: "/audio/pods/Vivir.mp3" },
-      { name: "Lo Mejor de los Valles", file: "/audio/pods/Lo_mejor.mp3" },
-      { name: "Cápsula Especial 1", file: "/audio/pods/ElevenLabs_2026-10-19T07_04_46_Francis.mp3" },
-      { name: "Atención Región Estrella", file: "/audio/pods/Atención.mp3" },
-      { name: "Denominación de Origen", file: "/audio/pods/Denominación_de_Origen.mp3" },
-      { name: "Cápsula Especial 2", file: "/audio/pods/ElevenLabs_2026-10-19T07_08_30_Vicente.mp3" },
-      { name: "Unidos por Coquimbo", file: "/audio/pods/Unidos.mp3" }
+      { name: "Locución Francis - La Región Estrella se Prepara", file: "/audio/pods/La_Región_Estrella_se_prepara.mp3" },
+      { name: "Locución Vicente - Nadie se Queda Fuera", file: "/audio/pods/Nadie_se_queda_fuera_de_la_Región_Estrella.mp3" },
+      { name: "Locución Francis - Bajo los Cielos", file: "/audio/pods/Bajo_los_cielos.mp3" },
+      { name: "Locución Vicente - Vivir la Experiencia Expo", file: "/audio/pods/Vivir.mp3" },
+      { name: "Locución Francis - Lo Mejor de los Valles", file: "/audio/pods/Lo_mejor.mp3" },
+      { name: "Cápsula Especial Francis - Promo Expo Ñuñoa", file: "/audio/pods/ElevenLabs_2026-10-19T07_04_46_Francis.mp3" },
+      { name: "Locución Vicente - Atención Región Estrella", file: "/audio/pods/Atención.mp3" },
+      { name: "Locución Francis - Denominación de Origen", file: "/audio/pods/Denominación_de_Origen.mp3" },
+      { name: "Cápsula Especial Vicente - Señal Horaria & Saludo", file: "/audio/pods/ElevenLabs_2026-10-19T07_08_30_Vicente.mp3" },
+      { name: "Locución Francis - Unidos por Coquimbo", file: "/audio/pods/Unidos.mp3" }
     ];
 
     let isRadioActive = false;
@@ -594,7 +600,7 @@
       if (podcastCounter >= 2 && podsPlaylist.length > 0) {
         podcastCounter = 0;
         const pod = podsPlaylist[Math.floor(Math.random() * podsPlaylist.length)];
-        if (trackNameEl) trackNameEl.textContent = `🎙️ Cápsula de Locución | ${pod.name}`;
+        if (trackNameEl) trackNameEl.textContent = `🎙️ Locución Radio | ${pod.name} • ${horaActualChile} hrs`;
         fadeVolume(musicLayer, musicLayer.volume, 0.15, 800);
         voiceLayer.src = pod.file;
         voiceLayer.play().then(() => {
@@ -705,7 +711,6 @@
       "Emprendedores Regionales": "⭐"
     };
 
-    // Galería estricta de 6 imágenes únicas asignadas según el orden de la tarjeta (0 a 5)
     const GALERIA_6_FOTOS = [
       "/imagen_aerea.jpeg",
       "/sour.jpeg",
@@ -915,6 +920,7 @@
       if(!chatInput || !chatBody) return;
       const text = chatInput.value.trim();
       if (!text) return;
+
       const userMsg = document.createElement('div');
       userMsg.className = 'chat-msg user';
       userMsg.textContent = text;
@@ -926,13 +932,28 @@
         const botMsg = document.createElement('div');
         botMsg.className = 'chat-msg bot';
         const q = text.toLowerCase();
-        if (q.includes('radio') || q.includes('musica') || q.includes('en vivo')) {
-          botMsg.textContent = 'Puedes escuchar nuestra programación continua de radio haciendo clic en el botón "Reproducir" de la barra inferior.';
-        } else if (q.includes('fecha') || q.includes('cuando')) {
-          botMsg.textContent = 'La Expo se realizará del 6 al 8 de noviembre de 2026 en Plaza Ñuñoa.';
-        } else {
-          botMsg.textContent = '¡Hola! Puedo ayudarte con información sobre la Expo, fechas, expositores y nuestra radio en línea.';
+
+        // 1. Detección de Agradecimientos y Despedidas
+        if (q.includes('gracias') || q.includes('chao') || q.includes('hasta luego') || q.includes('adios') || q.includes('adiós') || q.includes('ok') || q.includes('vale')) {
+          botMsg.textContent = '¡De nada! Muchas gracias por consultar. Te esperamos del 6 al 8 de noviembre en Plaza Ñuñoa. ¡Saludos y que tengas un excelente día! ⭐';
+        } 
+        // 2. Consultas sobre Radio / Música
+        else if (q.includes('radio') || q.includes('musica') || q.includes('música') || q.includes('en vivo') || q.includes('cancion') || q.includes('canción')) {
+          botMsg.textContent = 'Puedes escuchar nuestra programación continua de radio haciendo clic en el botón "Reproducir" de la barra inferior. ¡Contamos con la locución de Francis y Vicente!';
+        } 
+        // 3. FECHAS Y UBICACIÓN
+        else if (q.includes('fecha') || q.includes('cuando') || q.includes('cuándo') || q.includes('donde') || q.includes('dónde') || q.includes('lugar')) {
+          botMsg.textContent = 'La Expo Región Estrella se realizará del 6 al 8 de noviembre de 2026 en Plaza Ñuñoa, Santiago. ¡La entrada es liberada!';
+        } 
+        // 4. Saludos iniciales
+        else if (q.includes('hola') || q.includes('buenas') || q.includes('buenos dias') || q.includes('buenas tardes')) {
+          botMsg.textContent = '¡Hola! Qué gusto saludarte. ¿En qué te puedo ayudar hoy respecto a los expositores, la radio o el evento?';
+        } 
+        // 5. Módulo por defecto
+        else {
+          botMsg.textContent = 'Puedo ayudarte con información sobre la Expo, fechas, expositores, agendamiento de citas y nuestra radio en línea. ¿Tienes alguna otra duda?';
         }
+
         chatBody.appendChild(botMsg);
         chatBody.scrollTop = chatBody.scrollHeight;
       }, 400);
