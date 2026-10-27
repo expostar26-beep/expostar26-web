@@ -770,17 +770,21 @@
       "Emprendedores Regionales": "⭐"
     };
 
-    const GALERIA_6_FOTOS = [
-      "/imagen_aerea.jpeg",
-      "/sour.jpeg",
-      "/sour2.jpeg",
-      "/quesos.jpeg",
-      "/pan.jpeg",
-      "/gente.jpeg"
+    // MAPEO DIRECTO DE IMÁGENES SEGÚN PABELLÓN / POSICIÓN
+    const GALERIA_EXPOSITORES = [
+      "/imagen_aerea.jpeg", // 1. Inmobiliaria & Proyectos Coquimbo
+      "/sour.jpeg",         // 2. Pisco Elqui & Valles (Gastronomía & Pisqueras)
+      "/sour2.jpeg",        // 3. Turismo & Patrimonio Regional
+      "/imagen_aerea.jpeg", // 4. Proveedores Mineros del Norte (Industrial / Aérea)
+      "/quesos.jpeg",       // 5. Emprendedores del Limarí (Quesos de cabra)
+      "/gente.jpeg"         // 6. Asociación Gremial Coquimbo
     ];
 
     function getAdHocImage(exp, index) {
-      return GALERIA_6_FOTOS[index % GALERIA_6_FOTOS.length];
+      if (exp.pabellon === "Minería & Proveedores" || exp.nombre.includes("Mineros")) {
+        return "/imagen_aerea.jpeg";
+      }
+      return GALERIA_EXPOSITORES[index % GALERIA_EXPOSITORES.length];
     }
 
     async function loadExhibitors() {
@@ -875,13 +879,11 @@
     }
 
     function renderTrivia() {
-      // Si superó la pregunta 10, mostramos la pantalla de victoria final
       if (triviaIdx >= PREGUNTAS_TRIVIA.length) {
         showWinScreen();
         return;
       }
 
-      // Si llegó a la mitad (Pregunta 5), activamos el Desafío Arcade del Faro
       if (triviaIdx === 5) {
         triggerSpaceInvadersMinigame();
         return;
@@ -913,29 +915,24 @@
       if (winContainer) winContainer.style.display = 'flex';
     }
 
-    // DIBUJO DENTRO DEL CANVAS DEL FARO MONUMENTAL ILUSTRADO (Nave Propia)
     function drawFaroMonumental(ctx, x, y) {
       ctx.save();
       ctx.translate(x, y);
 
-      // Base/Baluarte (Muros y Torre de vigilancia)
       ctx.fillStyle = '#f8fafc';
-      ctx.fillRect(-18, -10, 36, 30); // Cuerpo blanco del Faro
+      ctx.fillRect(-18, -10, 36, 30);
       ctx.fillStyle = '#dc2626';
-      ctx.fillRect(-22, -10, 44, 6);   // Cornisa roja estilo muralla
+      ctx.fillRect(-22, -10, 44, 6);
 
-      // Almenas rojas superiores
       ctx.fillRect(-18, -18, 36, 8);
       ctx.fillStyle = '#f8fafc';
-      ctx.fillRect(-12, -26, 24, 8);  // Cúpula superior de cristal
+      ctx.fillRect(-12, -26, 24, 8);
 
-      // Cúpula de la Linterna del Faro iluminada
       ctx.fillStyle = '#fbbf24';
       ctx.beginPath();
       ctx.arc(0, -26, 6, 0, Math.PI * 2);
       ctx.fill();
 
-      // Haz de luz giratorio retro
       ctx.fillStyle = 'rgba(251, 191, 36, 0.3)';
       ctx.beginPath();
       ctx.moveTo(0, -26);
@@ -947,7 +944,6 @@
       ctx.restore();
     }
 
-    // MOTOR DEL JUEGO SPACE INVADERS: DEFENSOR DEL FARO MONUMENTAL
     let invadersDestroyed = 0;
     let gameLoopId = null;
 
@@ -964,14 +960,12 @@
       badge.style.background = 'rgba(56, 189, 248, 0.15)';
       badge.style.color = '#38bdf8';
 
-      // Parámetros del Faro y Láseres
       let faroX = canvas.width / 2;
       const faroY = canvas.height - 30;
       let lasers = [];
       let invaders = [];
       const invaderEmojis = ['👾', '🛸', '☄️', '🌌'];
 
-      // Generar Invasores
       for (let row = 0; row < 2; row++) {
         for (let col = 0; col < 5; col++) {
           invaders.push({
@@ -987,7 +981,6 @@
 
       let invaderDir = 1.2;
 
-      // Eventos de Movimiento
       function moveFaro(e) {
         const rect = canvas.getBoundingClientRect();
         let clientX = e.clientX || (e.touches && e.touches[0].clientX);
@@ -1017,10 +1010,8 @@
       function loop() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        // 1. Dibujar Faro Monumental (Nave Vectorial Propia)
         drawFaroMonumental(ctx, faroX, faroY);
 
-        // 2. Mover y Dibujar Láseres (Haces de luz dorados)
         ctx.fillStyle = '#fbbf24';
         for (let i = lasers.length - 1; i >= 0; i--) {
           let l = lasers[i];
@@ -1029,7 +1020,6 @@
           if (l.y < 0) lasers.splice(i, 1);
         }
 
-        // 3. Mover y Dibujar Invasores
         let reachEdge = false;
         invaders.forEach(inv => {
           if (inv.alive) {
@@ -1046,7 +1036,6 @@
           invaders.forEach(inv => inv.y += 8);
         }
 
-        // 4. Detección de Colisión
         lasers.forEach((l, lIdx) => {
           invaders.forEach(inv => {
             if (inv.alive && Math.abs(l.x - inv.x) < 22 && Math.abs(l.y - inv.y) < 22) {
