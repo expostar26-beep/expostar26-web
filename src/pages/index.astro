@@ -24,7 +24,6 @@
       overflow-x: hidden;
     }
 
-    /* Huincha LED Estática sin parpadeos */
     .top-led-ticker {
       background: linear-gradient(90deg, #0f172a, #1e293b, #0f172a);
       border-bottom: 1px solid rgba(245, 158, 11, 0.4);
@@ -120,10 +119,7 @@
       gap: 0.5rem;
       cursor: pointer;
     }
-    .btn-glass-primary:hover {
-      background: rgba(245, 158, 11, 0.45);
-      color: #ffffff;
-    }
+    .btn-glass-primary:hover { background: rgba(245, 158, 11, 0.45); color: #ffffff; }
     .btn-glass-secondary {
       background: rgba(30, 41, 59, 0.45);
       backdrop-filter: blur(16px);
@@ -139,10 +135,7 @@
       gap: 0.5rem;
       font-size: 0.92rem;
     }
-    .btn-glass-secondary:hover {
-      background: rgba(2, 132, 199, 0.35);
-      color: #ffffff;
-    }
+    .btn-glass-secondary:hover { background: rgba(2, 132, 199, 0.35); color: #ffffff; }
 
     .astro-central-screen {
       width: 100%;
@@ -165,11 +158,7 @@
       flex-wrap: wrap;
       gap: 0.5rem;
     }
-    .astro-title {
-      font-size: 0.95rem;
-      font-weight: 800;
-      color: #fbbf24;
-    }
+    .astro-title { font-size: 0.95rem; font-weight: 800; color: #fbbf24; }
     .astro-badge-live {
       font-size: 0.7rem;
       background: rgba(34, 197, 94, 0.2);
@@ -179,64 +168,18 @@
       border-radius: 9999px;
       font-weight: 700;
     }
-    .astro-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      gap: 1rem;
-    }
-    .astro-card {
-      background: rgba(30, 41, 59, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 0.85rem;
-      padding: 1rem;
-    }
-    .astro-card h4 {
-      font-size: 0.82rem;
-      color: #38bdf8;
-      margin-bottom: 0.4rem;
-      text-transform: uppercase;
-    }
-    .astro-card p {
-      font-size: 0.88rem;
-      color: #e2e8f0;
-      line-height: 1.4;
-    }
+    .astro-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1rem; }
+    .astro-card { background: rgba(30, 41, 59, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 0.85rem; padding: 1rem; }
+    .astro-card h4 { font-size: 0.82rem; color: #38bdf8; margin-bottom: 0.4rem; text-transform: uppercase; }
+    .astro-card p { font-size: 0.88rem; color: #e2e8f0; line-height: 1.4; }
 
-    .showcase-section {
-      max-width: 76rem;
-      margin: 2.5rem auto 0 auto;
-      padding: 0 1.5rem;
-    }
-    .bento-grid {
-      display: grid;
-      grid-template-columns: 1.4fr 1fr;
-      gap: 1.75rem;
-      align-items: stretch;
-    }
-    @media (max-width: 900px) {
-      .bento-grid { grid-template-columns: 1fr; }
-    }
+    .showcase-section { max-width: 76rem; margin: 2.5rem auto 0 auto; padding: 0 1.5rem; }
+    .bento-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 1.75rem; align-items: stretch; }
+    @media (max-width: 900px) { .bento-grid { grid-template-columns: 1fr; } }
 
-    .bento-card-video {
-      background: rgba(15, 23, 42, 0.55);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 1.25rem;
-      padding: 1.25rem;
-    }
-    .video-wrapper {
-      position: relative;
-      width: 100%;
-      border-radius: 0.85rem;
-      overflow: hidden;
-      background: #000;
-      aspect-ratio: 16 / 9;
-    }
-    .video-wrapper video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
+    .bento-card-video { background: rgba(15, 23, 42, 0.55); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 1.25rem; padding: 1.25rem; }
+    .video-wrapper { position: relative; width: 100%; border-radius: 0.85rem; overflow: hidden; background: #000; aspect-ratio: 16 / 9; }
+    .video-wrapper video { width: 100%; height: 100%; object-fit: cover; display: block; }
 
     .bento-card-info {
       background: linear-gradient(135deg, rgba(30, 41, 59, 0.5), rgba(15, 23, 42, 0.7));
@@ -247,54 +190,17 @@
       flex-direction: column;
       justify-content: space-between;
     }
-    .bento-info-title {
-      font-size: 1.4rem;
-      font-weight: 800;
-      color: #fbbf24;
-      margin-bottom: 0.75rem;
-    }
-    .bento-info-desc {
-      font-size: 0.92rem;
-      color: #cbd5e1;
-      line-height: 1.6;
-      margin-bottom: 1.5rem;
-    }
-    .bento-features {
-      display: flex;
-      flex-direction: column;
-      gap: 0.85rem;
-      margin-bottom: 1.5rem;
-    }
-    .bento-item {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      font-size: 0.88rem;
-      color: #e2e8f0;
-      background: rgba(255, 255, 255, 0.04);
-      padding: 0.6rem 0.85rem;
-      border-radius: 0.6rem;
-    }
+    .bento-info-title { font-size: 1.4rem; font-weight: 800; color: #fbbf24; margin-bottom: 0.75rem; }
+    .bento-info-desc { font-size: 0.92rem; color: #cbd5e1; line-height: 1.6; margin-bottom: 1.5rem; }
+    .bento-features { display: flex; flex-direction: column; gap: 0.85rem; margin-bottom: 1.5rem; }
+    .bento-item { display: flex; align-items: center; gap: 0.75rem; font-size: 0.88rem; color: #e2e8f0; background: rgba(255, 255, 255, 0.04); padding: 0.6rem 0.85rem; border-radius: 0.6rem; }
 
-    main {
-      flex: 1;
-      max-width: 76rem;
-      width: 100%;
-      margin: 0 auto;
-      padding: 3.5rem 1.5rem 2.5rem 1.5rem;
-    }
-    .section-title {
-      text-align: center;
-      margin-bottom: 2.25rem;
-    }
+    main { flex: 1; max-width: 76rem; width: 100%; margin: 0 auto; padding: 3.5rem 1.5rem 2.5rem 1.5rem; }
+    .section-title { text-align: center; margin-bottom: 2.25rem; }
     .section-title h2 { font-size: 1.85rem; font-weight: 800; color: #f8fafc; }
     .section-title p { color: #94a3b8; font-size: 0.95rem; margin-top: 0.4rem; }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 2rem;
-    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem; }
     .card {
       background: linear-gradient(160deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.85) 100%);
       border: 1px solid rgba(255, 255, 255, 0.1);
@@ -304,278 +210,70 @@
       flex-direction: column;
       box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.5);
     }
-    .card-content {
-      padding: 1.5rem;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
+    .card-content { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
     .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; }
-    .card-tag {
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: #fbbf24;
-      background: rgba(245, 158, 11, 0.15);
-      padding: 0.3rem 0.75rem;
-      border-radius: 9999px;
-    }
-    .card-mod { 
-      font-size: 0.78rem; 
-      font-family: monospace; 
-      color: #38bdf8; 
-      font-weight: 700; 
-      background: rgba(56, 189, 248, 0.12); 
-      padding: 0.2rem 0.6rem; 
-      border-radius: 0.4rem; 
-    }
+    .card-tag { font-size: 0.75rem; font-weight: 700; color: #fbbf24; background: rgba(245, 158, 11, 0.15); padding: 0.3rem 0.75rem; border-radius: 9999px; }
+    .card-mod { font-size: 0.78rem; font-family: monospace; color: #38bdf8; font-weight: 700; background: rgba(56, 189, 248, 0.12); padding: 0.2rem 0.6rem; border-radius: 0.4rem; }
     .card-title { font-size: 1.25rem; font-weight: 800; color: #f8fafc; margin-bottom: 0.5rem; }
     .card-desc { font-size: 0.88rem; color: #94a3b8; line-height: 1.55; margin-bottom: 1.5rem; }
-    .card-footer {
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      padding-top: 1rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.82rem;
-    }
-    .btn-b2b-card {
-      background: rgba(56, 189, 248, 0.15);
-      color: #38bdf8;
-      border: 1px solid rgba(56, 189, 248, 0.4);
-      padding: 0.45rem 0.95rem;
-      border-radius: 0.55rem;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 0.82rem;
-    }
+    .card-footer { border-top: 1px solid rgba(255, 255, 255, 0.08); padding-top: 1rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.82rem; }
+    .btn-b2b-card { background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4); padding: 0.45rem 0.95rem; border-radius: 0.55rem; text-decoration: none; font-weight: 700; font-size: 0.82rem; }
 
-    /* Trivia & Minijuego */
-    .trivia-section {
-      background: radial-gradient(circle at center, rgba(30, 41, 59, 0.8) 0%, rgba(2, 6, 23, 0.95) 100%);
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      padding: 4rem 1.5rem;
-    }
-    .trivia-container {
-      max-width: 52rem;
-      margin: 0 auto;
-      background: rgba(15, 23, 42, 0.7);
-      border: 2px solid rgba(245, 158, 11, 0.4);
-      border-radius: 1.5rem;
-      padding: 2.5rem;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
-      text-align: center;
-      position: relative;
-    }
-    .trivia-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1.5rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      padding-bottom: 1rem;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
+    .trivia-section { background: radial-gradient(circle at center, rgba(30, 41, 59, 0.8) 0%, rgba(2, 6, 23, 0.95) 100%); border-top: 1px solid rgba(255, 255, 255, 0.08); border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding: 4rem 1.5rem; }
+    .trivia-container { max-width: 52rem; margin: 0 auto; background: rgba(15, 23, 42, 0.7); border: 2px solid rgba(245, 158, 11, 0.4); border-radius: 1.5rem; padding: 2.5rem; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8); text-align: center; position: relative; }
+    .trivia-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 1rem; gap: 1rem; flex-wrap: wrap; }
     .trivia-score { font-size: 0.98rem; font-weight: 800; color: #fbbf24; text-align: left; flex: 1; }
     .trivia-lifelines { display: flex; gap: 0.5rem; }
-    .lifeline-btn {
-      background: rgba(30, 41, 59, 0.8);
-      border: 1px solid rgba(56, 189, 248, 0.4);
-      color: #38bdf8;
-      padding: 0.35rem 0.75rem;
-      border-radius: 0.5rem;
-      font-size: 0.75rem;
-      font-weight: 700;
-      cursor: pointer;
-    }
-    .trivia-question-box {
-      background: rgba(30, 41, 59, 0.9);
-      border: 2px solid #fbbf24;
-      border-radius: 1rem;
-      padding: 1.5rem;
-      font-size: 1.2rem;
-      font-weight: 800;
-      color: #ffffff;
-      margin-bottom: 2rem;
-    }
-    .trivia-options {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-    }
+    .lifeline-btn { background: rgba(30, 41, 59, 0.8); border: 1px solid rgba(56, 189, 248, 0.4); color: #38bdf8; padding: 0.35rem 0.75rem; border-radius: 0.5rem; font-size: 0.75rem; font-weight: 700; cursor: pointer; }
+    .trivia-question-box { background: rgba(30, 41, 59, 0.9); border: 2px solid #fbbf24; border-radius: 1rem; padding: 1.5rem; font-size: 1.2rem; font-weight: 800; color: #ffffff; margin-bottom: 2rem; }
+    .trivia-options { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
     @media (max-width: 600px) { .trivia-options { grid-template-columns: 1fr; } }
-    .trivia-option-btn {
-      background: rgba(15, 23, 42, 0.8);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 0.75rem;
-      padding: 1rem;
-      color: #cbd5e1;
-      font-size: 0.95rem;
-      font-weight: 700;
-      text-align: left;
-      cursor: pointer;
-    }
+    .trivia-option-btn { background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 0.75rem; padding: 1rem; color: #cbd5e1; font-size: 0.95rem; font-weight: 700; text-align: left; cursor: pointer; }
     .trivia-option-btn.correct { background: rgba(34, 197, 94, 0.3) !important; border-color: #22c55e !important; color: #fff !important; }
     .trivia-option-btn.wrong { background: rgba(239, 68, 68, 0.3) !important; border-color: #ef4444 !important; color: #fff !important; }
 
-    .minigame-overlay {
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(2, 6, 23, 0.96);
-      z-index: 20;
-      display: none;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 2rem;
-      border-radius: 1.5rem;
-      text-align: center;
-    }
+    .minigame-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(2, 6, 23, 0.96); z-index: 20; display: none; flex-direction: column; justify-content: center; align-items: center; padding: 2rem; border-radius: 1.5rem; text-align: center; }
     .minigame-title { font-size: 1.5rem; font-weight: 800; color: #fbbf24; margin-bottom: 0.75rem; }
     .minigame-desc { font-size: 0.95rem; color: #94a3b8; margin-bottom: 1.5rem; max-width: 38rem; }
     .minigame-board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; width: 100%; max-width: 420px; margin-bottom: 1.5rem; }
-    .minigame-tile {
-      background: rgba(30, 41, 59, 0.8);
-      border: 2px solid rgba(56, 189, 248, 0.4);
-      border-radius: 1rem;
-      height: 90px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      font-size: 1.8rem;
-      color: #f8fafc;
-    }
+    .minigame-tile { background: rgba(30, 41, 59, 0.8); border: 2px solid rgba(56, 189, 248, 0.4); border-radius: 1rem; height: 90px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; font-size: 1.8rem; color: #f8fafc; }
     .minigame-tile span { font-size: 0.72rem; font-weight: 700; color: #38bdf8; margin-top: 0.2rem; }
 
-    .news-section {
-      background: rgba(15, 23, 42, 0.3);
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      padding: 3.5rem 1.5rem;
-    }
-    .news-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1.5rem;
-      max-width: 76rem;
-      margin: 0 auto;
-    }
-    .news-card {
-      background: rgba(30, 41, 59, 0.4);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 1rem;
-      padding: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
+    .news-section { background: rgba(15, 23, 42, 0.3); border-top: 1px solid rgba(255, 255, 255, 0.08); padding: 3.5rem 1.5rem; }
+    .news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; max-width: 76rem; margin: 0 auto; }
+    .news-card { background: rgba(30, 41, 59, 0.4); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 1rem; padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between; }
     .news-date { font-size: 0.75rem; color: #fbbf24; font-weight: 700; text-transform: uppercase; margin-bottom: 0.4rem; }
     .news-title { font-size: 1.2rem; font-weight: 800; color: #f8fafc; margin-bottom: 0.75rem; line-height: 1.35; }
     .news-body { font-size: 0.85rem; color: #94a3b8; line-height: 1.55; margin-bottom: 1.25rem; }
-    .news-tag {
-      display: inline-block;
-      font-size: 0.72rem;
-      padding: 0.2rem 0.5rem;
-      border-radius: 0.35rem;
-      background: rgba(56, 189, 248, 0.1);
-      color: #38bdf8;
-      font-weight: 600;
-    }
+    .news-tag { display: inline-block; font-size: 0.72rem; padding: 0.2rem 0.5rem; border-radius: 0.35rem; background: rgba(56, 189, 248, 0.1); color: #38bdf8; font-weight: 600; }
 
-    .contact-section {
-      background: rgba(2, 6, 23, 0.6);
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      padding: 3.5rem 1.5rem;
-    }
-    .contact-container {
-      max-width: 36rem;
-      margin: 0 auto;
-      background: rgba(30, 41, 59, 0.45);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 1.25rem;
-      padding: 2rem;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-    }
+    .contact-section { background: rgba(2, 6, 23, 0.6); border-top: 1px solid rgba(255, 255, 255, 0.08); padding: 3.5rem 1.5rem; }
+    .contact-container { max-width: 36rem; margin: 0 auto; background: rgba(30, 41, 59, 0.45); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 1.25rem; padding: 2rem; box-shadow: 0 15px 35px rgba(0,0,0,0.5); }
     .form-group { margin-bottom: 1.25rem; }
     .form-label { display: block; font-size: 0.85rem; font-weight: 700; color: #cbd5e1; margin-bottom: 0.4rem; }
-    .form-input, .form-textarea {
-      width: 100%;
-      background: rgba(15, 23, 42, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: #fff;
-      padding: 0.75rem;
-      border-radius: 0.5rem;
-      font-size: 0.9rem;
-      outline: none;
-    }
+    .form-input, .form-textarea { width: 100%; background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255, 255, 255, 0.1); color: #fff; padding: 0.75rem; border-radius: 0.5rem; font-size: 0.9rem; outline: none; }
     .form-textarea { resize: vertical; min-height: 100px; }
     .form-status { margin-top: 1rem; font-size: 0.85rem; text-align: center; font-weight: 600; }
     .form-status.success { color: #4ade80; }
 
-    .sponsors-section {
-      background: rgba(15, 23, 42, 0.8);
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      padding: 3.5rem 1.5rem;
-      text-align: center;
-    }
+    .sponsors-section { background: rgba(15, 23, 42, 0.8); border-top: 1px solid rgba(255, 255, 255, 0.08); padding: 3.5rem 1.5rem; text-align: center; }
     .sponsors-group { margin-bottom: 2.5rem; }
     .sponsors-group h3 { font-size: 1rem; text-transform: uppercase; letter-spacing: 0.1em; color: #fbbf24; margin-bottom: 1.25rem; }
     .logos-flex { display: flex; justify-content: center; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
-    .sponsor-card {
-      background: #ffffff;
-      padding: 0.6rem 1rem;
-      border-radius: 0.65rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-      height: 70px;
-      min-width: 130px;
-    }
+    .sponsor-card { background: #ffffff; padding: 0.6rem 1rem; border-radius: 0.65rem; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.3); height: 70px; min-width: 130px; }
     .sponsor-logo { max-height: 50px; max-width: 140px; object-fit: contain; }
 
-    .radio-player-bar {
-      position: fixed;
-      bottom: 0; left: 0; width: 100%;
-      background: rgba(15, 23, 42, 0.95);
-      border-top: 1px solid rgba(245, 158, 11, 0.3);
-      padding: 0.75rem 1.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      z-index: 99;
-    }
+    .radio-player-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(15, 23, 42, 0.95); border-top: 1px solid rgba(245, 158, 11, 0.3); padding: 0.75rem 1.5rem; display: flex; align-items: center; justify-content: space-between; z-index: 99; }
     .radio-info { display: flex; align-items: center; gap: 1rem; }
     .radio-pulse { width: 12px; height: 12px; background: #22c55e; border-radius: 50%; box-shadow: 0 0 10px #22c55e; }
     .radio-title { font-size: 0.9rem; font-weight: 800; color: #fbbf24; }
     .radio-track { font-size: 0.8rem; color: #94a3b8; }
     .radio-controls { display: flex; align-items: center; gap: 1rem; }
-    .radio-btn {
-      background: rgba(245, 158, 11, 0.2);
-      border: 1px solid rgba(245, 158, 11, 0.4);
-      color: #fef08a; padding: 0.5rem 1rem;
-      border-radius: 0.5rem; font-weight: bold; cursor: pointer;
-      font-size: 0.85rem;
-    }
+    .radio-btn { background: rgba(245, 158, 11, 0.2); border: 1px solid rgba(245, 158, 11, 0.4); color: #fef08a; padding: 0.5rem 1rem; border-radius: 0.5rem; font-weight: bold; cursor: pointer; font-size: 0.85rem; }
 
     .chat-widget { position: fixed; bottom: 5rem; right: 1.75rem; z-index: 100; }
-    .chat-btn {
-      width: 3.5rem; height: 3.5rem; border-radius: 9999px;
-      background: linear-gradient(135deg, #f59e0b, #d97706);
-      border: 2px solid #fde68a; font-size: 1.5rem; cursor: pointer;
-      box-shadow: 0 10px 25px rgba(245, 158, 11, 0.5);
-      display: flex; align-items: center; justify-content: center;
-    }
-    .chat-box {
-      display: none; position: fixed; bottom: 9rem; right: 1.75rem;
-      width: 340px; height: 450px; background: rgba(15, 23, 42, 0.95);
-      border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 1rem;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.8); z-index: 101;
-      flex-direction: column; overflow: hidden;
-    }
+    .chat-btn { width: 3.5rem; height: 3.5rem; border-radius: 9999px; background: linear-gradient(135deg, #f59e0b, #d97706); border: 2px solid #fde68a; font-size: 1.5rem; cursor: pointer; box-shadow: 0 10px 25px rgba(245, 158, 11, 0.5); display: flex; align-items: center; justify-content: center; }
+    .chat-box { display: none; position: fixed; bottom: 9rem; right: 1.75rem; width: 340px; height: 450px; background: rgba(15, 23, 42, 0.95); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 1rem; box-shadow: 0 20px 40px rgba(0,0,0,0.8); z-index: 101; flex-direction: column; overflow: hidden; }
     .chat-header { background: rgba(30, 41, 59, 0.8); padding: 0.85rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
     .chat-body { flex: 1; padding: 0.85rem; overflow-y: auto; font-size: 0.85rem; display: flex; flex-direction: column; gap: 0.65rem; }
     .chat-msg { padding: 0.55rem 0.85rem; border-radius: 0.65rem; max-width: 85%; }
@@ -696,13 +394,26 @@
       <p>Novedades oficiales sobre la reactivación turística y comercial de Coquimbo en Santiago.</p>
     </div>
 
+    <div class="news-grid" style="grid-template-columns: 1fr; max-width: 52rem; margin-bottom: 1.5rem;">
+      <div class="news-card" style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(30, 41, 59, 0.7)); border: 2px solid rgba(245, 158, 11, 0.5); padding: 2rem;">
+        <div>
+          <span class="news-date" style="color: #fbbf24; font-size: 0.85rem; font-weight: 800;">🚨 COMUNICADO OFICIAL 5 • CONVOCATORIA ABIERTA</span>
+          <h3 class="news-title" style="font-size: 1.5rem; margin-top: 0.5rem; margin-bottom: 1rem; color: #fef08a;">Últimos Cupos: Convocan a Inmobiliarias, Municipios y Empresas a sumarse a la "Expo Región de Coquimbo" en Santiago</h3>
+          <p class="news-body" style="font-size: 0.98rem; line-height: 1.7; color: #e2e8f0; margin-bottom: 1.5rem;">
+            Del 6 al 8 de noviembre en Plaza Ñuñoa, el evento reunirá a más de 40 expositores y servirá como la gran vitrina para que los municipios de Elqui, Limarí y Choapa lancen sus programas de verano 2027 ante miles de visitantes en la capital. Con un despliegue sin precedentes, la alianza público-privada consolida el puente comercial directo entre las regiones y la Región Metropolitana.
+          </p>
+        </div>
+        <span class="news-tag" style="background: rgba(245, 158, 11, 0.25); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4);">Destacado Oficial</span>
+      </div>
+    </div>
+
     <div class="news-grid">
       <div class="news-card">
         <div>
           <span class="news-date">COMUNICADO OFICIAL • LA SERENA</span>
           <h3 class="news-title">Con Alianza Público-Privada se anuncia la "Expo Región Estrella" en Plaza Ñuñoa</h3>
           <p class="news-body">
-            La muestra reunirá a más de 40 expositores, municipios, gremios turísticos, viñas, pisqueras, inmobiliarias y pymes del 6 al 8 de noviembre. Con entrada liberada, la iniciativa impulsada por el sector privado y gremios busca reactivar la economía regional y promocionar la oferta estival 2026-2027.
+            La muestra reunirá a más de 40 expositores, municipios, gremios turísticos, viñas, pisqueras, inmobiliarias y pymes del 6 al 8 de noviembre con entrada liberada.
           </p>
         </div>
         <span class="news-tag">Reactivación Económica</span>
@@ -717,17 +428,6 @@
           </p>
         </div>
         <span class="news-tag">Inversión & Fomento</span>
-      </div>
-
-      <div class="news-card">
-        <div>
-          <span class="news-date">COMUNICADO DE PRENSA 5</span>
-          <h3 class="news-title">Últimos Cupos: Convocan a Inmobiliarias, Municipios y Empresas a sumarse a la "Expo Región de Coquimbo" en Santiago</h3>
-          <p class="news-body">
-            Del 6 al 8 de noviembre en Plaza Ñuñoa, el evento reunirá a más de 40 expositores y servirá como la gran vitrina para que los municipios de Elqui, Limarí y Choapa lancen sus programas de verano 2027 ante miles de visitantes en la capital.
-          </p>
-        </div>
-        <span class="news-tag">Convocatoria Oficial</span>
       </div>
     </div>
   </section>
@@ -857,7 +557,7 @@
     ];
 
     let isRadioActive = false;
-    let musicIndex = 0;
+    let musicIndex = Math.floor(Math.random() * musicPlaylist.length);
     let podcastCounter = 0;
     
     const musicLayer = new Audio();
@@ -914,14 +614,14 @@
       const track = musicPlaylist[musicIndex];
       if (trackNameEl) trackNameEl.textContent = `🕒 ${horaActualChile} Chile | Al aire: ${track.name}`;
 
-      speakContinuity(`Son las... ${horaActualChile} horas... en nuestra brillante Región Estrella. Escuchamos a continuación el tema... ${track.name}.`, () => {
+      speakContinuity(`Son las ${horaActualChile} horas en nuestra brillante Región Estrella. Escuchamos a continuación el tema: ${track.name}.`, () => {
         if (!isRadioActive) return;
         musicLayer.src = track.file;
         musicLayer.play().then(() => {
           musicLayer.onended = () => {
             if (!isRadioActive) return;
             podcastCounter++;
-            speakContinuity(`Disfrutabas de... ${track.name}... en la señal oficial de la Expo.`, () => {
+            speakContinuity(`Disfrutabas de ${track.name} en la señal oficial de la Expo.`, () => {
               musicIndex = (musicIndex + 1) % musicPlaylist.length;
               if (isRadioActive) playNextSmartSequence();
             });
@@ -952,13 +652,25 @@
     function speakContinuity(text, callback) {
       if (!('speechSynthesis' in window)) { if (callback) callback(); return; }
       window.speechSynthesis.cancel();
+      
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.lang = 'es-CL';
-      utterance.rate = 0.92;
-      utterance.pitch = 0.95;
+      utterance.rate = 0.95;
+      utterance.pitch = 1.02;
+
+      const voices = window.speechSynthesis.getVoices();
+      const naturalVoice = voices.find(v => v.lang.startsWith('es') && (v.name.includes('Google') || v.name.includes('Natural') || v.name.includes('Helena') || v.name.includes('Laura') || v.name.includes('Sabina')));
+      if (naturalVoice) {
+        utterance.voice = naturalVoice;
+      }
+
       utterance.onend = () => { if (callback) callback(); };
       utterance.onerror = () => { if (callback) callback(); };
       window.speechSynthesis.speak(utterance);
+    }
+
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.onvoiceschanged = () => { window.speechSynthesis.getVoices(); };
     }
 
     function updateAstroData() {
@@ -986,7 +698,6 @@
     setInterval(updateAstroData, 1000);
     updateAstroData();
 
-    // Canvas Estable sin parpadeos
     const canvas = document.getElementById('starry-sky');
     const ctx = canvas ? canvas.getContext('2d') : null;
     let width, height, stars = [];
@@ -1024,13 +735,14 @@
       "Emprendedores Regionales": "⭐"
     };
 
-    const IMAGENES_FALLBACK = {
-      "Inmobiliaria": "/imagen_aerea.jpeg",
-      "Gastronomía & Pisqueras": "/sour.jpeg",
-      "Turismo & Municipios": "/sour2.jpeg",
-      "Minería & Proveedores": "/quesos.jpeg",
-      "Emprendedores Regionales": "/gente.jpeg"
-    };
+    const IMAGENES_EXPOSITORES = [
+      "/imagen_aerea.jpeg",
+      "/sour.jpeg",
+      "/sour2.jpeg",
+      "/quesos.jpeg",
+      "/pan.jpeg",
+      "/gente.jpeg"
+    ];
 
     async function loadExhibitors() {
       const grid = document.getElementById('expositores-grid');
@@ -1039,18 +751,21 @@
         const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         const { data: expositores, error } = await client.from('expositores').select('*');
         if (error || !expositores || expositores.length === 0) { renderFallback(); return; }
-        grid.innerHTML = expositores.map(exp => renderCard(exp)).join('');
+        
+        grid.innerHTML = expositores.map((exp, index) => {
+          const imgForCard = exp.imagen && exp.imagen.trim() !== "" ? exp.imagen : (IMAGENES_EXPOSITORES[index % IMAGENES_EXPOSITORES.length]);
+          return renderCardWithImage(exp, imgForCard);
+        }).join('');
       } catch (err) { renderFallback(); }
     }
 
-    function renderCard(exp) {
+    function renderCardWithImage(exp, customImg) {
       const icono = ICONOS_PABELLON[exp.pabellon] || "⭐";
-      const img = exp.imagen || IMAGENES_FALLBACK[exp.pabellon] || "/logo_oficial.jpeg";
       const calUrl = exp.cal_link || CAL_COM_URL_DEFAULT;
       return `
         <div class="card">
           <div style="width:100%; height:180px; max-height:180px; overflow:hidden; position:relative; background:#020617; border-bottom:1px solid rgba(255,255,255,0.08); flex-shrink:0;">
-            <img src="${img}" alt="${exp.nombre}" style="width:100%; height:180px; max-height:180px; object-fit:cover; object-position:center; display:block;" onerror="this.src='/logo_muralla.jpeg'" />
+            <img src="${customImg}" alt="${exp.nombre}" style="width:100%; height:180px; max-height:180px; object-fit:cover; object-position:center; display:block;" onerror="this.src='/imagen_aerea.jpeg'" />
           </div>
           <div class="card-content">
             <div>
@@ -1081,10 +796,9 @@
         { nombre: "Emprendedores del Limarí", pabellon: "Emprendedores Regionales", modulo: "D-05", comuna: "Ovalle", descripcion: "Quesos de cabra, artesanía en combarbalita y frutos de los valles.", imagen: "/pan.jpeg" },
         { nombre: "Asociación Gremial Coquimbo", pabellon: "Emprendedores Regionales", modulo: "D-09", comuna: "Coquimbo", descripcion: "Muestra gremial y comercial desplegada en Plaza Ñuñoa.", imagen: "/gente.jpeg" }
       ];
-      grid.innerHTML = MOCK_EXPOSITORES.map(exp => renderCard(exp)).join('');
+      grid.innerHTML = MOCK_EXPOSITORES.map((exp, idx) => renderCardWithImage(exp, IMAGENES_EXPOSITORES[idx])).join('');
     }
 
-    // Trivia & Banco de Preguntas
     const BANCO_PREGUNTAS = [
       { pregunta: "¿En qué ciudad se ubica el emblemático El Faro Monumental?", opciones: ["A) Coquimbo", "B) La Serena", "C) Vicuña", "D) Ovalle"], correcta: 1 },
       { pregunta: "¿Qué poetisa chilena y Premio Nobel nació en Vicuña, Valle del Elqui?", opciones: ["A) Marcela Paz", "B) María Luisa Bombal", "C) Gabriela Mistral", "D) Violeta Parra"], correcta: 2 },
@@ -1169,7 +883,6 @@
       renderTrivia();
     };
 
-    // Formulario de Contacto
     const contactForm = document.getElementById('contact-form');
     const formStatus = document.getElementById('form-status');
     const submitBtn = document.getElementById('submit-btn');
@@ -1200,7 +913,6 @@
       });
     }
 
-    // Chatbot Asistente
     const openBtn = document.getElementById('open-chat-btn');
     const closeBtn = document.getElementById('close-chat-btn');
     const chatBox = document.getElementById('chat-box');
