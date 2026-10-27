@@ -329,7 +329,7 @@
     <div class="bento-grid">
       <div class="bento-card-video">
         <div class="video-wrapper">
-          <video controls autoplay muted loop playsinline poster="/logo_muralla.jpeg">
+          <video id="promo-video" controls autoplay muted loop playsinline poster="/logo_muralla.jpeg">
             <source src="/clip_promo.mp4" type="video/mp4" />
             Tu navegador no soporta la reproducción de video.
           </video>
@@ -705,39 +705,18 @@
       "Emprendedores Regionales": "⭐"
     };
 
-    // Función que asigna una imagen totalmente ad hoc según el tipo/nombre del expositor
+    // Galería estricta de 6 imágenes únicas asignadas según el orden de la tarjeta (0 a 5)
+    const GALERIA_6_FOTOS = [
+      "/imagen_aerea.jpeg",
+      "/sour.jpeg",
+      "/sour2.jpeg",
+      "/quesos.jpeg",
+      "/pan.jpeg",
+      "/gente.jpeg"
+    ];
+
     function getAdHocImage(exp, index) {
-      const nombre = (exp.nombre || '').toLowerCase();
-      const pabellon = (exp.pabellon || '').toLowerCase();
-
-      if (nombre.includes('inmobiliaria') || pabellon.includes('inmobiliaria')) {
-        return '/imagen_aerea.jpeg';
-      }
-      if (nombre.includes('pisco') || pabellon.includes('pisqueras')) {
-        return '/sour.jpeg';
-      }
-      if (nombre.includes('turismo') || pabellon.includes('turismo')) {
-        return '/sour2.jpeg';
-      }
-      if (nombre.includes('mineros') || pabellon.includes('minería')) {
-        return '/quesos.jpeg';
-      }
-      if (nombre.includes('limarí') || nombre.includes('queso')) {
-        return '/pan.jpeg';
-      }
-      if (nombre.includes('gremial') || pabellon.includes('emprendedores')) {
-        return '/gente.jpeg';
-      }
-
-      const imagenesFallback = [
-        '/imagen_aerea.jpeg',
-        '/sour.jpeg',
-        '/sour2.jpeg',
-        '/quesos.jpeg',
-        '/pan.jpeg',
-        '/gente.jpeg'
-      ];
-      return imagenesFallback[index % imagenesFallback.length];
+      return GALERIA_6_FOTOS[index % GALERIA_6_FOTOS.length];
     }
 
     async function loadExhibitors() {
@@ -970,6 +949,12 @@
       loadExhibitors();
       prepararPreguntas();
       renderTrivia();
+      
+      const vid = document.getElementById('promo-video');
+      if (vid) {
+        vid.play().catch(() => { /* Autoplay interactivo */ });
+      }
+
       if (playBtnEl) { playBtnEl.addEventListener('click', toggleRadio); }
     });
   </script>
