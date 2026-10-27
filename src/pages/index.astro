@@ -261,6 +261,21 @@
       border: 1px solid rgba(56, 189, 248, 0.3);
     }
 
+    /* PANTALLA DE CELEBRACIÓN / CELEBRATION OVERLAY */
+    .win-overlay {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+      animation: fadeIn 0.8s ease-in-out;
+    }
+    @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+    .win-title { font-size: 2rem; font-weight: 900; color: #fbbf24; margin-bottom: 0.75rem; text-shadow: 0 0 20px rgba(245, 158, 11, 0.6); }
+    .win-subtitle { font-size: 1.1rem; color: #f8fafc; margin-bottom: 1.5rem; max-width: 38rem; line-height: 1.6; }
+    .win-badge-box { background: rgba(245, 158, 11, 0.15); border: 2px solid #fbbf24; border-radius: 1rem; padding: 1rem 2rem; margin-bottom: 2rem; font-size: 1.2rem; font-weight: 800; color: #fef08a; }
+
     .news-section { background: rgba(15, 23, 42, 0.3); border-top: 1px solid rgba(255, 255, 255, 0.08); padding: 3.5rem 1.5rem; }
     .news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; max-width: 76rem; margin: 0 auto; }
     .news-card { background: rgba(30, 41, 59, 0.4); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 1rem; padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between; }
@@ -391,16 +406,18 @@
     </div>
 
     <div class="trivia-container">
-      <div class="trivia-header">
-        <div class="trivia-score" id="trivia-score">Premio en juego: Conocimiento y Experiencia Regional</div>
-        <div class="trivia-lifelines">
-          <button class="lifeline-btn" id="life-5050">50:50</button>
-          <button class="lifeline-btn" id="life-public">📊 Público</button>
-          <button class="lifeline-btn" id="life-call">📞 Llamada</button>
+      <div id="trivia-active-content">
+        <div class="trivia-header">
+          <div class="trivia-score" id="trivia-score">Premio en juego: Conocimiento y Experiencia Regional</div>
+          <div class="trivia-lifelines">
+            <button class="lifeline-btn" id="life-5050">50:50</button>
+            <button class="lifeline-btn" id="life-public">📊 Público</button>
+            <button class="lifeline-btn" id="life-call">📞 Llamada</button>
+          </div>
         </div>
+        <div class="trivia-question-box" id="trivia-question">Cargando pregunta...</div>
+        <div class="trivia-options" id="trivia-options"></div>
       </div>
-      <div class="trivia-question-box" id="trivia-question">Cargando pregunta...</div>
-      <div class="trivia-options" id="trivia-options"></div>
 
       <!-- DESAFÍO SPACE INVADERS: DEFENSOR DEL FARO -->
       <div class="minigame-overlay" id="minigame-overlay">
@@ -412,6 +429,20 @@
         </div>
 
         <div class="mg-score-badge" id="mg-score-badge">Invasores Destruidos: 0 / 10</div>
+      </div>
+
+      <!-- PANTALLA DE VICTORIA FINAL -->
+      <div class="win-overlay" id="win-overlay">
+        <div style="font-size: 3.5rem; margin-bottom: 1rem;">🎆 ⭐ 🏛️ ⭐ 🎆</div>
+        <div class="win-title">¡FELICITACIONES!</div>
+        <div class="win-subtitle">
+          Has completado con éxito los 10 niveles y defendido El Faro Monumental. Te has coronado como un verdadero <strong>Millonario de Experiencias de la Región Estrella</strong>.
+        </div>
+        <div class="win-badge-box">🏆 Gran Ganador Regional 2026</div>
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+          <button class="btn-glass-primary" onclick="resetTrivia()">🔄 Volver a Jugar</button>
+          <a href="#catalogo" class="btn-glass-secondary">✨ Explorar Expositores</a>
+        </div>
       </div>
     </div>
   </section>
@@ -844,17 +875,76 @@
     }
 
     function renderTrivia() {
-      if (triviaIdx === 5) { triggerSpaceInvadersMinigame(); return; }
+      // Si superó la pregunta 10, mostramos la pantalla de victoria final
+      if (triviaIdx >= PREGUNTAS_TRIVIA.length) {
+        showWinScreen();
+        return;
+      }
+
+      // Si llegó a la mitad (Pregunta 5), activamos el Desafío Arcade del Faro
+      if (triviaIdx === 5) {
+        triggerSpaceInvadersMinigame();
+        return;
+      }
+
       const current = PREGUNTAS_TRIVIA[triviaIdx];
       const qBox = document.getElementById('trivia-question');
       const optBox = document.getElementById('trivia-options');
       const scoreBox = document.getElementById('trivia-score');
+
+      const activeContainer = document.getElementById('trivia-active-content');
+      const winContainer = document.getElementById('win-overlay');
+      if (activeContainer) activeContainer.style.display = 'block';
+      if (winContainer) winContainer.style.display = 'none';
+
       if(scoreBox) scoreBox.innerHTML = `Nivel ${triviaIdx + 1} de ${PREGUNTAS_TRIVIA.length} • Región de Coquimbo`;
       if (!current || !qBox || !optBox) return;
+      
       qBox.textContent = `${triviaIdx + 1}. ${current.pregunta}`;
       optBox.innerHTML = current.opciones.map((opt, idx) => `
         <button class="trivia-option-btn" onclick="checkTriviaAnswer(${idx})">${opt}</button>
       `).join('');
+    }
+
+    function showWinScreen() {
+      const activeContainer = document.getElementById('trivia-active-content');
+      const winContainer = document.getElementById('win-overlay');
+      if (activeContainer) activeContainer.style.display = 'none';
+      if (winContainer) winContainer.style.display = 'flex';
+    }
+
+    // DIBUJO DENTRO DEL CANVAS DEL FARO MONUMENTAL ILUSTRADO (Nave Propia)
+    function drawFaroMonumental(ctx, x, y) {
+      ctx.save();
+      ctx.translate(x, y);
+
+      // Base/Baluarte (Muros y Torre de vigilancia)
+      ctx.fillStyle = '#f8fafc';
+      ctx.fillRect(-18, -10, 36, 30); // Cuerpo blanco del Faro
+      ctx.fillStyle = '#dc2626';
+      ctx.fillRect(-22, -10, 44, 6);   // Cornisa roja estilo muralla
+
+      // Almenas rojas superiores
+      ctx.fillRect(-18, -18, 36, 8);
+      ctx.fillStyle = '#f8fafc';
+      ctx.fillRect(-12, -26, 24, 8);  // Cúpula superior de cristal
+
+      // Cúpula de la Linterna del Faro iluminada
+      ctx.fillStyle = '#fbbf24';
+      ctx.beginPath();
+      ctx.arc(0, -26, 6, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Haz de luz giratorio retro
+      ctx.fillStyle = 'rgba(251, 191, 36, 0.3)';
+      ctx.beginPath();
+      ctx.moveTo(0, -26);
+      ctx.lineTo(-25, -60);
+      ctx.lineTo(25, -60);
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.restore();
     }
 
     // MOTOR DEL JUEGO SPACE INVADERS: DEFENSOR DEL FARO MONUMENTAL
@@ -876,7 +966,7 @@
 
       // Parámetros del Faro y Láseres
       let faroX = canvas.width / 2;
-      const faroY = canvas.height - 35;
+      const faroY = canvas.height - 30;
       let lasers = [];
       let invaders = [];
       const invaderEmojis = ['👾', '🛸', '☄️', '🌌'];
@@ -886,7 +976,7 @@
         for (let col = 0; col < 5; col++) {
           invaders.push({
             x: 60 + col * 80,
-            y: 30 + row * 40,
+            y: 35 + row * 40,
             width: 30,
             height: 30,
             alive: true,
@@ -903,13 +993,13 @@
         let clientX = e.clientX || (e.touches && e.touches[0].clientX);
         if (clientX !== undefined) {
           faroX = clientX - rect.left;
-          if (faroX < 20) faroX = 20;
-          if (faroX > canvas.width - 20) faroX = canvas.width - 20;
+          if (faroX < 25) faroX = 25;
+          if (faroX > canvas.width - 25) faroX = canvas.width - 25;
         }
       }
 
       function shootLaser() {
-        lasers.push({ x: faroX, y: faroY - 15, speed: 6 });
+        lasers.push({ x: faroX, y: faroY - 30, speed: 7 });
       }
 
       canvas.onmousemove = moveFaro;
@@ -918,8 +1008,8 @@
 
       window.onkeydown = (e) => {
         if (overlay.style.display === 'flex') {
-          if (e.key === 'ArrowLeft') faroX = Math.max(20, faroX - 20);
-          if (e.key === 'ArrowRight') faroX = Math.min(canvas.width - 20, faroX + 20);
+          if (e.key === 'ArrowLeft') faroX = Math.max(25, faroX - 20);
+          if (e.key === 'ArrowRight') faroX = Math.min(canvas.width - 25, faroX + 20);
           if (e.key === ' ' || e.key === 'Spacebar') shootLaser();
         }
       };
@@ -927,17 +1017,15 @@
       function loop() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        // 1. Dibujar Faro (Nave Propia)
-        ctx.font = '28px serif';
-        ctx.textAlign = 'center';
-        ctx.fillText('🚨', faroX, faroY + 10);
+        // 1. Dibujar Faro Monumental (Nave Vectorial Propia)
+        drawFaroMonumental(ctx, faroX, faroY);
 
-        // 2. Mover y Dibujar Láseres
+        // 2. Mover y Dibujar Láseres (Haces de luz dorados)
         ctx.fillStyle = '#fbbf24';
         for (let i = lasers.length - 1; i >= 0; i--) {
           let l = lasers[i];
           l.y -= l.speed;
-          ctx.fillRect(l.x - 2, l.y, 4, 12);
+          ctx.fillRect(l.x - 2, l.y, 4, 14);
           if (l.y < 0) lasers.splice(i, 1);
         }
 
@@ -946,8 +1034,9 @@
         invaders.forEach(inv => {
           if (inv.alive) {
             inv.x += invaderDir;
-            if (inv.x > canvas.width - 30 || inv.x < 30) reachEdge = true;
+            if (inv.x > canvas.width - 35 || inv.x < 35) reachEdge = true;
             ctx.font = '24px serif';
+            ctx.textAlign = 'center';
             ctx.fillText(inv.emoji, inv.x, inv.y);
           }
         });
@@ -960,7 +1049,7 @@
         // 4. Detección de Colisión
         lasers.forEach((l, lIdx) => {
           invaders.forEach(inv => {
-            if (inv.alive && Math.abs(l.x - inv.x) < 20 && Math.abs(l.y - inv.y) < 20) {
+            if (inv.alive && Math.abs(l.x - inv.x) < 22 && Math.abs(l.y - inv.y) < 22) {
               inv.alive = false;
               lasers.splice(lIdx, 1);
               invadersDestroyed++;
@@ -998,8 +1087,13 @@
         else if (idx === selectedIdx) btn.classList.add('wrong');
       });
       setTimeout(() => {
-        if (selectedIdx === current.correcta) { triviaIdx++; renderTrivia(); }
-        else { alert('¡Incorrecto! Sigue explorando la Región.'); resetTrivia(); }
+        if (selectedIdx === current.correcta) { 
+          triviaIdx++; 
+          renderTrivia(); 
+        } else { 
+          alert('¡Incorrecto! Vuelve a intentarlo.'); 
+          resetTrivia(); 
+        }
       }, 1200);
     };
 
@@ -1007,7 +1101,13 @@
       triviaIdx = 0;
       prepararPreguntas();
       const overlay = document.getElementById('minigame-overlay');
+      const winContainer = document.getElementById('win-overlay');
+      const activeContainer = document.getElementById('trivia-active-content');
+
       if(overlay) overlay.style.display = 'none';
+      if(winContainer) winContainer.style.display = 'none';
+      if(activeContainer) activeContainer.style.display = 'block';
+
       if(gameLoopId) cancelAnimationFrame(gameLoopId);
       renderTrivia();
     };
