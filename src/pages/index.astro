@@ -770,17 +770,20 @@
       "Emprendedores Regionales": "⭐"
     };
 
-    // MAPEO DIRECTO DE IMÁGENES SEGÚN PABELLÓN / POSICIÓN
+    // MAPEO DIRECTO DE IMÁGENES
     const GALERIA_EXPOSITORES = [
-      "/imagen_aerea.jpeg", // 1. Inmobiliaria & Proyectos Coquimbo
-      "/sour.jpeg",         // 2. Pisco Elqui & Valles (Gastronomía & Pisqueras)
+      "/av mar.jpg",        // 1. Inmobiliaria & Proyectos Coquimbo
+      "/sour.jpeg",         // 2. Pisco Elqui & Valles
       "/sour2.jpeg",        // 3. Turismo & Patrimonio Regional
-      "/imagen_aerea.jpeg", // 4. Proveedores Mineros del Norte (Industrial / Aérea)
-      "/quesos.jpeg",       // 5. Emprendedores del Limarí (Quesos de cabra)
+      "/imagen_aerea.jpeg", // 4. Proveedores Mineros del Norte
+      "/quesos.jpeg",       // 5. Emprendedores del Limarí
       "/gente.jpeg"         // 6. Asociación Gremial Coquimbo
     ];
 
     function getAdHocImage(exp, index) {
+      if (exp.pabellon === "Inmobiliaria" || exp.nombre.includes("Inmobiliaria")) {
+        return "/av mar.jpg";
+      }
       if (exp.pabellon === "Minería & Proveedores" || exp.nombre.includes("Mineros")) {
         return "/imagen_aerea.jpeg";
       }
