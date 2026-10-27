@@ -232,12 +232,34 @@
     .trivia-option-btn.correct { background: rgba(34, 197, 94, 0.3) !important; border-color: #22c55e !important; color: #fff !important; }
     .trivia-option-btn.wrong { background: rgba(239, 68, 68, 0.3) !important; border-color: #ef4444 !important; color: #fff !important; }
 
-    .minigame-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(2, 6, 23, 0.96); z-index: 20; display: none; flex-direction: column; justify-content: center; align-items: center; padding: 2rem; border-radius: 1.5rem; text-align: center; }
-    .minigame-title { font-size: 1.5rem; font-weight: 800; color: #fbbf24; margin-bottom: 0.75rem; }
-    .minigame-desc { font-size: 0.95rem; color: #94a3b8; margin-bottom: 1.5rem; max-width: 38rem; }
-    .minigame-board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; width: 100%; max-width: 420px; margin-bottom: 1.5rem; }
-    .minigame-tile { background: rgba(30, 41, 59, 0.8); border: 2px solid rgba(56, 189, 248, 0.4); border-radius: 1rem; height: 90px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; font-size: 1.8rem; color: #f8fafc; }
-    .minigame-tile span { font-size: 0.72rem; font-weight: 700; color: #38bdf8; margin-top: 0.2rem; }
+    /* ESTILOS ARCADE DEFENSOR DEL FARO SPACE INVADERS */
+    .minigame-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(2, 6, 23, 0.97); z-index: 20; display: none; flex-direction: column; justify-content: center; align-items: center; padding: 1.25rem; border-radius: 1.5rem; text-align: center; }
+    .minigame-title { font-size: 1.35rem; font-weight: 800; color: #fbbf24; margin-bottom: 0.2rem; }
+    .minigame-desc { font-size: 0.85rem; color: #cbd5e1; margin-bottom: 0.75rem; max-width: 34rem; }
+    
+    .invaders-canvas-container {
+      position: relative;
+      width: 100%;
+      max-width: 500px;
+      height: 280px;
+      background: #020617;
+      border: 2px solid rgba(245, 158, 11, 0.6);
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: 0 0 25px rgba(245, 158, 11, 0.2);
+    }
+    #invadersCanvas { width: 100%; height: 100%; display: block; background: radial-gradient(circle at bottom, #0f172a 0%, #020617 100%); }
+    
+    .mg-score-badge {
+      margin-top: 0.75rem;
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: #38bdf8;
+      background: rgba(56, 189, 248, 0.15);
+      padding: 0.35rem 1rem;
+      border-radius: 9999px;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
 
     .news-section { background: rgba(15, 23, 42, 0.3); border-top: 1px solid rgba(255, 255, 255, 0.08); padding: 3.5rem 1.5rem; }
     .news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; max-width: 76rem; margin: 0 auto; }
@@ -380,10 +402,16 @@
       <div class="trivia-question-box" id="trivia-question">Cargando pregunta...</div>
       <div class="trivia-options" id="trivia-options"></div>
 
+      <!-- DESAFÍO SPACE INVADERS: DEFENSOR DEL FARO -->
       <div class="minigame-overlay" id="minigame-overlay">
-        <div class="minigame-title" id="mg-title">✨ ¡Desafío Estelar de Transición!</div>
-        <div class="minigame-desc" id="mg-desc">Conecta los elementos del territorio para desbloquear el siguiente nivel.</div>
-        <div class="minigame-board" id="mg-board"></div>
+        <div class="minigame-title">🚨 ¡Arcade: Defensor del Faro Monumental!</div>
+        <div class="minigame-desc">Mueve el Faro con el mouse, táctil o flechas y dispara destellos (clic o Espacio) para destruir 10 invasores estelares.</div>
+        
+        <div class="invaders-canvas-container">
+          <canvas id="invadersCanvas" width="500" height="280"></canvas>
+        </div>
+
+        <div class="mg-score-badge" id="mg-score-badge">Invasores Destruidos: 0 / 10</div>
       </div>
     </div>
   </section>
@@ -816,7 +844,7 @@
     }
 
     function renderTrivia() {
-      if (triviaIdx === 5) { triggerMinigame(); return; }
+      if (triviaIdx === 5) { triggerSpaceInvadersMinigame(); return; }
       const current = PREGUNTAS_TRIVIA[triviaIdx];
       const qBox = document.getElementById('trivia-question');
       const optBox = document.getElementById('trivia-options');
@@ -829,27 +857,136 @@
       `).join('');
     }
 
-    function triggerMinigame() {
+    // MOTOR DEL JUEGO SPACE INVADERS: DEFENSOR DEL FARO MONUMENTAL
+    let invadersDestroyed = 0;
+    let gameLoopId = null;
+
+    function triggerSpaceInvadersMinigame() {
       const overlay = document.getElementById('minigame-overlay');
-      const board = document.getElementById('mg-board');
-      if(!overlay || !board) return;
+      const canvas = document.getElementById('invadersCanvas');
+      const badge = document.getElementById('mg-score-badge');
+      if (!overlay || !canvas || !badge) return;
+
       overlay.style.display = 'flex';
-      board.innerHTML = '';
-      const items = [
-        { icon: "✨", label: "Estrella", correct: false },
-        { icon: "🔭", label: "Telescopio Elqui", correct: true },
-        { icon: "🍷", label: "Pisco", correct: false }
-      ];
-      items.forEach(item => {
-        const tile = document.createElement('div');
-        tile.className = 'minigame-tile';
-        tile.innerHTML = `${item.icon}<span>${item.label}</span>`;
-        tile.onclick = () => {
-          if (item.correct) { overlay.style.display = 'none'; triviaIdx++; renderTrivia(); }
-          else { tile.style.borderColor = '#ef4444'; }
-        };
-        board.appendChild(tile);
-      });
+      const ctx = canvas.getContext('2d');
+      invadersDestroyed = 0;
+      badge.textContent = `Invasores Destruidos: 0 / 10`;
+      badge.style.background = 'rgba(56, 189, 248, 0.15)';
+      badge.style.color = '#38bdf8';
+
+      // Parámetros del Faro y Láseres
+      let faroX = canvas.width / 2;
+      const faroY = canvas.height - 35;
+      let lasers = [];
+      let invaders = [];
+      const invaderEmojis = ['👾', '🛸', '☄️', '🌌'];
+
+      // Generar Invasores
+      for (let row = 0; row < 2; row++) {
+        for (let col = 0; col < 5; col++) {
+          invaders.push({
+            x: 60 + col * 80,
+            y: 30 + row * 40,
+            width: 30,
+            height: 30,
+            alive: true,
+            emoji: invaderEmojis[(row + col) % invaderEmojis.length]
+          });
+        }
+      }
+
+      let invaderDir = 1.2;
+
+      // Eventos de Movimiento
+      function moveFaro(e) {
+        const rect = canvas.getBoundingClientRect();
+        let clientX = e.clientX || (e.touches && e.touches[0].clientX);
+        if (clientX !== undefined) {
+          faroX = clientX - rect.left;
+          if (faroX < 20) faroX = 20;
+          if (faroX > canvas.width - 20) faroX = canvas.width - 20;
+        }
+      }
+
+      function shootLaser() {
+        lasers.push({ x: faroX, y: faroY - 15, speed: 6 });
+      }
+
+      canvas.onmousemove = moveFaro;
+      canvas.ontouchmove = moveFaro;
+      canvas.onclick = shootLaser;
+
+      window.onkeydown = (e) => {
+        if (overlay.style.display === 'flex') {
+          if (e.key === 'ArrowLeft') faroX = Math.max(20, faroX - 20);
+          if (e.key === 'ArrowRight') faroX = Math.min(canvas.width - 20, faroX + 20);
+          if (e.key === ' ' || e.key === 'Spacebar') shootLaser();
+        }
+      };
+
+      function loop() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // 1. Dibujar Faro (Nave Propia)
+        ctx.font = '28px serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('🚨', faroX, faroY + 10);
+
+        // 2. Mover y Dibujar Láseres
+        ctx.fillStyle = '#fbbf24';
+        for (let i = lasers.length - 1; i >= 0; i--) {
+          let l = lasers[i];
+          l.y -= l.speed;
+          ctx.fillRect(l.x - 2, l.y, 4, 12);
+          if (l.y < 0) lasers.splice(i, 1);
+        }
+
+        // 3. Mover y Dibujar Invasores
+        let reachEdge = false;
+        invaders.forEach(inv => {
+          if (inv.alive) {
+            inv.x += invaderDir;
+            if (inv.x > canvas.width - 30 || inv.x < 30) reachEdge = true;
+            ctx.font = '24px serif';
+            ctx.fillText(inv.emoji, inv.x, inv.y);
+          }
+        });
+
+        if (reachEdge) {
+          invaderDir *= -1;
+          invaders.forEach(inv => inv.y += 8);
+        }
+
+        // 4. Detección de Colisión
+        lasers.forEach((l, lIdx) => {
+          invaders.forEach(inv => {
+            if (inv.alive && Math.abs(l.x - inv.x) < 20 && Math.abs(l.y - inv.y) < 20) {
+              inv.alive = false;
+              lasers.splice(lIdx, 1);
+              invadersDestroyed++;
+              badge.textContent = `Invasores Destruidos: ${invadersDestroyed} / 10`;
+
+              if (invadersDestroyed >= 10) {
+                cancelAnimationFrame(gameLoopId);
+                badge.textContent = `¡La Serena Defendida! Avanzando al Nivel 6...`;
+                badge.style.background = 'rgba(34, 197, 94, 0.2)';
+                badge.style.color = '#4ade80';
+                setTimeout(() => {
+                  overlay.style.display = 'none';
+                  triviaIdx++;
+                  renderTrivia();
+                }, 1200);
+              }
+            }
+          });
+        });
+
+        if (invadersDestroyed < 10) {
+          gameLoopId = requestAnimationFrame(loop);
+        }
+      }
+
+      loop();
     }
 
     window.checkTriviaAnswer = function(selectedIdx) {
@@ -871,6 +1008,7 @@
       prepararPreguntas();
       const overlay = document.getElementById('minigame-overlay');
       if(overlay) overlay.style.display = 'none';
+      if(gameLoopId) cancelAnimationFrame(gameLoopId);
       renderTrivia();
     };
 
@@ -933,23 +1071,18 @@
         botMsg.className = 'chat-msg bot';
         const q = text.toLowerCase();
 
-        // 1. Detección de Agradecimientos y Despedidas
         if (q.includes('gracias') || q.includes('chao') || q.includes('hasta luego') || q.includes('adios') || q.includes('adiós') || q.includes('ok') || q.includes('vale')) {
           botMsg.textContent = '¡De nada! Muchas gracias por consultar. Te esperamos del 6 al 8 de noviembre en Plaza Ñuñoa. ¡Saludos y que tengas un excelente día! ⭐';
         } 
-        // 2. Consultas sobre Radio / Música
         else if (q.includes('radio') || q.includes('musica') || q.includes('música') || q.includes('en vivo') || q.includes('cancion') || q.includes('canción')) {
           botMsg.textContent = 'Puedes escuchar nuestra programación continua de radio haciendo clic en el botón "Reproducir" de la barra inferior. ¡Contamos con la locución de Francis y Vicente!';
         } 
-        // 3. FECHAS Y UBICACIÓN
         else if (q.includes('fecha') || q.includes('cuando') || q.includes('cuándo') || q.includes('donde') || q.includes('dónde') || q.includes('lugar')) {
           botMsg.textContent = 'La Expo Región Estrella se realizará del 6 al 8 de noviembre de 2026 en Plaza Ñuñoa, Santiago. ¡La entrada es liberada!';
         } 
-        // 4. Saludos iniciales
         else if (q.includes('hola') || q.includes('buenas') || q.includes('buenos dias') || q.includes('buenas tardes')) {
           botMsg.textContent = '¡Hola! Qué gusto saludarte. ¿En qué te puedo ayudar hoy respecto a los expositores, la radio o el evento?';
         } 
-        // 5. Módulo por defecto
         else {
           botMsg.textContent = 'Puedo ayudarte con información sobre la Expo, fechas, expositores, agendamiento de citas y nuestra radio en línea. ¿Tienes alguna otra duda?';
         }
