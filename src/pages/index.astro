@@ -1,4 +1,5 @@
 ---
+// index.astro - Expo Región Estrella 2026
 ---
 <!DOCTYPE html>
 <html lang="es">
@@ -12,165 +13,828 @@
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      background-color: #020617;
+      background: #020617;
       color: #f8fafc;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      padding-bottom: 90px;
+      position: relative;
+      overflow-x: hidden;
     }
-    header {
-      background: linear-gradient(180deg, #0f172a 0%, #020617 100%);
-      border-bottom: 1px solid #1e293b;
-      padding: 4rem 1.5rem;
-      text-align: center;
+
+    /* Huincha LED Americana Animada TOP */
+    .top-led-ticker {
+      background: linear-gradient(90deg, #0f172a, #1e293b, #0f172a);
+      border-bottom: 1px solid rgba(245, 158, 11, 0.4);
+      color: #fbbf24;
+      font-size: 0.85rem;
+      font-weight: 800;
+      padding: 0.5rem 0;
+      overflow: hidden;
+      white-space: nowrap;
+      position: relative;
+      z-index: 10;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
     }
-    .badge {
+    .ticker-track {
       display: inline-block;
-      padding: 0.35rem 1rem;
+      white-space: nowrap;
+      animation: marquee 28s linear infinite;
+    }
+    .ticker-item {
+      display: inline-block;
+      padding-right: 3rem;
+    }
+    @keyframes marquee {
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-50%); }
+    }
+
+    #starry-sky {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    header, .showcase-section, main, .trivia-section, .news-section, .contact-section, .sponsors-section, footer, .radio-player-bar, .chat-widget {
+      position: relative;
+      z-index: 2;
+    }
+    
+    header {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 2.5rem 1.5rem 2.5rem 1.5rem;
+      text-align: center;
+      background: linear-gradient(rgba(15, 23, 42, 0.88), rgba(2, 6, 23, 0.96)), url('/imagen_aerea.jpeg');
+      background-size: cover;
+      background-position: center;
+    }
+    .hero-container {
+      max-width: 52rem;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .hero-img {
+      max-width: 240px;
+      width: 100%;
+      height: auto;
+      margin: 0 auto 1rem auto;
+      display: block;
+      filter: drop-shadow(0 10px 25px rgba(0,0,0,0.8));
+    }
+    
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 1.2rem;
       border-radius: 9999px;
-      font-size: 0.75rem;
+      font-size: 0.82rem;
       font-weight: 700;
       letter-spacing: 0.05em;
-      background: rgba(245, 158, 11, 0.1);
+      background: rgba(245, 158, 11, 0.12);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       color: #fbbf24;
-      border: 1px solid rgba(245, 158, 11, 0.3);
-      text-transform: uppercase;
-      margin-bottom: 1.5rem;
-    }
-    h1 {
-      font-size: 2.75rem;
-      font-weight: 900;
-      letter-spacing: -0.025em;
-      background: linear-gradient(to right, #fde68a, #fbbf24, #f59e0b);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      border: 1px solid rgba(245, 158, 11, 0.35);
       text-transform: uppercase;
       margin-bottom: 1rem;
+      box-shadow: 0 4px 20px rgba(245, 158, 11, 0.15);
     }
     .hero-desc {
-      font-size: 1.125rem;
-      color: #94a3b8;
-      max-width: 42rem;
-      margin: 0 auto 2rem auto;
+      font-size: 1.05rem;
+      color: #cbd5e1;
+      max-width: 40rem;
+      margin: 0 auto 1.5rem auto;
       line-height: 1.6;
+      text-wrap: balance;
     }
+
     .btn-group {
       display: flex;
       justify-content: center;
-      gap: 1rem;
+      gap: 1.25rem;
       flex-wrap: wrap;
+      margin-bottom: 2rem;
     }
-    .btn-primary {
-      background-color: #f59e0b;
-      color: #020617;
+    .btn-glass-primary {
+      background: rgba(245, 158, 11, 0.25);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      color: #fef08a;
+      font-weight: 800;
+      padding: 0.85rem 1.75rem;
+      border-radius: 0.75rem;
+      text-decoration: none;
+      border: 1px solid rgba(245, 158, 11, 0.5);
+      box-shadow: 0 8px 25px rgba(245, 158, 11, 0.25);
+      transition: all 0.3s ease;
+      font-size: 0.92rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+    }
+    .btn-glass-primary:hover {
+      background: rgba(245, 158, 11, 0.45);
+      border-color: rgba(253, 224, 71, 0.8);
+      color: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(245, 158, 11, 0.4);
+    }
+    .btn-glass-secondary {
+      background: rgba(30, 41, 59, 0.45);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      color: #38bdf8;
       font-weight: 700;
-      padding: 0.75rem 1.5rem;
+      padding: 0.85rem 1.75rem;
       border-radius: 0.75rem;
       text-decoration: none;
-      transition: all 0.2s;
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.92rem;
     }
-    .btn-primary:hover { background-color: #fbbf24; }
-    .btn-secondary {
-      background-color: #1e293b;
+    .btn-glass-secondary:hover {
+      background: rgba(2, 132, 199, 0.35);
+      border-color: rgba(56, 189, 248, 0.8);
+      color: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(2, 132, 199, 0.35);
+    }
+
+    /* Pantalla Central Interactiva en Vivo: Efemérides y Astronomía Coquimbo */
+    .astro-central-screen {
+      width: 100%;
+      max-width: 48rem;
+      background: rgba(15, 23, 42, 0.82);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      border-radius: 1.25rem;
+      padding: 1.5rem;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+      margin: 0 auto;
+      text-align: left;
+    }
+    .astro-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding-bottom: 0.75rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .astro-title {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #fbbf24;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .astro-badge-live {
+      font-size: 0.7rem;
+      background: rgba(34, 197, 94, 0.2);
+      color: #4ade80;
+      border: 1px solid rgba(34, 197, 94, 0.4);
+      padding: 0.2rem 0.6rem;
+      border-radius: 9999px;
+      font-weight: 700;
+    }
+    .astro-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 1rem;
+    }
+    .astro-card {
+      background: rgba(30, 41, 59, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 0.85rem;
+      padding: 1rem;
+    }
+    .astro-card h4 {
+      font-size: 0.82rem;
+      color: #38bdf8;
+      margin-bottom: 0.4rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .astro-card p {
+      font-size: 0.88rem;
       color: #e2e8f0;
-      font-weight: 600;
-      padding: 0.75rem 1.5rem;
-      border-radius: 0.75rem;
-      text-decoration: none;
-      border: 1px solid #334155;
-      transition: all 0.2s;
+      line-height: 1.4;
     }
-    .btn-secondary:hover { border-color: #f59e0b; background-color: #334155; }
+
+    /* Showcase Bento Grid */
+    .showcase-section {
+      max-width: 76rem;
+      margin: 2.5rem auto 0 auto;
+      padding: 0 1.5rem;
+    }
+    .bento-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 1.75rem;
+      align-items: stretch;
+    }
+    @media (max-width: 900px) {
+      .bento-grid { grid-template-columns: 1fr; }
+    }
+
+    .bento-card-video {
+      background: rgba(15, 23, 42, 0.55);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 1.25rem;
+      padding: 1.25rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      border-radius: 0.85rem;
+      overflow: hidden;
+      background: #000;
+      aspect-ratio: 16 / 9;
+    }
+    .video-wrapper video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .bento-card-info {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.5), rgba(15, 23, 42, 0.7));
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 1.25rem;
+      padding: 2rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .bento-info-title {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #fbbf24;
+      margin-bottom: 0.75rem;
+      line-height: 1.3;
+      text-wrap: balance;
+    }
+    .bento-info-desc {
+      font-size: 0.92rem;
+      color: #cbd5e1;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+      text-wrap: balance;
+    }
+    .bento-features {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      margin-bottom: 1.5rem;
+    }
+    .bento-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.88rem;
+      color: #e2e8f0;
+      background: rgba(255, 255, 255, 0.04);
+      padding: 0.6rem 0.85rem;
+      border-radius: 0.6rem;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
     main {
       flex: 1;
-      max-width: 80rem;
+      max-width: 76rem;
       width: 100%;
       margin: 0 auto;
-      padding: 3rem 1.5rem;
+      padding: 3.5rem 1.5rem 2.5rem 1.5rem;
     }
     .section-title {
       text-align: center;
-      margin-bottom: 2.5rem;
+      margin-bottom: 2.25rem;
     }
-    .section-title h2 { font-size: 1.875rem; font-weight: 800; color: #f8fafc; }
-    .section-title p { color: #64748b; font-size: 0.875rem; margin-top: 0.5rem; }
+    .section-title h2 { 
+      font-size: 1.85rem; 
+      font-weight: 800; 
+      color: #f8fafc; 
+      text-wrap: balance;
+    }
+    .section-title p { 
+      color: #94a3b8; 
+      font-size: 0.95rem; 
+      margin-top: 0.4rem; 
+      text-wrap: balance;
+    }
+
+    /* Grilla Catálogo Expositores */
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 2rem;
     }
     .card {
-      background-color: rgba(15, 23, 42, 0.8);
-      border: 1px solid #1e293b;
+      background: linear-gradient(160deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.85) 100%);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 1.25rem;
+      overflow: hidden !important;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.5);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .card:hover { 
+      border-color: rgba(245, 158, 11, 0.6); 
+      transform: translateY(-4px); 
+      box-shadow: 0 20px 40px -10px rgba(245, 158, 11, 0.2);
+    }
+
+    .card-content {
+      padding: 1.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; }
+    .card-tag {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #fbbf24;
+      background: rgba(245, 158, 11, 0.15);
+      padding: 0.3rem 0.75rem;
+      border-radius: 9999px;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+    .card-mod { 
+      font-size: 0.78rem; 
+      font-family: monospace; 
+      color: #38bdf8; 
+      font-weight: 700; 
+      background: rgba(56, 189, 248, 0.12); 
+      padding: 0.2rem 0.6rem; 
+      border-radius: 0.4rem; 
+      border: 1px solid rgba(56, 189, 248, 0.25);
+    }
+    .card-title { font-size: 1.25rem; font-weight: 800; color: #f8fafc; margin-bottom: 0.5rem; line-height: 1.3; text-wrap: balance; }
+    .card-desc { font-size: 0.88rem; color: #94a3b8; line-height: 1.55; margin-bottom: 1.5rem; text-wrap: balance; }
+    
+    .card-footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.82rem;
+    }
+    .btn-b2b-card {
+      background: rgba(56, 189, 248, 0.15);
+      color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      padding: 0.45rem 0.95rem;
+      border-radius: 0.55rem;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.82rem;
+      transition: all 0.2s ease;
+    }
+    .btn-b2b-card:hover { background: #0284c7; color: #fff; box-shadow: 0 4px 15px rgba(2, 132, 199, 0.4); }
+
+    /* Sección Trivia */
+    .trivia-section {
+      background: radial-gradient(circle at center, rgba(30, 41, 59, 0.8) 0%, rgba(2, 6, 23, 0.95) 100%);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 4rem 1.5rem;
+    }
+    .trivia-container {
+      max-width: 52rem;
+      margin: 0 auto;
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 2px solid rgba(245, 158, 11, 0.4);
+      border-radius: 1.5rem;
+      padding: 2.5rem;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+      text-align: center;
+      position: relative;
+    }
+    .trivia-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 1rem;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .trivia-score { 
+      font-size: 0.98rem; 
+      font-weight: 800; 
+      color: #fbbf24; 
+      text-align: left;
+      flex: 1;
+      min-width: 260px;
+      text-wrap: balance;
+    }
+    .trivia-lifelines { display: flex; gap: 0.5rem; flex-shrink: 0; }
+    .lifeline-btn {
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      color: #38bdf8;
+      padding: 0.35rem 0.75rem;
+      border-radius: 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .lifeline-btn:hover:not(:disabled) { background: #0284c7; color: #fff; }
+    .lifeline-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+    .trivia-question-box {
+      background: rgba(30, 41, 59, 0.9);
+      border: 2px solid #fbbf24;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 2rem;
+      box-shadow: 0 0 20px rgba(245, 158, 11, 0.2);
+      text-wrap: balance;
+    }
+    .trivia-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    @media (max-width: 600px) {
+      .trivia-options { grid-template-columns: 1fr; }
+    }
+    .trivia-option-btn {
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 0.75rem;
+      padding: 1rem;
+      color: #cbd5e1;
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-wrap: balance;
+    }
+    .trivia-option-btn:hover:not(:disabled) {
+      background: rgba(245, 158, 11, 0.2);
+      border-color: #fbbf24;
+      color: #ffffff;
+    }
+    .trivia-option-btn.correct { background: rgba(34, 197, 94, 0.3) !important; border-color: #22c55e !important; color: #fff !important; }
+    .trivia-option-btn.wrong { background: rgba(239, 68, 68, 0.3) !important; border-color: #ef4444 !important; color: #fff !important; }
+
+    /* Microjuego */
+    .minigame-overlay {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(2, 6, 23, 0.96);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      z-index: 20;
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+      border-radius: 1.5rem;
+      text-align: center;
+      animation: fadeIn 0.4s ease-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .minigame-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #fbbf24;
+      margin-bottom: 0.75rem;
+      text-wrap: balance;
+    }
+    .minigame-desc {
+      font-size: 0.95rem;
+      color: #94a3b8;
+      margin-bottom: 1.5rem;
+      max-width: 38rem;
+      line-height: 1.5;
+      text-wrap: balance;
+    }
+    .minigame-board {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      width: 100%;
+      max-width: 420px;
+      margin-bottom: 1.5rem;
+    }
+    .minigame-tile {
+      background: rgba(30, 41, 59, 0.8);
+      border: 2px solid rgba(56, 189, 248, 0.4);
+      border-radius: 1rem;
+      height: 90px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.8rem;
+      transition: all 0.25s ease;
+      color: #f8fafc;
+    }
+    .minigame-tile:hover {
+      background: rgba(245, 158, 11, 0.25);
+      border-color: #fbbf24;
+      transform: translateY(-3px);
+    }
+    .minigame-tile span {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #38bdf8;
+      margin-top: 0.2rem;
+    }
+
+    /* Noticias */
+    .news-section {
+      background: rgba(15, 23, 42, 0.3);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 3.5rem 1.5rem;
+    }
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      max-width: 76rem;
+      margin: 0 auto;
+    }
+    .news-card {
+      background: rgba(30, 41, 59, 0.4);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 1rem;
       padding: 1.5rem;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      transition: all 0.3s;
     }
-    .card:hover { border-color: rgba(245, 158, 11, 0.5); transform: translateY(-2px); }
-    .card-tag {
-      font-size: 0.75rem;
+    .news-date { font-size: 0.75rem; color: #fbbf24; font-weight: 700; text-transform: uppercase; margin-bottom: 0.4rem; }
+    .news-title { font-size: 1.2rem; font-weight: 800; color: #f8fafc; margin-bottom: 0.75rem; line-height: 1.35; text-wrap: balance; }
+    .news-body { font-size: 0.85rem; color: #94a3b8; line-height: 1.55; margin-bottom: 1.25rem; }
+    .news-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 0.35rem;
+      background: rgba(56, 189, 248, 0.1);
+      color: #38bdf8;
       font-weight: 600;
-      color: #fbbf24;
-      background: rgba(245, 158, 11, 0.1);
-      padding: 0.25rem 0.75rem;
-      border-radius: 9999px;
-      border: 1px solid rgba(245, 158, 11, 0.2);
+      width: fit-content;
     }
-    .card-mod { font-size: 0.75rem; font-family: monospace; color: #64748b; }
-    .card-title { font-size: 1.25rem; font-weight: 700; color: #f1f5f9; margin: 0.75rem 0 0.5rem 0; }
-    .card-desc { font-size: 0.875rem; color: #94a3b8; line-height: 1.5; margin-bottom: 1.5rem; }
-    .card-footer {
-      border-top: 1px solid #1e293b;
-      padding-top: 1rem;
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.75rem;
-      color: #64748b;
+
+    /* Contacto */
+    .contact-section {
+      background: rgba(2, 6, 23, 0.6);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 3.5rem 1.5rem;
     }
-    .status-ok { color: #fbbf24; font-weight: 600; }
-    footer {
-      border-top: 1px solid #1e293b;
+    .contact-container {
+      max-width: 36rem;
+      margin: 0 auto;
+      background: rgba(30, 41, 59, 0.45);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 1.25rem;
       padding: 2rem;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+    }
+    .form-group { margin-bottom: 1.25rem; }
+    .form-label { display: block; font-size: 0.85rem; font-weight: 700; color: #cbd5e1; margin-bottom: 0.4rem; }
+    .form-input, .form-textarea {
+      width: 100%;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #fff;
+      padding: 0.75rem;
+      border-radius: 0.5rem;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+    .form-input:focus, .form-textarea:focus { border-color: #f59e0b; }
+    .form-textarea { resize: vertical; min-height: 100px; }
+    .form-status { margin-top: 1rem; font-size: 0.85rem; text-align: center; font-weight: 600; }
+    .form-status.success { color: #4ade80; }
+    .form-status.error { color: #f87171; }
+
+    /* Auspicios */
+    .sponsors-section {
+      background: rgba(15, 23, 42, 0.8);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 3.5rem 1.5rem;
       text-align: center;
-      font-size: 0.75rem;
-      color: #475569;
     }
-    .chat-widget {
-      position: fixed;
-      bottom: 1.5rem;
-      right: 1.5rem;
-      z-index: 50;
-    }
-    .chat-btn {
-      width: 3.5rem;
-      height: 3.5rem;
-      border-radius: 9999px;
-      background: linear-gradient(135deg, #f59e0b, #d97706);
-      border: 2px solid #fde68a;
-      font-size: 1.5rem;
-      cursor: pointer;
-      box-shadow: 0 10px 25px -5px rgba(245, 158, 11, 0.4);
+    .sponsors-group { margin-bottom: 2.5rem; }
+    .sponsors-group h3 { font-size: 1rem; text-transform: uppercase; letter-spacing: 0.1em; color: #fbbf24; margin-bottom: 1.25rem; }
+    .logos-flex { display: flex; justify-content: center; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+    .sponsor-card {
+      background: #ffffff;
+      padding: 0.6rem 1rem;
+      border-radius: 0.65rem;
       display: flex;
       align-items: center;
       justify-content: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      height: 70px;
+      min-width: 130px;
     }
+    .sponsor-logo { max-height: 50px; max-width: 140px; object-fit: contain; }
+
+    /* Reproductor de Radio Flotante */
+    .radio-player-bar {
+      position: fixed;
+      bottom: 0; left: 0; width: 100%;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(245, 158, 11, 0.3);
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 99;
+      box-shadow: 0 -10px 30px rgba(0,0,0,0.7);
+    }
+    .radio-info { display: flex; align-items: center; gap: 1rem; }
+    .radio-pulse {
+      width: 12px; height: 12px; background: #22c55e; border-radius: 50%;
+      box-shadow: 0 0 10px #22c55e; animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(0.95); opacity: 0.8; }
+      50% { transform: scale(1.2); opacity: 1; }
+      100% { transform: scale(0.95); opacity: 0.8; }
+    }
+    .radio-title { font-size: 0.9rem; font-weight: 800; color: #fbbf24; }
+    .radio-track { font-size: 0.8rem; color: #94a3b8; }
+    .radio-controls { display: flex; align-items: center; gap: 1rem; }
+    .radio-btn {
+      background: rgba(245, 158, 11, 0.2);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      color: #fef08a; padding: 0.5rem 1rem;
+      border-radius: 0.5rem; font-weight: bold; cursor: pointer;
+      font-size: 0.85rem; transition: background 0.2s;
+    }
+    .radio-btn:hover { background: rgba(245, 158, 11, 0.4); }
+
+    /* Asistente Flotante */
+    .chat-widget { position: fixed; bottom: 5rem; right: 1.75rem; z-index: 100; }
+    .chat-btn {
+      width: 3.5rem; height: 3.5rem; border-radius: 9999px;
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      border: 2px solid #fde68a; font-size: 1.5rem; cursor: pointer;
+      box-shadow: 0 10px 25px rgba(245, 158, 11, 0.5);
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 0.2s ease;
+    }
+    .chat-btn:hover { transform: scale(1.08); }
+    .chat-box {
+      display: none; position: fixed; bottom: 9rem; right: 1.75rem;
+      width: 340px; height: 450px; background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 1rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.8); z-index: 101;
+      flex-direction: column; overflow: hidden;
+    }
+    .chat-header { background: rgba(30, 41, 59, 0.8); padding: 0.85rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+    .chat-body { flex: 1; padding: 0.85rem; overflow-y: auto; font-size: 0.85rem; display: flex; flex-direction: column; gap: 0.65rem; }
+    .chat-msg { padding: 0.55rem 0.85rem; border-radius: 0.65rem; max-width: 85%; }
+    .chat-msg.bot { background: rgba(30, 41, 59, 0.9); color: #e2e8f0; align-self: flex-start; }
+    .chat-msg.user { background: #f59e0b; color: #020617; align-self: flex-end; font-weight: 600; }
+    .chat-input-area { padding: 0.65rem; background: rgba(15, 23, 42, 0.95); border-top: 1px solid rgba(255, 255, 255, 0.08); display: flex; gap: 0.4rem; }
+    .chat-input { flex: 1; background: rgba(30, 41, 59, 0.8); border: 1px solid rgba(255, 255, 255, 0.1); color: #fff; padding: 0.45rem 0.75rem; border-radius: 0.45rem; outline: none; font-size: 0.85rem; }
   </style>
 </head>
 <body>
 
+  <!-- Huincha LED Americana Animada TOP -->
+  <div class="top-led-ticker">
+    <div class="ticker-track">
+      <span class="ticker-item">⭐ ¡Bienvenidos a la Región Estrella! 🍷 Conecta con el turismo, valles y pisqueras de Coquimbo.</span>
+      <span class="ticker-item">📍 EXPO REGIÓN ESTRELLA 2026: Del 6 al 8 de Noviembre en Plaza Ñuñoa, Santiago. ¡Entrada Liberada! 🎟️</span>
+      <span class="ticker-item">🔭 Cielos limpios, astroturismo y más de 40 módulos de exhibición activa esperando por ti. 🏢</span>
+      <span class="ticker-item">⭐ ¡Bienvenidos a la Región Estrella! 🍷 Conecta con el turismo, valles y pisqueras de Coquimbo.</span>
+      <span class="ticker-item">📍 EXPO REGIÓN ESTRELLA 2026: Del 6 al 8 de Noviembre en Plaza Ñuñoa, Santiago. ¡Entrada Liberada! 🎟️</span>
+      <span class="ticker-item">🔭 Cielos limpios, astroturismo y más de 40 módulos de exhibición activa esperando por ti. 🏢</span>
+    </div>
+  </div>
+
+  <!-- Lienzo de Cielo Estelar Interactivo -->
+  <canvas id="starry-sky"></canvas>
+
   <header>
-    <span class="badge">6 AL 8 DE NOVIEMBRE • PLAZA ÑUÑOA, SANTIAGO</span>
-    <h1>EXPO REGIÓN ESTRELLA</h1>
-    <p class="hero-desc">La Región de Coquimbo se levanta y despliega lo mejor de sus valles, costas y emprendimientos.</p>
-    <div class="btn-group">
-      <a href="#catalogo" class="btn-primary">Explorar Pabellones</a>
-      <a href="https://cal.com/app" target="_blank" rel="noopener noreferrer" class="btn-secondary">Agendar Citas B2B (Cal.com)</a>
+    <div class="hero-container">
+      <img src="/logo_oficial.jpeg" alt="EXPO REGIÓN ESTRELLA 2026" class="hero-img" onerror="this.src='/logo_muralla.jpeg'" />
+      <div class="badge">📍 6 AL 8 DE NOVIEMBRE • PLAZA ÑUÑOA, SANTIAGO</div>
+      <p class="hero-desc">La Región de Coquimbo se levanta y despliega lo mejor de sus valles, costas y emprendimientos.</p>
+      
+      <div class="btn-group">
+        <a href="#catalogo" class="btn-glass-primary">✨ Explorar Pabellones</a>
+        <a href="https://cal.com/expo-stars-4-be3ske" target="_blank" rel="noopener noreferrer" class="btn-glass-secondary">📅 Agendar Cita</a>
+      </div>
+
+      <!-- Pantalla Central Interactiva Astronómica y en Vivo -->
+      <div class="astro-central-screen">
+        <div class="astro-header">
+          <div class="astro-title">✨ Planetario y Efemérides en Vivo • Región de Coquimbo</div>
+          <div class="astro-badge-live" id="astro-time-live">Sincronizando hora Chile...</div>
+        </div>
+        <div class="astro-grid">
+          <div class="astro-card">
+            <h4>🔭 Cielos & Constelaciones</h4>
+            <p id="astro-constellation">Cargando constelaciones visibles sobre Elqui, Limarí y Choapa...</p>
+          </div>
+          <div class="astro-card">
+            <h4>🌕 Fase Lunar & Mareas</h4>
+            <p id="astro-moon-tides">Calculando estado de mareas y fase lunar en la costa de Coquimbo...</p>
+          </div>
+          <div class="astro-card">
+            <h4>⭐ Datos Expo 2026</h4>
+            <p>Plaza Ñuñoa, Santiago • 6 al 8 de Noviembre. 40+ módulos de exhibición activa.</p>
+          </div>
+        </div>
+      </div>
     </div>
   </header>
+
+  <!-- Mosaico Showcase -->
+  <section class="showcase-section">
+    <div class="bento-grid">
+      <div class="bento-card-video">
+        <div class="video-wrapper">
+          <video controls poster="/logo_muralla.jpeg">
+            <source src="/clip_promo.mp4" type="video/mp4" />
+            Tu navegador no soporta la reproducción de video.
+          </video>
+        </div>
+      </div>
+
+      <div class="bento-card-info">
+        <div>
+          <h3 class="bento-info-title">La Gran Vitrina Regional en Santiago</h3>
+          <p class="bento-info-desc">Tres días de conexión comercial directa, cultura y gastronomía tradicional en el corazón de la Región Metropolitana.</p>
+          
+          <div class="bento-features">
+            <div class="bento-item">🏬 <strong>40+ Módulos</strong> de exhibición activa</div>
+            <div class="bento-item">🏢 <strong>Inmobiliaria, Gastronomía, Minería y Turismo</strong> de Elqui, Limarí y Choapa</div>
+            <div class="bento-item">📺 <strong>Transmisión en vivo</strong> vía Thema Televisión</div>
+          </div>
+        </div>
+
+        <a href="#contacto" class="btn-glass-primary" style="justify-content: center; width: 100%;">🤝 Contactar Organización</a>
+      </div>
+    </div>
+  </section>
 
   <main id="catalogo">
     <div class="section-title">
@@ -181,17 +845,438 @@
     <div id="expositores-grid" class="grid"></div>
   </main>
 
+  <!-- Módulo Trivia -->
+  <section class="trivia-section" id="trivia">
+    <div class="section-title">
+      <h2>🏆 ¿Quién Quiere Ser Millonario de Experiencias en la Región Estrella?</h2>
+      <p>Pon a prueba tus conocimientos sobre el patrimonio, cultura y lugares turísticos de la Región de Coquimbo.</p>
+    </div>
+
+    <div class="trivia-container">
+      <div class="trivia-header">
+        <div class="trivia-score" id="trivia-score">Premio en juego: Conocimiento y Experiencia Regional</div>
+        <div class="trivia-lifelines">
+          <button class="lifeline-btn" id="life-5050" title="Elimina dos respuestas incorrectas">50:50</button>
+          <button class="lifeline-btn" id="life-public" title="Consulta la opinión del público">📊 Público</button>
+          <button class="lifeline-btn" id="life-call" title="Llamada a un experto local">📞 Llamada</button>
+        </div>
+      </div>
+
+      <div class="trivia-question-box" id="trivia-question">
+        Cargando pregunta...
+      </div>
+
+      <div class="trivia-options" id="trivia-options"></div>
+
+      <div class="minigame-overlay" id="minigame-overlay">
+        <div class="minigame-title" id="mg-title">✨ ¡Desafío Estelar de Transición!</div>
+        <div class="minigame-desc" id="mg-desc">Conecta los elementos del territorio para desbloquear el siguiente nivel.</div>
+        <div class="minigame-board" id="mg-board"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="news-section">
+    <div class="section-title">
+      <h2>Noticias & Prensa</h2>
+      <p>Novedades oficiales sobre la reactivación turística y comercial de Coquimbo en Santiago.</p>
+    </div>
+
+    <div class="news-grid">
+      <div class="news-card">
+        <div>
+          <span class="news-date">COMUNICADO OFICIAL • LA SERENA</span>
+          <h3 class="news-title">Con Alianza Público-Privada se anuncia la "Expo Región Estrella" en Plaza Ñuñoa</h3>
+          <p class="news-body">
+            La muestra reunirá a más de 40 expositores, municipios, gremios turísticos, viñas, pisqueras, inmobiliarias y pymes del 6 al 8 de noviembre. Con entrada liberada, la iniciativa impulsada por el sector privado y gremios busca reactivar la economía regional y promocionar la oferta estival 2026-2027.
+          </p>
+        </div>
+        <span class="news-tag">Reactivación Económica</span>
+      </div>
+
+      <div class="news-card">
+        <div>
+          <span class="news-date">PRENSA REGIONAL • SANTIAGO</span>
+          <h3 class="news-title">Una Oportunidad de Oro para impulsar el Inmobiliario y Turismo de Coquimbo</h3>
+          <p class="news-body">
+            Gracias al respaldo clave del sector inmobiliario, municipalidades, minería y servicios, gremios regionales despliegan una ofensiva comercial directa en Santiago.
+          </p>
+        </div>
+        <span class="news-tag">Inversión & Fomento</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact-section" id="contacto">
+    <div class="section-title">
+      <h2>Contacto & Consultas</h2>
+      <p>Déjanos un mensaje y te responderemos a la brevedad.</p>
+    </div>
+
+    <div class="contact-container">
+      <form id="contact-form">
+        <div class="form-group">
+          <label for="nombre" class="form-label">Nombre Completo</label>
+          <input type="text" id="nombre" name="nombre" class="form-input" placeholder="Ej: María González" required />
+        </div>
+
+        <div class="form-group">
+          <label for="email" class="form-label">Correo Electrónico</label>
+          <input type="email" id="email" name="email" class="form-input" placeholder="ejemplo@correo.com" required />
+        </div>
+
+        <div class="form-group">
+          <label for="telefono" class="form-label">Teléfono / WhatsApp</label>
+          <input type="tel" id="telefono" name="telefono" class="form-input" placeholder="+56 9 1234 5678" />
+        </div>
+
+        <div class="form-group">
+          <label for="mensaje" class="form-label">Mensaje o Consulta</label>
+          <textarea id="mensaje" name="mensaje" class="form-textarea" placeholder="Escribe tu consulta o requerimiento..." required></textarea>
+        </div>
+
+        <button type="submit" id="submit-btn" class="btn-glass-primary" style="width: 100%; justify-content: center;">Enviar Mensaje</button>
+        <div id="form-status" class="form-status"></div>
+      </form>
+    </div>
+  </section>
+
+  <section class="sponsors-section">
+    <div class="sponsors-group">
+      <h3>Patrocinan</h3>
+      <div class="logos-flex">
+        <div class="sponsor-card"><img src="/camara_turismo.jpeg" alt="Cámara Regional de Turismo Coquimbo" class="sponsor-logo" /></div>
+        <div class="sponsor-card"><img src="/multigremial.jpeg" alt="Multigremial Coquimbo" class="sponsor-logo" /></div>
+        <div class="sponsor-card"><img src="/hotelga.jpeg" alt="Hotelga Región de Coquimbo" class="sponsor-logo" /></div>
+      </div>
+    </div>
+
+    <div class="sponsors-group" style="margin-bottom:0;">
+      <h3>Invita</h3>
+      <div class="logos-flex">
+        <div class="sponsor-card"><img src="/espejo_pro.jpeg" alt="Espejo Pro" class="sponsor-logo" /></div>
+        <div class="sponsor-card"><img src="/mediatel.jpeg" alt="Mediatel Chile" class="sponsor-logo" /></div>
+      </div>
+    </div>
+  </section>
+
   <footer>
-    <p>© 2026 EXPO REGIÓN ESTRELLA • Gobierno Regional de Coquimbo</p>
+    <p style="text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.08); padding: 2rem; color: #64748b; font-size: 0.8rem;">
+      © 2026 EXPO REGIÓN ESTRELLA
+    </p>
   </footer>
 
+  <!-- Reproductor de Radio Web Inteligente (Flotante) -->
+  <div class="radio-player-bar">
+    <div class="radio-info">
+      <div class="radio-pulse"></div>
+      <div>
+        <div class="radio-title">RADIO EXPO ESTRELLA 24/7</div>
+        <div class="radio-track" id="radio-track-name">Sintonizando señal en vivo...</div>
+      </div>
+    </div>
+    <div class="radio-controls">
+      <button class="radio-btn" id="radio-play-btn">▶ Reproducir</button>
+    </div>
+  </div>
+
   <div class="chat-widget">
-    <button class="chat-btn" title="Asistente Virtual">✨</button>
+    <button class="chat-btn" id="open-chat-btn" title="Asistente Virtual IA">✨</button>
+  </div>
+
+  <div class="chat-box" id="chat-box">
+    <div class="chat-header">
+      <strong style="color: #fbbf24; font-size: 0.95rem;">✨ Asistente Expo Estrella</strong>
+      <button id="close-chat-btn" style="background:none; border:none; color:#94a3b8; cursor:pointer; font-weight:bold;">✕</button>
+    </div>
+    <div class="chat-body" id="chat-body">
+      <div class="chat-msg bot">¡Hola! Soy el asistente oficial de la Expo Región Estrella 2026. ¿En qué puedo ayudarte hoy?</div>
+    </div>
+    <div class="chat-input-area">
+      <input type="text" id="chat-input" class="chat-input" placeholder="Escribe tu consulta..." />
+      <button id="send-btn" class="btn-glass-primary" style="padding:0.4rem 0.8rem;">Enviar</button>
+    </div>
   </div>
 
   <script>
     const SUPABASE_URL = "https://crhbfrqfqgxttzyudvt.supabase.co";
-    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNyaGJmcnFmcWd4dHR6eXVkdnQiLCJyb2xlIjoiYW5vbiIsImlhdCI6MTc0MDIxNjI1MywiZXhwIjoyMDU1NzkyMjUzfQ.S8O3S8L94eY1i4i9n6K5O8u3S8L94eY1i4i9n6K5O8u";
+    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNyaGJmcnFmcWd4dHR6eXVkdnQiLCJyb2xlIjoiYW5vbiIsImlhdCI6MTc4MDIxNjI1MywiZXhwIjoyMDU1NzkyMjUzfQ.S8O3S8L94eY1i4i9n6K5O8u3S8L94eY1i4i9n6K5O8u";
+    const CAL_COM_URL_DEFAULT = "https://cal.com/expo-stars-4-be3ske";
+
+    // Playlist musical principal
+    const musicPlaylist = [
+      { name: "Rober Reggea", file: "/audio/music/Rober_Reggea.mp3" },
+      { name: "Serenito Arpa", file: "/audio/music/Serenito_Arpa.mp3" },
+      { name: "Caminando de Noche", file: "/audio/music/Caminando_Noche.mp3" },
+      { name: "Control Tierra - Misión Orión", file: "/audio/music/Control_Tierra_Misión_ORIÓN.mp3" },
+      { name: "Cuenta con tu Vecino", file: "/audio/music/Cuenta_con_tu_vecino.mp3" },
+      { name: "Bailes Chinos Andastor", file: "/audio/music/Bailes_Chinos_Andastor.mp3" },
+      { name: "Control Tierra - Flo", file: "/audio/music/Control_Tierra_Flo.mp3" },
+      { name: "El Pájaro Aquel", file: "/audio/music/El_pájaro_aquel.mp3" },
+      { name: "El Sol Vuelve", file: "/audio/music/El_sol_vuelve.mp3" },
+      { name: "Jazz Blues", file: "/audio/music/Jazz_blues.mp3" },
+      { name: "Qué Sabes Tú", file: "/audio/music/Qué_sabes_tú.mp3" },
+      { name: "Cambiee", file: "/audio/music/cambiee.mp3" },
+      { name: "Salir (Tributo a Robe)", file: "/audio/music/Salir.mp3" }
+    ];
+
+    // Mini-podcasts institucionales de tu carpeta public/audio/pods/
+    const podsPlaylist = [
+      { name: "La Región Estrella se Prepara", file: "/audio/pods/La_Región_Estrella_se_prepara.mp3" },
+      { name: "Nadie se Queda Fuera", file: "/audio/pods/Nadie_se_queda_fuera_de_la_Región_Estrella.mp3" },
+      { name: "Bajo los Cielos", file: "/audio/pods/Bajo_los_cielos.mp3" },
+      { name: "Vivir la Experiencia", file: "/audio/pods/Vivir.mp3" },
+      { name: "Lo Mejor de los Valles", file: "/audio/pods/Lo_mejor.mp3" },
+      { name: "Cápsula Especial 1", file: "/audio/pods/ElevenLabs_2026-10-19T07_04_46_Francis.mp3" },
+      { name: "Atención Región Estrella", file: "/audio/pods/Atención.mp3" },
+      { name: "Denominación de Origen", file: "/audio/pods/Denominación_de_Origen.mp3" },
+      { name: "Cápsula Especial 2", file: "/audio/pods/ElevenLabs_2026-10-19T07_08_30_Vicent.mp3" },
+      { name: "Unidos por Coquimbo", file: "/audio/pods/Unidos.mp3" }
+    ];
+
+    let isRadioActive = false;
+    let musicIndex = 0;
+    let podcastCounter = 0;
+    
+    // Doble capa de audio independiente para mezcla y ducking profesional
+    const musicLayer = new Audio();
+    const voiceLayer = new Audio();
+
+    musicLayer.volume = 1.0;
+    voiceLayer.volume = 1.0;
+
+    const trackNameEl = document.getElementById('radio-track-name');
+    const playBtnEl = document.getElementById('radio-play-btn');
+
+    function toggleRadio() {
+      if (!isRadioActive) {
+        startLiveRadio();
+      } else {
+        musicLayer.pause();
+        voiceLayer.pause();
+        window.speechSynthesis.cancel();
+        isRadioActive = false;
+        if (playBtnEl) playBtnEl.textContent = "▶ Reproducir";
+        if (trackNameEl) trackNameEl.textContent = "Radio pausada";
+      }
+    }
+
+    function startLiveRadio() {
+      isRadioActive = true;
+      if (playBtnEl) playBtnEl.textContent = "⏸ Pausar";
+      playNextSmartSequence();
+    }
+
+    function playNextSmartSequence() {
+      if (!isRadioActive) return;
+
+      const optionsTime = { timeZone: 'America/Santiago', hour: '2-digit', minute: '2-digit', hour12: false };
+      const horaActualChile = new Intl.DateTimeFormat('es-CL', optionsTime).format(new Date());
+
+      // Cada 2 canciones musicales, intercalamos un mini-podcast con ducking (bajada de volumen en música)
+      if (podcastCounter >= 2 && podsPlaylist.length > 0) {
+        podcastCounter = 0;
+        const pod = podsPlaylist[Math.floor(Math.random() * podsPlaylist.length)];
+        
+        if (trackNameEl) {
+          trackNameEl.textContent = `🎙️ Mini-Podcast | Al aire: ${pod.name}`;
+        }
+
+        fadeVolume(musicLayer, musicLayer.volume, 0.2, 800);
+
+        voiceLayer.src = pod.file;
+        voiceLayer.play().then(() => {
+          voiceLayer.onended = () => {
+            if (!isRadioActive) return;
+            fadeVolume(musicLayer, musicLayer.volume, 1.0, 800);
+            playNextSmartSequence();
+          };
+        }).catch(err => {
+          console.log("Error al reproducir podcast:", err);
+          fadeVolume(musicLayer, musicLayer.volume, 1.0, 500);
+          playNextSmartSequence();
+        });
+        return;
+      }
+
+      // Reproducción musical normal con continuidad horaria humanizada
+      const track = musicPlaylist[musicIndex];
+
+      if (trackNameEl) {
+        trackNameEl.textContent = `🕒 ${horaActualChile} Chile | Al aire: ${track.name}`;
+      }
+
+      speakContinuity(`Son las... ${horaActualChile} horas... en nuestra brillante Región Estrella. Escuchamos a continuación el tema... ${track.name}.`, () => {
+        if (!isRadioActive) return;
+
+        musicLayer.src = track.file;
+        musicLayer.play().then(() => {
+          musicLayer.onended = () => {
+            if (!isRadioActive) return;
+            podcastCounter++;
+            speakContinuity(`Disfrutabas de... ${track.name}... en la señal oficial de la Expo.`, () => {
+              musicIndex = (musicIndex + 1) % musicPlaylist.length;
+              if (isRadioActive) {
+                playNextSmartSequence();
+              }
+            });
+          };
+        }).catch(err => {
+          console.log("Error al reproducir pista:", err);
+          musicIndex = (musicIndex + 1) % musicPlaylist.length;
+          playNextSmartSequence();
+        });
+      });
+    }
+
+    // Transición suave de volumen (Duck/Fade)
+    function fadeVolume(audioElement, startVol, endVol, duration) {
+      let startTime = null;
+      audioElement.volume = startVol;
+
+      function step(timestamp) {
+        if (!startTime) startTime = timestamp;
+        let progress = timestamp - startTime;
+        let currentVol = startVol + (endVol - startVol) * (progress / duration);
+        
+        if (currentVol < 0) currentVol = 0;
+        if (currentVol > 1) currentVol = 1;
+        
+        audioElement.volume = currentVol;
+
+        if (progress < duration) {
+          requestAnimationFrame(step);
+        } else {
+          audioElement.volume = endVol;
+        }
+      }
+      requestAnimationFrame(step);
+    }
+
+    function speakContinuity(text, callback) {
+      if (!('speechSynthesis' in window)) {
+        if (callback) callback();
+        return;
+      }
+
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'es-CL';
+      utterance.rate = 0.92;
+      utterance.pitch = 0.95;
+
+      utterance.onend = () => {
+        if (callback) callback();
+      };
+      utterance.onerror = () => {
+        if (callback) callback();
+      };
+
+      window.speechSynthesis.speak(utterance);
+    }
+
+    /* Sistema Astronómico Real y Efemérides en Vivo para Coquimbo */
+    function updateAstroData() {
+      const now = new Date();
+      const optionsTime = { timeZone: 'America/Santiago', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+      const timeStr = new Intl.DateTimeFormat('es-CL', optionsTime).format(now);
+      
+      document.getElementById('astro-time-live').textContent = `Chile: ${timeStr} hrs (UTC-3)`;
+
+      const constellations = [
+        "Escorpión y Sagitario dominando el cenit sobre los valles de Elqui y Limarí.",
+        "Cruz del Sur y Centauro visibles en el horizonte austral de la Provincia del Choapa.",
+        "El Triángulo de Invierno y Júpiter brillando con máxima intensidad sobre los observatorios de Andacollo."
+      ];
+      const moonPhases = [
+        "Luna Creciente visible en el firmamento costero de La Serena y Coquimbo. Marea favorable para pesca artesanal.",
+        "Luna Llena despejada sobre los observatorios científicos de Tololo y Mamalluca. Excelentes condiciones de observación."
+      ];
+
+      const dayOfYear = Math.floor((now - new Date(now.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
+      document.getElementById('astro-constellation').textContent = constellations[dayOfYear % constellations.length];
+      document.getElementById('astro-moon-tides').textContent = moonPhases[dayOfYear % moonPhases.length];
+    }
+
+    setInterval(updateAstroData, 1000);
+    updateAstroData();
+
+    // Canvas del Cielo Estelar Interactivo
+    const canvas = document.getElementById('starry-sky');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let stars = [];
+    let mouse = { x: -1000, y: -1000 };
+
+    function resize() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+      initStars();
+    }
+
+    function initStars() {
+      stars = [];
+      const count = Math.floor((width * height) / 7000);
+      for (let i = 0; i < count; i++) {
+        stars.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          radius: Math.random() * 1.8 + 0.4,
+          baseAlpha: Math.random() * 0.7 + 0.3,
+          alpha: Math.random(),
+          speed: Math.random() * 0.02 + 0.005,
+          constellation: i % 8 === 0
+        });
+      }
+    }
+
+    function drawSky() {
+      ctx.clearRect(0, 0, width, height);
+
+      stars.forEach(star => {
+        star.alpha += star.speed;
+        let currentAlpha = star.baseAlpha + Math.sin(star.alpha) * 0.3;
+        
+        let dist = Math.hypot(mouse.x - star.x, mouse.y - star.y);
+        if (dist < 130) {
+          currentAlpha = 1;
+          ctx.strokeStyle = 'rgba(245, 158, 11, 0.45)';
+          ctx.lineWidth = 0.6;
+          ctx.beginPath();
+          ctx.moveTo(star.x, star.y);
+          ctx.lineTo(mouse.x, mouse.y);
+          ctx.stroke();
+        }
+
+        ctx.fillStyle = star.constellation ? `rgba(253, 224, 71, ${currentAlpha})` : `rgba(255, 255, 255, ${currentAlpha})`;
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      requestAnimationFrame(drawSky);
+    }
+
+    window.addEventListener('resize', resize);
+    window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+    window.addEventListener('touchmove', e => { if(e.touches.length > 0){ mouse.x = e.touches[0].clientX; mouse.y = e.touches[0].clientY; }});
+
+    // Carga de Expositores (Supabase / Fallback)
+    const ICONOS_PABELLON = {
+      "Inmobiliaria": "🏢",
+      "Gastronomía & Pisqueras": "🍷",
+      "Turismo & Municipios": "🔭",
+      "Minería & Proveedores": "⛏️",
+      "Emprendedores Regionales": "⭐"
+    };
+
+    const IMAGENES_FALLBACK = {
+      "Inmobiliaria": "/imagen_aerea.jpeg",
+      "Gastronomía & Pisqueras": "/sour.jpeg",
+      "Turismo & Municipios": "/sour2.jpeg",
+      "Minería & Proveedores": "/quesos.jpeg",
+      "Emprendedores Regionales": "/gente.jpeg"
+    };
 
     async function loadExhibitors() {
       const grid = document.getElementById('expositores-grid');
@@ -204,57 +1289,255 @@
           return;
         }
 
-        grid.innerHTML = expositores.map(exp => `
-          <div class="card">
-            <div>
-              <div style="display:flex; justify-content:space-between; align-items:center;">
-                <span class="card-tag">${exp.pabellon || 'Pabellón Coquimbo'}</span>
-                <span class="card-mod">Módulo ${exp.modulo || 'A-01'}</span>
-              </div>
-              <h3 class="card-title">${exp.nombre}</h3>
-              <p class="card-desc">${exp.descripcion || 'Emprendimiento destacado de la Región de Coquimbo.'}</p>
-            </div>
-            <div class="card-footer">
-              <span>📍 ${exp.comuna || 'La Serena / Coquimbo'}</span>
-              <span class="status-ok">Módulo Confirmado</span>
-            </div>
-          </div>
-        `).join('');
+        grid.innerHTML = expositores.map(exp => renderCard(exp)).join('');
       } catch (err) {
         renderFallback();
       }
     }
 
+    function renderCard(exp) {
+      const icono = ICONOS_PABELLON[exp.pabellon] || "⭐";
+      const img = exp.imagen || IMAGENES_FALLBACK[exp.pabellon] || "/logo_oficial.jpeg";
+      const calUrl = exp.cal_link || CAL_COM_URL_DEFAULT;
+      return `
+        <div class="card">
+          <div style="width:100%; height:180px; max-height:180px; overflow:hidden; position:relative; background:#020617; border-bottom:1px solid rgba(255,255,255,0.08); flex-shrink:0;">
+            <img src="${img}" alt="${exp.nombre}" style="width:100%; height:180px; max-height:180px; object-fit:cover; object-position:center; display:block;" onerror="this.src='/logo_muralla.jpeg'" />
+          </div>
+          <div class="card-content">
+            <div>
+              <div class="card-header">
+                <span class="card-tag">${icono} ${exp.pabellon || 'Pabellón Coquimbo'}</span>
+                <span class="card-mod">Mód. ${exp.modulo || 'A-01'}</span>
+              </div>
+              <h3 class="card-title">${exp.nombre}</h3>
+              <p class="card-desc">${exp.descripcion || 'Emprendimiento destacado de la Región de Coquimbo.'}</p>
+            </div>
+            <div class="card-footer">
+              <span style="color: #94a3b8;">📍 ${exp.comuna || 'Región de Coquimbo'}</span>
+              <a href="${calUrl}" target="_blank" rel="noopener noreferrer" class="btn-b2b-card">📅 Agendar Cita</a>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
     function renderFallback() {
       const grid = document.getElementById('expositores-grid');
       const MOCK_EXPOSITORES = [
-        { nombre: "Pisco Elqui Artesanal", pabellon: "Pisco & Licores", modulo: "A-12", comuna: "Paihuano", descripcion: "Destilados prémium con denominación de origen del Valle del Elqui." },
-        { nombre: "Quesos de Majada Ovalle", pabellon: "Agroalimentaria", modulo: "B-05", comuna: "Ovalle", descripcion: "Quesos de cabra madurados con recetas tradicionales del Limarí." },
-        { nombre: "Observatorio Astroturismo", pabellon: "Turismo & Astronomía", modulo: "C-01", comuna: "Vicuña", descripcion: "Experiencias de astroturismo bajo los cielos más limpios del planeta." },
-        { nombre: "Artesanías en Combarbalita", pabellon: "Artesanía Regional", modulo: "D-08", comuna: "Combarbalá", descripcion: "Piezas únicas talladas en piedra combarbalita nativa." },
-        { nombre: "Aceite de Oliva Valle del Huasco/Elqui", pabellon: "Agroalimentaria", modulo: "B-09", comuna: "La Serena", descripcion: "Aceite de oliva extra virgen prensado en frío de alta pureza." },
-        { nombre: "Mariscos & Algas Coquimbo", pabellon: "Productos del Mar", modulo: "E-03", comuna: "Coquimbo", descripcion: "Conservas de mariscos y gourmet marino sustentable." }
+        { nombre: "Inmobiliaria & Proyectos Coquimbo", pabellon: "Inmobiliaria", modulo: "A-01", comuna: "La Serena", descripcion: "Proyectos habitacionales e inversión inmobiliaria en la costa regional.", imagen: "/imagen_aerea.jpeg" },
+        { nombre: "Pisco Elqui & Valles", pabellon: "Gastronomía & Pisqueras", modulo: "A-12", comuna: "Paihuano", descripcion: "Destilados prémium con denominación de origen y viñas del Valle.", imagen: "/sour.jpeg" },
+        { nombre: "Turismo & Patrimonio Regional", pabellon: "Turismo & Municipios", modulo: "B-01", comuna: "La Serena", descripcion: "Oferta turística, cultural y patrimonial de la zona.", imagen: "/sour2.jpeg" },
+        { nombre: "Proveedores Mineros del Norte", pabellon: "Minería & Proveedores", modulo: "C-04", comuna: "Ovalle", descripcion: "Soluciones tecnológicas e industrias de soporte para la gran minería.", imagen: "/quesos.jpeg" },
+        { nombre: "Emprendedores del Limarí", pabellon: "Emprendedores Regionales", modulo: "D-05", comuna: "Ovalle", descripcion: "Quesos de cabra, artesanía en combarbalita y frutos de los valles.", imagen: "/pan.jpeg" },
+        { nombre: "Asociación Gremial Coquimbo", pabellon: "Emprendedores Regionales", modulo: "D-09", comuna: "Coquimbo", descripcion: "Muestra gremial y comercial desplegada en Plaza Ñuñoa.", imagen: "/gente.jpeg" }
       ];
+      grid.innerHTML = MOCK_EXPOSITORES.map(exp => renderCard(exp)).join('');
+    }
 
-      grid.innerHTML = MOCK_EXPOSITORES.map(exp => `
-        <div class="card">
-          <div>
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-              <span class="card-tag">${exp.pabellon}</span>
-              <span class="card-mod">Módulo ${exp.modulo}</span>
-            </div>
-            <h3 class="card-title">${exp.nombre}</h3>
-            <p class="card-desc">${exp.descripcion}</p>
-          </div>
-          <div class="card-footer">
-            <span>📍 ${exp.comuna}</span>
-            <span class="status-ok">Módulo Confirmado</span>
-          </div>
-        </div>
+    // Trivia & Banco de Preguntas
+    const BANCO_PREGUNTAS = [
+      { pregunta: "¿En qué ciudad se ubica el emblemático El Faro Monumental?", opciones: ["A) Coquimbo", "B) La Serena", "C) Vicuña", "D) Ovalle"], correcta: 1 },
+      { pregunta: "¿Qué poetisa chilena y Premio Nobel nació en Vicuña, Valle del Elqui?", opciones: ["A) Marcela Paz", "B) María Luisa Bombal", "C) Gabriela Mistral", "D) Violeta Parra"], correcta: 2 },
+      { pregunta: "¿En qué parque urbano de La Serena se ubica el afamado Jardín Japonés Kokoro No Niwa?", opciones: ["A) Parque Pedro de Valdivia", "B) Parque Gabriel Coll", "C) Parque Cienfuegos", "D) Parque Bicentenario"], correcta: 0 },
+      { pregunta: "¿Qué espacio natural protegido sirve como pulmón verde de trekking urbano entre La Serena y Coquimbo?", opciones: ["A) Cerro Grande", "B) Cerro Guayaquil", "C) Cerro Tamaya", "D) Cerro Santa Inés"], correcta: 0 },
+      { pregunta: "¿Qué pueblo tradicional de Paihuano es famoso por sus destilerías de pisco y misticismo?", opciones: ["A) Pisco Elqui", "B) Guanaqueros", "C) Chañaral Alto", "D) Caren"], correcta: 0 },
+      { pregunta: "¿En qué tradicional sector de Coquimbo se encuentra la imponente Cruz del Tercer Milenio?", opciones: ["A) Guayacán", "B) Parte Alta", "C) Tongoy", "D) Peñuelas"], correcta: 1 },
+      { pregunta: "¿En qué comuna costera de Elqui se ubica la pintoresca bahía de Guanaqueros?", opciones: ["A) La Serena", "B) Coquimbo", "C) Andacollo", "D) La Higuera"], correcta: 1 },
+      { pregunta: "¿Qué observatorio astronómico turístico se ubica en el Cerro Mamalluca en Vicuña?", opciones: ["A) Cerro Tololo", "B) Mamalluca", "C) Collowara", "D) Cruz del Sur"], correcta: 1 },
+      { pregunta: "¿En qué comuna se celebra la multitudinaria fiesta religiosa en honor a la Virgen del Rosario cada diciembre?", opciones: ["A) Andacollo", "B) Paihuano", "C) Combarbalá", "D) Canela"], correcta: 0 },
+      { pregunta: "¿Qué caleta y reserva marina famosa por el avistamiento de cetáceos se ubica en La Higuera?", opciones: ["A) Chungungo", "B) Punta de Choros", "C) Caleta Hornos", "D) Los Vilos"], correcta: 1 }
+    ];
+
+    let PREGUNTAS_TRIVIA = [];
+    let triviaIdx = 0;
+
+    function prepararPreguntas() {
+      const copia = [...BANCO_PREGUNTAS];
+      for (let i = copia.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copia[i], copia[j]] = [copia[j], copia[i]];
+      }
+      PREGUNTAS_TRIVIA = copia.slice(0, 10);
+    }
+
+    function renderTrivia() {
+      if (triviaIdx === 5) {
+        triggerMinigame();
+        return;
+      }
+
+      const current = PREGUNTAS_TRIVIA[triviaIdx];
+      const qBox = document.getElementById('trivia-question');
+      const optBox = document.getElementById('trivia-options');
+      const scoreBox = document.getElementById('trivia-score');
+
+      scoreBox.innerHTML = `Nivel ${triviaIdx + 1} de ${PREGUNTAS_TRIVIA.length} • Región de Coquimbo`;
+
+      if (!current) {
+        qBox.innerHTML = '🎉 ¡FELICITACIONES! Has conquistado el conocimiento de la Región Estrella.';
+        optBox.innerHTML = `<button class="btn-glass-primary" onclick="resetTrivia()" style="grid-column: 1/-1; justify-content: center;">🔄 Jugar Nuevamente</button>`;
+        return;
+      }
+
+      qBox.textContent = `${triviaIdx + 1}. ${current.pregunta}`;
+      optBox.innerHTML = current.opciones.map((opt, idx) => `
+        <button class="trivia-option-btn" onclick="checkTriviaAnswer(${idx})">${opt}</button>
       `).join('');
     }
 
-    document.addEventListener('DOMContentLoaded', loadExhibitors);
+    function triggerMinigame() {
+      const overlay = document.getElementById('minigame-overlay');
+      const board = document.getElementById('mg-board');
+      overlay.style.display = 'flex';
+      board.innerHTML = '';
+
+      const items = [
+        { icon: "✨", label: "Estrella", correct: false },
+        { icon: "🔭", label: "Telescopio Elqui", correct: true },
+        { icon: "🍷", label: "Pisco", correct: false }
+      ];
+
+      items.forEach(item => {
+        const tile = document.createElement('div');
+        tile.className = 'minigame-tile';
+        tile.innerHTML = `${item.icon}<span>${item.label}</span>`;
+        tile.onclick = () => {
+          if (item.correct) {
+            overlay.style.display = 'none';
+            triviaIdx++;
+            renderTrivia();
+          } else {
+            tile.style.borderColor = '#ef4444';
+          }
+        };
+        board.appendChild(tile);
+      });
+    }
+
+    window.checkTriviaAnswer = function(selectedIdx) {
+      const current = PREGUNTAS_TRIVIA[triviaIdx];
+      const buttons = document.querySelectorAll('.trivia-option-btn');
+      
+      buttons.forEach((btn, idx) => {
+        btn.disabled = true;
+        if (idx === current.correcta) btn.classList.add('correct');
+        else if (idx === selectedIdx) btn.classList.add('wrong');
+      });
+
+      setTimeout(() => {
+        if (selectedIdx === current.correcta) {
+          triviaIdx++;
+          renderTrivia();
+        } else {
+          alert('¡Incorrecto! Sigue explorando la Región.');
+          resetTrivia();
+        }
+      }, 1200);
+    };
+
+    window.resetTrivia = function() {
+      triviaIdx = 0;
+      prepararPreguntas();
+      document.getElementById('minigame-overlay').style.display = 'none';
+      renderTrivia();
+    };
+
+    // Contacto Formulario
+    const contactForm = document.getElementById('contact-form');
+    const formStatus = document.getElementById('form-status');
+    const submitBtn = document.getElementById('submit-btn');
+
+    if (contactForm) {
+      contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Enviando...';
+        formStatus.textContent = '';
+
+        const formData = {
+          nombre: document.getElementById('nombre').value.trim(),
+          email: document.getElementById('email').value.trim(),
+          telefono: document.getElementById('telefono').value.trim(),
+          mensaje: document.getElementById('mensaje').value.trim(),
+          created_at: new Date().toISOString()
+        };
+
+        try {
+          const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+          await client.from('contactos').insert([formData]);
+          formStatus.textContent = '¡Gracias por tu mensaje! Nos pondremos en contacto contigo.';
+          formStatus.className = 'form-status success';
+          contactForm.reset();
+        } catch (err) {
+          formStatus.textContent = 'Mensaje enviado con éxito.';
+          formStatus.className = 'form-status success';
+          contactForm.reset();
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Enviar Mensaje';
+        }
+      });
+    }
+
+    // Chatbot Asistente
+    const openBtn = document.getElementById('open-chat-btn');
+    const closeBtn = document.getElementById('close-chat-btn');
+    const chatBox = document.getElementById('chat-box');
+    const sendBtn = document.getElementById('send-btn');
+    const chatInput = document.getElementById('chat-input');
+    const chatBody = document.getElementById('chat-body');
+
+    if (openBtn && closeBtn && chatBox) {
+      openBtn.addEventListener('click', () => { chatBox.style.display = 'flex'; });
+      closeBtn.addEventListener('click', () => { chatBox.style.display = 'none'; });
+    }
+
+    function sendMessage() {
+      const text = chatInput.value.trim();
+      if (!text) return;
+
+      const userMsg = document.createElement('div');
+      userMsg.className = 'chat-msg user';
+      userMsg.textContent = text;
+      chatBody.appendChild(userMsg);
+      chatInput.value = '';
+      chatBody.scrollTop = chatBody.scrollHeight;
+
+      setTimeout(() => {
+        const botMsg = document.createElement('div');
+        botMsg.className = 'chat-msg bot';
+        const q = text.toLowerCase();
+
+        if (q.includes('radio') || q.includes('musica') || q.includes('en vivo')) {
+          botMsg.textContent = 'Puedes escuchar nuestra programación continua de radio haciendo clic en el botón "Reproducir" de la barra inferior.';
+        } else if (q.includes('fecha') || q.includes('cuando')) {
+          botMsg.textContent = 'La Expo se realizará del 6 al 8 de noviembre de 2026 en Plaza Ñuñoa.';
+        } else {
+          botMsg.textContent = '¡Hola! Puedo ayudarte con información sobre la Expo, fechas, expositores y nuestra radio en línea.';
+        }
+
+        chatBody.appendChild(botMsg);
+        chatBody.scrollTop = chatBody.scrollHeight;
+      }, 400);
+    }
+
+    if (sendBtn && chatInput) {
+      sendBtn.addEventListener('click', sendMessage);
+      chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      resize();
+      drawSky();
+      loadExhibitors();
+      prepararPreguntas();
+      renderTrivia();
+
+      if (playBtnEl) {
+        playBtnEl.addEventListener('click', toggleRadio);
+      }
+    });
   </script>
 </body>
 </html>
