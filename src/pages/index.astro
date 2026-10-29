@@ -195,7 +195,7 @@
     }
     .featured-img-container {
       width: 100%;
-      height: 230px;
+      height: 250px;
       position: relative;
       overflow: hidden;
       background: #020617;
@@ -244,24 +244,6 @@
       align-items: center;
       border-top: 1px solid rgba(255, 255, 255, 0.1);
       padding-top: 1rem;
-    }
-    .btn-pdf-action {
-      background: #f59e0b;
-      color: #020617;
-      font-weight: 800;
-      padding: 0.65rem 1.25rem;
-      border-radius: 0.6rem;
-      text-decoration: none;
-      font-size: 0.88rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
-      transition: all 0.2s ease;
-    }
-    .btn-pdf-action:hover {
-      background: #fbbf24;
-      transform: translateY(-2px);
     }
     .btn-cal-action {
       background: rgba(56, 189, 248, 0.15);
@@ -482,7 +464,7 @@
       <!-- TARJETA 1: NATIVA JOYAS DEL ELQUI -->
       <div class="featured-card">
         <div class="featured-img-container">
-          <img src="/TragosLocales2.jpeg" alt="Nativa Joyas del Elqui" class="featured-img" onerror="this.src='/imagen_aerea.jpeg'" />
+          <img src="/nativa_joyas.jpg" alt="Nativa Joyas del Elqui" class="featured-img" onerror="this.src='/imagen_aerea.jpeg'" />
         </div>
         <div class="featured-body">
           <div>
@@ -493,7 +475,6 @@
             </p>
           </div>
           <div class="featured-actions">
-            <a href="/Nativajoyaselqui.pdf" target="_blank" rel="noopener noreferrer" class="btn-pdf-action">📄 Ver Ficha PDF</a>
             <a href="https://cal.com/expo-stars-4-be3ske" target="_blank" rel="noopener noreferrer" class="btn-cal-action">📅 Agendar Cita</a>
           </div>
         </div>
@@ -513,7 +494,6 @@
             </p>
           </div>
           <div class="featured-actions">
-            <a href="/clase%20de%20pisco.pdf" target="_blank" rel="noopener noreferrer" class="btn-pdf-action">📄 Ver Programa PDF</a>
             <a href="https://cal.com/expo-stars-4-be3ske" target="_blank" rel="noopener noreferrer" class="btn-cal-action">📅 Agendar Cita</a>
           </div>
         </div>
@@ -640,7 +620,6 @@
         </div>
         <div style="display: flex; gap: 0.8rem; flex-wrap: wrap; align-items: center; justify-content: space-between;">
           <span class="news-tag" style="background: rgba(245, 158, 11, 0.25); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4);">Comunicado 6 • Oficial</span>
-          <a href="/clase%20de%20pisco.pdf" target="_blank" rel="noopener noreferrer" class="btn-pdf-action" style="font-size:0.82rem;">📄 Ver Clase de Pisco (PDF)</a>
         </div>
       </div>
     </div>
@@ -1346,10 +1325,10 @@
           botMsg.textContent = 'Puedes escuchar nuestra programación continua de radio haciendo clic en el botón "Reproducir" de la barra inferior. ¡Contamos con la locución de Francis y Vicente!';
         } 
         else if (q.includes('pisco') || q.includes('clase') || q.includes('sereno')) {
-          botMsg.textContent = 'El domingo a las 18:00 hrs se realizará la Masterclass de Pisco dictada por Sebastián Martínez de Sereno Bar. Haz clic en el botón "Ver Programa PDF" para abrirlo directamente.';
+          botMsg.textContent = 'El domingo a las 18:00 hrs se realizará la Masterclass de Pisco dictada por Sebastián Martínez de Sereno Bar.';
         }
         else if (q.includes('nativa') || q.includes('joyas') || q.includes('orfebreria') || q.includes('orfebrería')) {
-          botMsg.textContent = 'Nativa Joyas del Elqui exhibe su orfebrería de autor en la sección destacada del sitio con la opción de abrir su ficha directamente en PDF.';
+          botMsg.textContent = 'Nativa Joyas del Elqui exhibe su orfebrería de autor en la sección destacada del sitio.';
         }
         else if (q.includes('fecha') || q.includes('cuando') || q.includes('cuándo') || q.includes('donde') || q.includes('dónde') || q.includes('lugar')) {
           botMsg.textContent = 'La Expo Región Estrella se realizará del 6 al 8 de noviembre de 2026 en Plaza Ñuñoa, Santiago. ¡La entrada es liberada!';
