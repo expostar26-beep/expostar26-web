@@ -44,7 +44,7 @@
       pointer-events: none;
     }
 
-    header, .showcase-section, main, .trivia-section, .news-section, .contact-section, .sponsors-section, footer, .radio-player-bar, .chat-widget {
+    header, .featured-section, .showcase-section, main, .trivia-section, .news-section, .contact-section, .sponsors-section, footer, .radio-player-bar, .chat-widget {
       position: relative;
       z-index: 2;
     }
@@ -173,6 +173,115 @@
     .astro-card h4 { font-size: 0.82rem; color: #38bdf8; margin-bottom: 0.4rem; text-transform: uppercase; }
     .astro-card p { font-size: 0.88rem; color: #e2e8f0; line-height: 1.4; }
 
+    /* SECCIÓN DESTACADA EXPOSITORES (JOYAS Y PISCO) */
+    .featured-section {
+      max-width: 76rem;
+      margin: 3rem auto 1rem auto;
+      padding: 0 1.5rem;
+    }
+    .featured-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 2rem;
+    }
+    .featured-card {
+      background: linear-gradient(145deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95));
+      border: 2px solid rgba(245, 158, 11, 0.5);
+      border-radius: 1.5rem;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+      display: flex;
+      flex-direction: column;
+    }
+    .featured-img-container {
+      width: 100%;
+      height: 220px;
+      position: relative;
+      overflow: hidden;
+      background: #020617;
+    }
+    .featured-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+    .featured-body {
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex: 1;
+    }
+    .featured-tag {
+      align-self: flex-start;
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: #fbbf24;
+      background: rgba(245, 158, 11, 0.2);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      margin-bottom: 0.75rem;
+      text-transform: uppercase;
+    }
+    .featured-title {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: #f8fafc;
+      margin-bottom: 0.5rem;
+    }
+    .featured-desc {
+      font-size: 0.92rem;
+      color: #cbd5e1;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+    .featured-actions {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      align-items: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 1rem;
+    }
+    .btn-pdf-action {
+      background: #f59e0b;
+      color: #020617;
+      font-weight: 800;
+      padding: 0.65rem 1.25rem;
+      border-radius: 0.6rem;
+      text-decoration: none;
+      font-size: 0.88rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+      transition: all 0.2s ease;
+    }
+    .btn-pdf-action:hover {
+      background: #fbbf24;
+      transform: translateY(-2px);
+    }
+    .btn-cal-action {
+      background: rgba(56, 189, 248, 0.15);
+      color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      font-weight: 700;
+      padding: 0.65rem 1.25rem;
+      border-radius: 0.6rem;
+      text-decoration: none;
+      font-size: 0.88rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s ease;
+    }
+    .btn-cal-action:hover {
+      background: rgba(56, 189, 248, 0.3);
+      color: #ffffff;
+    }
+
     .showcase-section { max-width: 76rem; margin: 2.5rem auto 0 auto; padding: 0 1.5rem; }
     .bento-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 1.75rem; align-items: stretch; }
     @media (max-width: 900px) { .bento-grid { grid-template-columns: 1fr; } }
@@ -216,11 +325,8 @@
     .card-mod { font-size: 0.78rem; font-family: monospace; color: #38bdf8; font-weight: 700; background: rgba(56, 189, 248, 0.12); padding: 0.2rem 0.6rem; border-radius: 0.4rem; }
     .card-title { font-size: 1.25rem; font-weight: 800; color: #f8fafc; margin-bottom: 0.5rem; }
     .card-desc { font-size: 0.88rem; color: #94a3b8; line-height: 1.55; margin-bottom: 1.5rem; }
-    .card-footer { border-top: 1px solid rgba(255, 255, 255, 0.08); padding-top: 1rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.82rem; flex-wrap: wrap; gap: 0.5rem; }
-    
-    .btn-b2b-card { background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4); padding: 0.45rem 0.85rem; border-radius: 0.55rem; text-decoration: none; font-weight: 700; font-size: 0.8rem; display: inline-flex; align-items: center; gap: 0.3rem; }
-    .btn-pdf-card { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4); padding: 0.45rem 0.85rem; border-radius: 0.55rem; text-decoration: none; font-weight: 700; font-size: 0.8rem; display: inline-flex; align-items: center; gap: 0.3rem; }
-    .btn-pdf-card:hover { background: rgba(245, 158, 11, 0.3); color: #ffffff; }
+    .card-footer { border-top: 1px solid rgba(255, 255, 255, 0.08); padding-top: 1rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.82rem; }
+    .btn-b2b-card { background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4); padding: 0.45rem 0.85rem; border-radius: 0.55rem; text-decoration: none; font-weight: 700; font-size: 0.82rem; }
 
     .trivia-section { background: radial-gradient(circle at center, rgba(30, 41, 59, 0.8) 0%, rgba(2, 6, 23, 0.95) 100%); border-top: 1px solid rgba(255, 255, 255, 0.08); border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding: 4rem 1.5rem; }
     .trivia-container { max-width: 52rem; margin: 0 auto; background: rgba(15, 23, 42, 0.7); border: 2px solid rgba(245, 158, 11, 0.4); border-radius: 1.5rem; padding: 2.5rem; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8); text-align: center; position: relative; }
@@ -338,8 +444,8 @@
       <p class="hero-desc">La Región de Coquimbo se levanta y despliega lo mejor de sus valles, costas y emprendimientos.</p>
       
       <div class="btn-group">
-        <a href="#catalogo" class="btn-glass-primary">✨ Explorar Pabellones</a>
-        <a href="https://cal.com/expo-stars-4-be3ske" target="_blank" rel="noopener noreferrer" class="btn-glass-secondary">📅 Agendar Cita</a>
+        <a href="#destacados" class="btn-glass-primary">⭐ Expositores Destacados</a>
+        <a href="#catalogo" class="btn-glass-secondary">✨ Ver Todos los Pabellones</a>
       </div>
 
       <div class="astro-central-screen">
@@ -364,6 +470,56 @@
       </div>
     </div>
   </header>
+
+  <!-- SECCIÓN EXPOSITORES DESTACADOS (TARJETAS INDEPENDIENTES) -->
+  <section class="featured-section" id="destacados">
+    <div class="section-title">
+      <h2>⭐ Muestras y Experiencias Destacadas</h2>
+      <p>Descubre a nuestros expositores insignias de la artesanía, cultura y tradición pisquera del Norte Chico.</p>
+    </div>
+
+    <div class="featured-grid">
+      <!-- TARJETA 1: NATIVA JOYAS DEL ELQUI -->
+      <div class="featured-card">
+        <div class="featured-img-container">
+          <img src="/pan.jpeg" alt="Nativa Joyas del Elqui" class="featured-img" onerror="this.src='/imagen_aerea.jpeg'" />
+        </div>
+        <div class="featured-body">
+          <div>
+            <span class="featured-tag">💍 Orfebrería & Autor • Local 6D Horcón</span>
+            <h3 class="featured-title">Nativa - Joyas del Elqui</h3>
+            <p class="featured-desc">
+              Joyería de autor nacida en el Alto Valle de Elqui. Creaciones exclusivas que combinan plata, maderas nobles y piedras locales inspiradas en la flora, fauna y los cielos estelares.
+            </p>
+          </div>
+          <div class="featured-actions">
+            <a href="/Nativajoyaselqui.pdf" target="_blank" class="btn-pdf-action">📄 Descargar Ficha PDF</a>
+            <a href="https://cal.com/expo-stars-4-be3ske" target="_blank" rel="noopener noreferrer" class="btn-cal-action">📅 Agendar Cita</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- TARJETA 2: SERENO BAR Y CLASE DE PISCO -->
+      <div class="featured-card">
+        <div class="featured-img-container">
+          <img src="/tragosLocales.jpeg" alt="Sereno Bar y Masterclass de Pisco" class="featured-img" onerror="this.src='/sour.jpeg'" />
+        </div>
+        <div class="featured-body">
+          <div>
+            <span class="featured-tag">🍷 Gastronomía & Pisqueras • Escenario Central</span>
+            <h3 class="featured-title">Sereno Bar & Masterclass de Pisco</h3>
+            <p class="featured-desc">
+              Clase magistral sobre la historia, Denominación de Origen y la coctelería de autor del Pisco regional, dictada por el reconocido especialista Sebastián Martínez.
+            </p>
+          </div>
+          <div class="featured-actions">
+            <a href="/clase%20de%20pisco.pdf" target="_blank" class="btn-pdf-action">📄 Descargar Programa PDF</a>
+            <a href="https://cal.com/expo-stars-4-be3ske" target="_blank" rel="noopener noreferrer" class="btn-cal-action">📅 Agendar Cita</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <section class="showcase-section">
     <div class="bento-grid">
@@ -395,8 +551,8 @@
 
   <main id="catalogo">
     <div class="section-title">
-      <h2>Catálogo de Expositores & Muestras Regionales</h2>
-      <p>Conoce los módulos participantes y experiencias imperdibles de la Región de Coquimbo en Plaza Ñuñoa.</p>
+      <h2>Catálogo General de Expositores</h2>
+      <p>Explora todos los pabellones y módulos participantes de la Región de Coquimbo en Plaza Ñuñoa.</p>
     </div>
 
     <div id="expositores-grid" class="grid"></div>
@@ -484,7 +640,7 @@
         </div>
         <div style="display: flex; gap: 0.8rem; flex-wrap: wrap; align-items: center; justify-content: space-between;">
           <span class="news-tag" style="background: rgba(245, 158, 11, 0.25); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4);">Comunicado 6 • Oficial</span>
-          <a href="/clase%20de%20pisco.pdf" target="_blank" class="btn-pdf-card">📄 Descargar Clase Pisco (PDF)</a>
+          <a href="/clase%20de%20pisco.pdf" target="_blank" class="btn-pdf-action" style="font-size:0.8rem;">📄 Descargar Clase Pisco (PDF)</a>
         </div>
       </div>
     </div>
@@ -795,12 +951,6 @@
     };
 
     function getAdHocImage(exp, index) {
-      if (exp.nombre.includes("Nativa")) {
-        return "/pan.jpeg";
-      }
-      if (exp.nombre.includes("Sereno")) {
-        return "/tragosLocales.jpeg";
-      }
       if (exp.pabellon === "Inmobiliaria" || exp.nombre.includes("Inmobiliaria")) {
         return "/av mar.jpg";
       }
@@ -841,12 +991,17 @@
         const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         const { data: expositores, error } = await client.from('expositores').select('*');
 
-        if (error || !expositores || expositores.length === 0) {
+        // Filtrar expositores para que Nativa y Sereno Bar no se dupliquen en el catálogo general
+        const expositoresFiltrados = expositores ? expositores.filter(exp => 
+          !exp.nombre.includes("Nativa") && !exp.nombre.includes("Sereno")
+        ) : [];
+
+        if (error || !expositoresFiltrados || expositoresFiltrados.length === 0) {
           renderFallback();
           return;
         }
 
-        grid.innerHTML = expositores.map((exp, index) => {
+        grid.innerHTML = expositoresFiltrados.map((exp, index) => {
           const imgAdHoc = getAdHocImage(exp, index);
           return renderCardWithImage(exp, imgAdHoc);
         }).join('');
@@ -858,9 +1013,7 @@
     function renderCardWithImage(exp, customImg) {
       const icono = ICONOS_PABELLON[exp.pabellon] || "⭐";
       const calUrl = exp.cal_link || CAL_COM_URL_DEFAULT;
-      
       const encodedImg = encodeURI(customImg);
-      const pdfBtn = exp.pdf_link ? `<a href="${encodeURI(exp.pdf_link)}" target="_blank" class="btn-pdf-card">📄 Ver Ficha PDF</a>` : '';
 
       return `
         <div class="card">
@@ -878,10 +1031,7 @@
             </div>
             <div class="card-footer">
               <span style="color: #94a3b8; font-size: 0.8rem;">📍 ${exp.comuna || 'Región de Coquimbo'}</span>
-              <div style="display:flex; gap:0.4rem; align-items:center; flex-wrap:wrap;">
-                ${pdfBtn}
-                <a href="${calUrl}" target="_blank" rel="noopener noreferrer" class="btn-b2b-card">📅 Agendar Cita</a>
-              </div>
+              <a href="${calUrl}" target="_blank" rel="noopener noreferrer" class="btn-b2b-card">📅 Agendar Cita</a>
             </div>
           </div>
         </div>
@@ -892,22 +1042,6 @@
       const grid = document.getElementById('expositores-grid');
       if (!grid) return;
       const MOCK_EXPOSITORES = [
-        { 
-          nombre: "Nativa - Joyas del Elqui", 
-          pabellon: "Orfebrería & Autor", 
-          modulo: "Pueblo Horcón 6D", 
-          comuna: "Paihuano, Alto Elqui", 
-          descripcion: "Joyería de autor nacida en el Alto Valle de Elqui. Combina plata, madera y piedras locales vinculadas al paisaje, fauna y cielos estelares.",
-          pdf_link: "/Nativajoyaselqui.pdf"
-        },
-        { 
-          nombre: "Sereno Bar & Masterclass de Pisco", 
-          pabellon: "Gastronomía & Pisqueras", 
-          modulo: "Escenario Central", 
-          comuna: "La Serena / Elqui", 
-          descripcion: "Clase magistral sobre la historia, Denominación de Origen y versatilidad en coctelería del Pisco por Sebastián Martínez.",
-          pdf_link: "/clase de pisco.pdf"
-        },
         { nombre: "Inmobiliaria & Proyectos Coquimbo", pabellon: "Inmobiliaria", modulo: "A-01", comuna: "La Serena", descripcion: "Proyectos habitacionales e inversión inmobiliaria en la costa regional." },
         { nombre: "Pisco Elqui & Valles", pabellon: "Gastronomía & Pisqueras", modulo: "A-12", comuna: "Paihuano", descripcion: "Destilados prémium con denominación de origen y viñas del Valle." },
         { nombre: "Turismo & Patrimonio Regional", pabellon: "Turismo & Municipios", modulo: "B-01", comuna: "La Serena", descripcion: "Oferta turística, cultural y patrimonial de la zona." },
@@ -1233,10 +1367,10 @@
           botMsg.textContent = 'Puedes escuchar nuestra programación continua de radio haciendo clic en el botón "Reproducir" de la barra inferior. ¡Contamos con la locución de Francis y Vicente!';
         } 
         else if (q.includes('pisco') || q.includes('clase') || q.includes('sereno')) {
-          botMsg.textContent = 'El domingo a las 18:00 hrs se realizará la Masterclass de Pisco dictada por Sebastián Martínez de Sereno Bar. Puedes revisar el folleto en la sección de expositores o prensa.';
+          botMsg.textContent = 'El domingo a las 18:00 hrs se realizará la Masterclass de Pisco dictada por Sebastián Martínez de Sereno Bar. Puedes revisar la sección destacada o descargar el programa en PDF.';
         }
         else if (q.includes('nativa') || q.includes('joyas') || q.includes('orfebreria') || q.includes('orfebrería')) {
-          botMsg.textContent = 'Nativa Joyas del Elqui exhibirá su orfebrería de autor en plata, madera y piedras del Alto Elqui en el catálogo de la Expo.';
+          botMsg.textContent = 'Nativa Joyas del Elqui exhibe su orfebrería de autor en la sección destacada del sitio con la opción de descargar su catálogo en PDF.';
         }
         else if (q.includes('fecha') || q.includes('cuando') || q.includes('cuándo') || q.includes('donde') || q.includes('dónde') || q.includes('lugar')) {
           botMsg.textContent = 'La Expo Región Estrella se realizará del 6 al 8 de noviembre de 2026 en Plaza Ñuñoa, Santiago. ¡La entrada es liberada!';
