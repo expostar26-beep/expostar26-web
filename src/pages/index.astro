@@ -216,8 +216,11 @@
     .card-mod { font-size: 0.78rem; font-family: monospace; color: #38bdf8; font-weight: 700; background: rgba(56, 189, 248, 0.12); padding: 0.2rem 0.6rem; border-radius: 0.4rem; }
     .card-title { font-size: 1.25rem; font-weight: 800; color: #f8fafc; margin-bottom: 0.5rem; }
     .card-desc { font-size: 0.88rem; color: #94a3b8; line-height: 1.55; margin-bottom: 1.5rem; }
-    .card-footer { border-top: 1px solid rgba(255, 255, 255, 0.08); padding-top: 1rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.82rem; }
-    .btn-b2b-card { background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4); padding: 0.45rem 0.95rem; border-radius: 0.55rem; text-decoration: none; font-weight: 700; font-size: 0.82rem; }
+    .card-footer { border-top: 1px solid rgba(255, 255, 255, 0.08); padding-top: 1rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.82rem; flex-wrap: wrap; gap: 0.5rem; }
+    
+    .btn-b2b-card { background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4); padding: 0.45rem 0.85rem; border-radius: 0.55rem; text-decoration: none; font-weight: 700; font-size: 0.8rem; display: inline-flex; align-items: center; gap: 0.3rem; }
+    .btn-pdf-card { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4); padding: 0.45rem 0.85rem; border-radius: 0.55rem; text-decoration: none; font-weight: 700; font-size: 0.8rem; display: inline-flex; align-items: center; gap: 0.3rem; }
+    .btn-pdf-card:hover { background: rgba(245, 158, 11, 0.3); color: #ffffff; }
 
     .trivia-section { background: radial-gradient(circle at center, rgba(30, 41, 59, 0.8) 0%, rgba(2, 6, 23, 0.95) 100%); border-top: 1px solid rgba(255, 255, 255, 0.08); border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding: 4rem 1.5rem; }
     .trivia-container { max-width: 52rem; margin: 0 auto; background: rgba(15, 23, 42, 0.7); border: 2px solid rgba(245, 158, 11, 0.4); border-radius: 1.5rem; padding: 2.5rem; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8); text-align: center; position: relative; }
@@ -481,7 +484,7 @@
         </div>
         <div style="display: flex; gap: 0.8rem; flex-wrap: wrap; align-items: center; justify-content: space-between;">
           <span class="news-tag" style="background: rgba(245, 158, 11, 0.25); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4);">Comunicado 6 • Oficial</span>
-          <a href="/clase de pisco.pdf" target="_blank" class="btn-b2b-card" style="font-size: 0.8rem;">📄 Descargar Programa Pisco (PDF)</a>
+          <a href="/clase%20de%20pisco.pdf" target="_blank" class="btn-pdf-card">📄 Descargar Clase Pisco (PDF)</a>
         </div>
       </div>
     </div>
@@ -791,33 +794,42 @@
       "Orfebrería & Autor": "💍"
     };
 
-    // MAPEO COMPLETO DE IMÁGENES NATIVAS Y LOCALES
-    const GALERIA_EXPOSITORES = [
-      "/av mar.jpg",
-      "/sour.jpeg",
-      "/sour2.jpeg",
-      "/tragosLocales.jpeg",
-      "/TragosLocales2.jpeg",
-      "/platosTipicos.jpeg",
-      "/pan.jpeg",
-      "/quesos.jpeg",
-      "/imagen_aerea.jpeg",
-      "/gente.jpeg"
-    ];
-
     function getAdHocImage(exp, index) {
-      if (exp.pabellon === "Inmobiliaria" || exp.nombre.includes("Inmobiliaria")) {
-        return "/av mar.jpg";
-      }
-      if (exp.pabellon === "Minería & Proveedores" || exp.nombre.includes("Mineros")) {
-        return "/imagen_aerea.jpeg";
-      }
       if (exp.nombre.includes("Nativa")) {
         return "/pan.jpeg";
       }
       if (exp.nombre.includes("Sereno")) {
         return "/tragosLocales.jpeg";
       }
+      if (exp.pabellon === "Inmobiliaria" || exp.nombre.includes("Inmobiliaria")) {
+        return "/av mar.jpg";
+      }
+      if (exp.nombre.includes("Pisco Elqui")) {
+        return "/sour.jpeg";
+      }
+      if (exp.nombre.includes("Turismo")) {
+        return "/sour2.jpeg";
+      }
+      if (exp.nombre.includes("Limarí")) {
+        return "/quesos.jpeg";
+      }
+      if (exp.pabellon === "Minería & Proveedores" || exp.nombre.includes("Mineros")) {
+        return "/imagen_aerea.jpeg";
+      }
+
+      const GALERIA_EXPOSITORES = [
+        "/av mar.jpg",
+        "/sour.jpeg",
+        "/sour2.jpeg",
+        "/tragosLocales.jpeg",
+        "/TragosLocales2.jpeg",
+        "/platosTipicos.jpeg",
+        "/pan.jpeg",
+        "/quesos.jpeg",
+        "/imagen_aerea.jpeg",
+        "/gente.jpeg"
+      ];
+
       return GALERIA_EXPOSITORES[index % GALERIA_EXPOSITORES.length];
     }
 
@@ -846,12 +858,14 @@
     function renderCardWithImage(exp, customImg) {
       const icono = ICONOS_PABELLON[exp.pabellon] || "⭐";
       const calUrl = exp.cal_link || CAL_COM_URL_DEFAULT;
-      const pdfBtn = exp.pdf_link ? `<a href="${exp.pdf_link}" target="_blank" class="btn-b2b-card" style="margin-right: 0.5rem; background: rgba(245, 158, 11, 0.2); color: #fbbf24; border-color: rgba(245, 158, 11, 0.4);">📄 Ver Ficha PDF</a>` : '';
+      
+      const encodedImg = encodeURI(customImg);
+      const pdfBtn = exp.pdf_link ? `<a href="${encodeURI(exp.pdf_link)}" target="_blank" class="btn-pdf-card">📄 Ver Ficha PDF</a>` : '';
 
       return `
         <div class="card">
           <div style="width:100%; height:180px; max-height:180px; overflow:hidden; position:relative; background:#020617; border-bottom:1px solid rgba(255,255,255,0.08); flex-shrink:0;">
-            <img src="${customImg}" alt="${exp.nombre}" style="width:100%; height:180px; max-height:180px; object-fit:cover; object-position:center; display:block;" onerror="this.src='/imagen_aerea.jpeg'" />
+            <img src="${encodedImg}" alt="${exp.nombre}" style="width:100%; height:180px; max-height:180px; object-fit:cover; object-position:center; display:block;" onerror="this.src='/imagen_aerea.jpeg'" />
           </div>
           <div class="card-content">
             <div>
@@ -862,9 +876,9 @@
               <h3 class="card-title">${exp.nombre}</h3>
               <p class="card-desc">${exp.descripcion || 'Emprendimiento destacado de la Región de Coquimbo.'}</p>
             </div>
-            <div class="card-footer" style="flex-wrap: wrap; gap: 0.5rem;">
+            <div class="card-footer">
               <span style="color: #94a3b8; font-size: 0.8rem;">📍 ${exp.comuna || 'Región de Coquimbo'}</span>
-              <div style="display:flex; gap:0.4rem; align-items:center;">
+              <div style="display:flex; gap:0.4rem; align-items:center; flex-wrap:wrap;">
                 ${pdfBtn}
                 <a href="${calUrl}" target="_blank" rel="noopener noreferrer" class="btn-b2b-card">📅 Agendar Cita</a>
               </div>
