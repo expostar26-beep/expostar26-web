@@ -251,8 +251,7 @@
       font-weight: 800;
       padding: 0.65rem 1.25rem;
       border-radius: 0.6rem;
-      border: none;
-      cursor: pointer;
+      text-decoration: none;
       font-size: 0.88rem;
       display: inline-flex;
       align-items: center;
@@ -328,59 +327,6 @@
     .card-desc { font-size: 0.88rem; color: #94a3b8; line-height: 1.55; margin-bottom: 1.5rem; }
     .card-footer { border-top: 1px solid rgba(255, 255, 255, 0.08); padding-top: 1rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.82rem; }
     .btn-b2b-card { background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4); padding: 0.45rem 0.85rem; border-radius: 0.55rem; text-decoration: none; font-weight: 700; font-size: 0.82rem; }
-
-    /* ESTILOS DEL MODAL VISOR DE PDF */
-    .pdf-modal-overlay {
-      position: fixed;
-      top: 0; left: 0; width: 100vw; height: 100vh;
-      background: rgba(2, 6, 23, 0.88);
-      backdrop-filter: blur(8px);
-      z-index: 999;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 1.5rem;
-    }
-    .pdf-modal-container {
-      width: 100%;
-      max-width: 900px;
-      height: 88vh;
-      background: rgba(15, 23, 42, 0.98);
-      border: 2px solid rgba(245, 158, 11, 0.5);
-      border-radius: 1.25rem;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      box-shadow: 0 25px 60px rgba(0,0,0,0.9);
-    }
-    .pdf-modal-header {
-      background: rgba(30, 41, 59, 0.9);
-      padding: 1rem 1.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    .pdf-modal-title {
-      font-size: 1.1rem;
-      font-weight: 800;
-      color: #fbbf24;
-    }
-    .pdf-modal-close {
-      background: rgba(239, 68, 68, 0.2);
-      border: 1px solid rgba(239, 68, 68, 0.4);
-      color: #fca5a5;
-      padding: 0.4rem 0.8rem;
-      border-radius: 0.5rem;
-      font-weight: 800;
-      cursor: pointer;
-    }
-    .pdf-modal-iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-      background: #ffffff;
-    }
 
     .trivia-section { background: radial-gradient(circle at center, rgba(30, 41, 59, 0.8) 0%, rgba(2, 6, 23, 0.95) 100%); border-top: 1px solid rgba(255, 255, 255, 0.08); border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding: 4rem 1.5rem; }
     .trivia-container { max-width: 52rem; margin: 0 auto; background: rgba(15, 23, 42, 0.7); border: 2px solid rgba(245, 158, 11, 0.4); border-radius: 1.5rem; padding: 2.5rem; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8); text-align: center; position: relative; }
@@ -536,7 +482,7 @@
       <!-- TARJETA 1: NATIVA JOYAS DEL ELQUI -->
       <div class="featured-card">
         <div class="featured-img-container">
-          <img src="/pan.jpeg" alt="Nativa Joyas del Elqui" class="featured-img" onerror="this.src='/imagen_aerea.jpeg'" />
+          <img src="/gente.jpeg" alt="Nativa Joyas del Elqui" class="featured-img" onerror="this.src='/imagen_aerea.jpeg'" />
         </div>
         <div class="featured-body">
           <div>
@@ -547,7 +493,7 @@
             </p>
           </div>
           <div class="featured-actions">
-            <button class="btn-pdf-action" onclick="openPdfViewer('/Nativajoyaselqui.pdf', 'Catálogo Nativa - Joyas del Elqui')">👁️ Ver Ficha en Pantalla</button>
+            <a href="/Nativajoyaselqui.pdf" target="_blank" rel="noopener noreferrer" class="btn-pdf-action">📄 Ver Ficha PDF</a>
             <a href="https://cal.com/expo-stars-4-be3ske" target="_blank" rel="noopener noreferrer" class="btn-cal-action">📅 Agendar Cita</a>
           </div>
         </div>
@@ -567,7 +513,7 @@
             </p>
           </div>
           <div class="featured-actions">
-            <button class="btn-pdf-action" onclick="openPdfViewer('/clase%20de%20pisco.pdf', 'Masterclass de Pisco - Sebastián Martínez')">👁️ Ver Programa en Pantalla</button>
+            <a href="/clase%20de%20pisco.pdf" target="_blank" rel="noopener noreferrer" class="btn-pdf-action">📄 Ver Programa PDF</a>
             <a href="https://cal.com/expo-stars-4-be3ske" target="_blank" rel="noopener noreferrer" class="btn-cal-action">📅 Agendar Cita</a>
           </div>
         </div>
@@ -694,7 +640,7 @@
         </div>
         <div style="display: flex; gap: 0.8rem; flex-wrap: wrap; align-items: center; justify-content: space-between;">
           <span class="news-tag" style="background: rgba(245, 158, 11, 0.25); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4);">Comunicado 6 • Oficial</span>
-          <button class="btn-pdf-action" style="font-size:0.82rem;" onclick="openPdfViewer('/clase%20de%20pisco.pdf', 'Programa Clase de Pisco - Expo Región Estrella')">👁️ Ver Clase de Pisco (PDF)</button>
+          <a href="/clase%20de%20pisco.pdf" target="_blank" rel="noopener noreferrer" class="btn-pdf-action" style="font-size:0.82rem;">📄 Ver Clase de Pisco (PDF)</a>
         </div>
       </div>
     </div>
@@ -783,17 +729,6 @@
     </p>
   </footer>
 
-  <!-- MODAL INTERNO VISOR DE PDF -->
-  <div class="pdf-modal-overlay" id="pdf-modal-overlay">
-    <div class="pdf-modal-container">
-      <div class="pdf-modal-header">
-        <div class="pdf-modal-title" id="pdf-modal-title">Visor de Documentos</div>
-        <button class="pdf-modal-close" onclick="closePdfViewer()">✕ Cerrar</button>
-      </div>
-      <iframe class="pdf-modal-iframe" id="pdf-modal-iframe" src=""></iframe>
-    </div>
-  </div>
-
   <div class="radio-player-bar">
     <div class="radio-info">
       <div class="radio-pulse"></div>
@@ -829,26 +764,6 @@
     const SUPABASE_URL = "https://crhbfrqfqgxttzyudvt.supabase.co";
     const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNyaGJmcnFmcWd4dHR6eXVkdnQiLCJyb2xlIjoiYW5vbiIsImlhdCI6MTc4MDIxNjI1MywiZXhwIjoyMDU1NzkyMjUzfQ.S8O3S8L94eY1i4i9n6K5O8u3S8L94eY1i4i9n6K5O8u";
     const CAL_COM_URL_DEFAULT = "https://cal.com/expo-stars-4-be3ske";
-
-    function openPdfViewer(pdfUrl, title) {
-      const modal = document.getElementById('pdf-modal-overlay');
-      const iframe = document.getElementById('pdf-modal-iframe');
-      const titleEl = document.getElementById('pdf-modal-title');
-      if (modal && iframe && titleEl) {
-        titleEl.textContent = title || 'Documento en Pantalla';
-        iframe.src = pdfUrl;
-        modal.style.display = 'flex';
-      }
-    }
-
-    function closePdfViewer() {
-      const modal = document.getElementById('pdf-modal-overlay');
-      const iframe = document.getElementById('pdf-modal-iframe');
-      if (modal && iframe) {
-        modal.style.display = 'none';
-        iframe.src = '';
-      }
-    }
 
     const musicPlaylist = [
       { name: "Rober Reggea", file: "/audio/music/Rober_Reggea.mp3" },
@@ -1431,10 +1346,10 @@
           botMsg.textContent = 'Puedes escuchar nuestra programación continua de radio haciendo clic en el botón "Reproducir" de la barra inferior. ¡Contamos con la locución de Francis y Vicente!';
         } 
         else if (q.includes('pisco') || q.includes('clase') || q.includes('sereno')) {
-          botMsg.textContent = 'El domingo a las 18:00 hrs se realizará la Masterclass de Pisco dictada por Sebastián Martínez de Sereno Bar. Haz clic en "Ver Programa en Pantalla" para revisarlo directamente.';
+          botMsg.textContent = 'El domingo a las 18:00 hrs se realizará la Masterclass de Pisco dictada por Sebastián Martínez de Sereno Bar. Haz clic en el botón "Ver Programa PDF" para abrirlo directamente.';
         }
         else if (q.includes('nativa') || q.includes('joyas') || q.includes('orfebreria') || q.includes('orfebrería')) {
-          botMsg.textContent = 'Nativa Joyas del Elqui exhibe su orfebrería de autor en la sección destacada del sitio con la opción de abrir su ficha directamente en pantalla.';
+          botMsg.textContent = 'Nativa Joyas del Elqui exhibe su orfebrería de autor en la sección destacada del sitio con la opción de abrir su ficha directamente en PDF.';
         }
         else if (q.includes('fecha') || q.includes('cuando') || q.includes('cuándo') || q.includes('donde') || q.includes('dónde') || q.includes('lugar')) {
           botMsg.textContent = 'La Expo Región Estrella se realizará del 6 al 8 de noviembre de 2026 en Plaza Ñuñoa, Santiago. ¡La entrada es liberada!';
