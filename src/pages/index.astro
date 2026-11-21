@@ -299,10 +299,18 @@
       letter-spacing: 0.04em;
       margin-bottom: 1rem;
     }
+
+    /* GRILLA SIMÉTRICA 3x2 PARA 6 POSTALES SIN ESPACIO VACÍO */
     .gallery-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
       gap: 1rem;
+    }
+    @media (max-width: 900px) {
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 560px) {
+      .gallery-grid { grid-template-columns: 1fr; }
     }
     .gallery-item {
       position: relative;
@@ -332,6 +340,51 @@
       font-size: 0.76rem;
       font-weight: 700;
       padding: 1.25rem 0.75rem 0.55rem 0.75rem;
+    }
+
+    /* REPRODUCTOR CONTINUO YOUTUBE POST-FERIA */
+    .post-expo-tv {
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .tv-frame-wrapper {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 1rem;
+      overflow: hidden;
+      border: 2px solid rgba(245, 158, 11, 0.45);
+      background: #000;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
+    }
+    .tv-frame-wrapper iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+    .tv-playlist-bar {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: 0.85rem;
+    }
+    .tv-clip-btn {
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      color: #e2e8f0;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.45rem 0.85rem;
+      border-radius: 0.55rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .tv-clip-btn:hover, .tv-clip-btn.active {
+      background: rgba(245, 158, 11, 0.25);
+      border-color: #fbbf24;
+      color: #fef08a;
     }
 
     /* SECCIÓN DESTACADA EXPOSITORES */
@@ -700,6 +753,27 @@
             <img src="/cierre_quesos_2.jpeg" alt="Degustación gastronómica Norte Chico" loading="lazy" />
             <div class="gallery-caption">Degustación de Sabores del Norte Chico</div>
           </div>
+        </div>
+      </div>
+
+      <div class="post-expo-tv">
+        <div class="post-expo-gallery-title">🎬 Canal Oficial • Registros en Vivo Plaza Ñuñoa (Reproducción Continua)</div>
+        <div class="tv-frame-wrapper">
+          <iframe
+            id="post-expo-yt-player"
+            src="https://www.youtube.com/embed/OR8V4c7ryEc?autoplay=1&mute=1&loop=1&playlist=OR8V4c7ryEc,xIvKV0bPtJY,uqwEGY_b20I,XuFGkb5W2jg,KyqyY55mzig,b2w93V4cigs&rel=0"
+            title="Registros Oficiales Expo Región Estrella 2026"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+          </iframe>
+        </div>
+        <div class="tv-playlist-bar" id="tv-playlist-bar">
+          <button type="button" class="tv-clip-btn active" data-vid="OR8V4c7ryEc">▶ Cápsula 1</button>
+          <button type="button" class="tv-clip-btn" data-vid="xIvKV0bPtJY">▶ Cápsula 2</button>
+          <button type="button" class="tv-clip-btn" data-vid="uqwEGY_b20I">▶ Cápsula 3</button>
+          <button type="button" class="tv-clip-btn" data-vid="XuFGkb5W2jg">▶ Cápsula 4</button>
+          <button type="button" class="tv-clip-btn" data-vid="KyqyY55mzig">▶ Cápsula 5</button>
+          <button type="button" class="tv-clip-btn" data-vid="b2w93V4cigs">▶ Cápsula 6</button>
         </div>
       </div>
     </article>
@@ -1615,6 +1689,21 @@
       }
 
       if (playBtnEl) { playBtnEl.addEventListener('click', toggleRadio); }
+
+      const ytPlayer = document.getElementById('post-expo-yt-player');
+      const clipBtns = document.querySelectorAll('.tv-clip-btn');
+      const allVids = ['OR8V4c7ryEc', 'xIvKV0bPtJY', 'uqwEGY_b20I', 'XuFGkb5W2jg', 'KyqyY55mzig', 'b2w93V4cigs'];
+
+      clipBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const selectedId = btn.getAttribute('data-vid');
+          if (!ytPlayer || !selectedId) return;
+          clipBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          const orderedList = [selectedId, ...allVids.filter(id => id !== selectedId)].join(',');
+          ytPlayer.src = `https://www.youtube.com/embed/${selectedId}?autoplay=1&mute=0&loop=1&playlist=${orderedList}&rel=0`;
+        });
+      });
     });
   </script>
 </body>
