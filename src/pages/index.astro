@@ -44,7 +44,7 @@
       pointer-events: none;
     }
 
-    header, .featured-section, .showcase-section, main, .trivia-section, .news-section, .contact-section, .sponsors-section, footer, .radio-player-bar, .chat-widget {
+    header, .post-expo-section, .featured-section, .showcase-section, main, .trivia-section, .news-section, .contact-section, .sponsors-section, footer, .radio-player-bar, .chat-widget {
       position: relative;
       z-index: 2;
     }
@@ -172,6 +172,167 @@
     .astro-card { background: rgba(30, 41, 59, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 0.85rem; padding: 1rem; }
     .astro-card h4 { font-size: 0.82rem; color: #38bdf8; margin-bottom: 0.4rem; text-transform: uppercase; }
     .astro-card p { font-size: 0.88rem; color: #e2e8f0; line-height: 1.4; }
+
+    /* CRÓNICA POST-FERIA / BALANCE DE CIERRE */
+    .post-expo-section {
+      max-width: 76rem;
+      margin: 2.5rem auto 1rem auto;
+      padding: 0 1.5rem;
+    }
+    .post-expo-card {
+      background: linear-gradient(145deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.88));
+      border: 2px solid rgba(245, 158, 11, 0.55);
+      border-radius: 1.5rem;
+      padding: 2.25rem;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.75);
+    }
+    .post-expo-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 1rem;
+    }
+    .post-expo-badge {
+      background: rgba(34, 197, 94, 0.18);
+      color: #4ade80;
+      border: 1px solid rgba(34, 197, 94, 0.45);
+      font-size: 0.78rem;
+      font-weight: 800;
+      padding: 0.35rem 0.9rem;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .post-expo-date {
+      color: #94a3b8;
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+    .post-expo-title {
+      font-size: 1.75rem;
+      font-weight: 900;
+      color: #fef08a;
+      line-height: 1.25;
+      margin-bottom: 0.75rem;
+    }
+    .post-expo-lead {
+      font-size: 1.05rem;
+      color: #e2e8f0;
+      line-height: 1.65;
+      margin-bottom: 1.5rem;
+    }
+    .post-expo-metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.75rem;
+    }
+    .metric-box {
+      background: rgba(2, 6, 23, 0.65);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      border-radius: 0.95rem;
+      padding: 1rem;
+      text-align: center;
+    }
+    .metric-num {
+      font-size: 1.45rem;
+      font-weight: 900;
+      color: #fbbf24;
+      display: block;
+    }
+    .metric-label {
+      font-size: 0.78rem;
+      color: #cbd5e1;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      margin-top: 0.25rem;
+      display: block;
+    }
+    .post-expo-body {
+      display: grid;
+      grid-template-columns: 1.35fr 1fr;
+      gap: 2rem;
+      align-items: start;
+      color: #cbd5e1;
+      font-size: 0.94rem;
+      line-height: 1.7;
+    }
+    @media (max-width: 850px) {
+      .post-expo-body { grid-template-columns: 1fr; }
+    }
+    .post-expo-body p { margin-bottom: 1rem; }
+    .post-expo-highlights {
+      background: rgba(30, 41, 59, 0.55);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 1rem;
+      padding: 1.35rem;
+    }
+    .post-expo-highlights h4 {
+      color: #38bdf8;
+      font-size: 0.92rem;
+      text-transform: uppercase;
+      margin-bottom: 0.85rem;
+      letter-spacing: 0.04em;
+    }
+    .post-expo-highlights ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      font-size: 0.88rem;
+      color: #e2e8f0;
+    }
+    .post-expo-gallery {
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .post-expo-gallery-title {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #fbbf24;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 1rem;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+    .gallery-item {
+      position: relative;
+      border-radius: 0.85rem;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: #020617;
+      aspect-ratio: 16 / 10;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.35s ease;
+    }
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+    .gallery-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: linear-gradient(transparent, rgba(2, 6, 23, 0.92));
+      color: #f8fafc;
+      font-size: 0.76rem;
+      font-weight: 700;
+      padding: 1.25rem 0.75rem 0.55rem 0.75rem;
+    }
 
     /* SECCIÓN DESTACADA EXPOSITORES */
     .featured-section {
@@ -414,7 +575,7 @@
 <body>
 
   <div class="top-led-ticker">
-    ⭐ EXPO REGIÓN ESTRELLA 2026: Del 6 al 8 de Noviembre en Plaza Ñuñoa, Santiago. ¡Entrada Liberada! 🎟️
+    ✅ BALANCE OFICIAL: ¡Éxito total en Expo Región Estrella 2026! Coquimbo brilló en Plaza Ñuñoa proyectando la Temporada Estival 2027 ⭐
   </div>
 
   <canvas id="starry-sky"></canvas>
@@ -422,12 +583,12 @@
   <header>
     <div class="hero-container">
       <img src="/logo_oficial.jpeg" alt="EXPO REGIÓN ESTRELLA 2026" class="hero-img" onerror="this.src='/logo_muralla.jpeg'" />
-      <div class="badge">📍 6 AL 8 DE NOVIEMBRE • PLAZA ÑUÑOA, SANTIAGO</div>
+      <div class="badge">📍 EDICIÓN REALIZADA • PLAZA ÑUÑOA, SANTIAGO</div>
       <p class="hero-desc">La Región de Coquimbo se levanta y despliega lo mejor de sus valles, costas y emprendimientos.</p>
       
       <div class="btn-group">
-        <a href="#destacados" class="btn-glass-primary">⭐ Muestras Destacadas</a>
-        <a href="#catalogo" class="btn-glass-secondary">✨ Ver Todos los Expositores</a>
+        <a href="#balance-cierre" class="btn-glass-primary">✅ Ver Balance Post-Feria</a>
+        <a href="#catalogo" class="btn-glass-secondary">✨ Catálogo de Expositores</a>
       </div>
 
       <div class="astro-central-screen">
@@ -446,12 +607,103 @@
           </div>
           <div class="astro-card">
             <h4>⭐ Datos Expo 2026</h4>
-            <p>Plaza Ñuñoa, Santiago • 6 al 8 de Noviembre. 40+ módulos de exhibición activa.</p>
+            <p>Plaza Ñuñoa, Santiago • 6 al 8 de Noviembre. Más de 40 expositores activos.</p>
           </div>
         </div>
       </div>
     </div>
   </header>
+
+  <!-- NOTA PRINCIPAL POST-FERIA: BALANCE Y CIERRE EN PLAZA ÑUÑOA -->
+  <section class="post-expo-section" id="balance-cierre">
+    <article class="post-expo-card">
+      <div class="post-expo-header">
+        <span class="post-expo-badge">✅ Balance Oficial Post-Feria • Edición 2026</span>
+        <span class="post-expo-date">Santiago / La Serena • Noviembre 2026</span>
+      </div>
+
+      <h2 class="post-expo-title">
+        Con alta convocatoria y proyección hacia el verano 2027, la Región de Coquimbo cerró con éxito la Expo Región Estrella en Plaza Ñuñoa
+      </h2>
+
+      <p class="post-expo-lead">
+        Durante tres intensas jornadas —del 6 al 8 de noviembre—, más de 40 emprendedores, pisqueras, viñas, proyectos inmobiliarios, proveedores mineros y municipios de las provincias de Elqui, Limarí y Choapa convirtieron el corazón de Ñuñoa en la gran vitrina turística y productiva del Norte Chico.
+      </p>
+
+      <div class="post-expo-metrics">
+        <div class="metric-box">
+          <span class="metric-num">3 Días</span>
+          <span class="metric-label">Exhibición en Plaza Ñuñoa</span>
+        </div>
+        <div class="metric-box">
+          <span class="metric-num">+40 Stands</span>
+          <span class="metric-label">Elqui, Limarí y Choapa</span>
+        </div>
+        <div class="metric-box">
+          <span class="metric-num">Binacional</span>
+          <span class="metric-label">Señal Chile y Mendoza</span>
+        </div>
+        <div class="metric-box">
+          <span class="metric-num">Verano 2027</span>
+          <span class="metric-label">Alianzas y Reservas Activas</span>
+        </div>
+      </div>
+
+      <div class="post-expo-body">
+        <div>
+          <p>
+            <strong>Reactivación y conexión directa:</strong> La iniciativa, impulsada mediante alianza público-privada junto a gremios como la Cámara Regional de Turismo, Multigremial Coquimbo y Hotelga, permitió acercar la oferta gastronómica, patrimonial y de servicios de la región directamente al público de la Región Metropolitana, generando redes comerciales y reservas anticipadas para la temporada estival 2027.
+          </p>
+          <p>
+            <strong>Cultura, sabor e identidad territorial:</strong> Desde la inauguración oficial el viernes 6 —con degustaciones de quesos de cabra, miel de los valles, vinos y pisco de autor con protagonismo especial de la Provincia del Choapa— hasta la Masterclass de Pisco y Denominación de Origen dictada el domingo por Sebastián Martínez (Sereno Bar), el público capitalino recorrió los sabores y oficios de nuestros valles y costas.
+          </p>
+          <p style="margin-bottom: 0;">
+            <strong>Compromiso solidario y proyección:</strong> La feria integró además beneficios especiales en apoyo a la cruzada solidaria de la Teletón y contó con cobertura multiplataforma en vivo hacia Chile y Argentina a través de Thema Televisión y VTV Mendoza, consolidando una plataforma permanente de promoción para nuestros expositores.
+          </p>
+        </div>
+
+        <div class="post-expo-highlights">
+          <h4>📌 Hitos Destacados del Cierre</h4>
+          <ul>
+            <li>🍷 <strong>Masterclass Pisquera:</strong> Cata guiada sobre Denominación de Origen y coctelería de autor regional con Sereno Bar y expositores como Pisco Almu.</li>
+            <li>💍 <strong>Orfebrería y Diseño:</strong> Exhibición de piezas únicas de autor como Nativa Joyas del Elqui, cerámica diaguita, lapislázuli y artesanía del Limarí y Choapa.</li>
+            <li>🏢 <strong>Vitrina de Inversión:</strong> Contacto directo con oferta inmobiliaria costera, turismo astronómico y proveedores de servicios.</li>
+            <li>📻 <strong>Señal Continua:</strong> Radio Expo Estrella 24/7 y catálogo digital activos para seguir agendando reuniones B2B con los expositores.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="post-expo-gallery">
+        <div class="post-expo-gallery-title">📸 Postales Oficiales • Plaza Ñuñoa 2026</div>
+        <div class="gallery-grid">
+          <div class="gallery-item">
+            <img src="/cierre_almu_1.jpeg" alt="Pisco Almu en Expo Región Estrella" loading="lazy" />
+            <div class="gallery-caption">Pisco Almu • Rapel, Valle del Limarí</div>
+          </div>
+          <div class="gallery-item">
+            <img src="/cierre_quesos_1.jpeg" alt="Quesos de Cabra Región de Coquimbo" loading="lazy" />
+            <div class="gallery-caption">Quesos de Cabra Artesanales</div>
+          </div>
+          <div class="gallery-item">
+            <img src="/cierre_miel.jpeg" alt="Miel Pura de Abeja Regional" loading="lazy" />
+            <div class="gallery-caption">Miel Pura de Abeja de los Valles</div>
+          </div>
+          <div class="gallery-item">
+            <img src="/cierre_pisco_patrimonio.jpeg" alt="Destilados y Patrimonio Diaguita" loading="lazy" />
+            <div class="gallery-caption">Destilados, Cerámica Diaguita y Lapislázuli</div>
+          </div>
+          <div class="gallery-item">
+            <img src="/cierre_almu_2.jpeg" alt="Atención al público en Plaza Ñuñoa" loading="lazy" />
+            <div class="gallery-caption">Conexión Directa con el Público en Ñuñoa</div>
+          </div>
+          <div class="gallery-item">
+            <img src="/cierre_quesos_2.jpeg" alt="Degustación gastronómica Norte Chico" loading="lazy" />
+            <div class="gallery-caption">Degustación de Sabores del Norte Chico</div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </section>
 
   <!-- SECCIÓN EXPOSITORES DESTACADOS -->
   <section class="featured-section" id="destacados">
@@ -588,8 +840,8 @@
 
   <section class="news-section">
     <div class="section-title">
-      <h2>Noticias & Prensa</h2>
-      <p>Novedades oficiales sobre la reactivación turística y comercial de Coquimbo en Santiago.</p>
+      <h2>Archivo de Noticias & Comunicados</h2>
+      <p>Historial de comunicados oficiales sobre la reactivación turística y comercial de Coquimbo en Santiago.</p>
     </div>
 
     <!-- COMUNICADO OFICIAL 6 DESTACADO COMPLETO -->
@@ -628,20 +880,20 @@
       <div class="news-card">
         <div>
           <span class="news-date">COMUNICADO OFICIAL 5 • SANTIAGO</span>
-          <h3 class="news-title">Últimos Cupos: Convocan a Inmobiliarias, Municipios y Empresas a sumarse a la Expo</h3>
+          <h3 class="news-title">Convocatoria a Inmobiliarias, Municipios y Empresas para la Expo</h3>
           <p class="news-body">
-            Del 6 al 8 de noviembre en Plaza Ñuñoa, la gran vitrina unirá a municipios de Elqui, Limarí y Choapa con inversores y visitantes de la Región Metropolitana.
+            Del 6 al 8 de noviembre en Plaza Ñuñoa, la gran vitrina unió a municipios de Elqui, Limarí y Choapa con inversores y visitantes de la Región Metropolitana.
           </p>
         </div>
-        <span class="news-tag">Convocatoria Abierta</span>
+        <span class="news-tag">Edición 2026</span>
       </div>
 
       <div class="news-card">
         <div>
           <span class="news-date">COMUNICADO OFICIAL • LA SERENA</span>
-          <h3 class="news-title">Con Alianza Público-Privada se anuncia la "Expo Región Estrella" en Plaza Ñuñoa</h3>
+          <h3 class="news-title">Con Alianza Público-Privada se realizó la "Expo Región Estrella" en Plaza Ñuñoa</h3>
           <p class="news-body">
-            La muestra reunirá a más de 40 expositores, municipios, gremios turísticos, viñas, pisqueras, inmobiliarias y pymes con entrada liberada.
+            La muestra reunió a más de 40 expositores, municipios, gremios turísticos, viñas, pisqueras, inmobiliarias y pymes con entrada liberada.
           </p>
         </div>
         <span class="news-tag">Reactivación Económica</span>
@@ -731,7 +983,7 @@
       <button id="close-chat-btn" style="background:none; border:none; color:#94a3b8; cursor:pointer; font-weight:bold;">✕</button>
     </div>
     <div class="chat-body" id="chat-body">
-      <div class="chat-msg bot">¡Hola! Soy el asistente oficial de la Expo Región Estrella 2026. ¿En qué puedo ayudarte hoy?</div>
+      <div class="chat-msg bot">¡Hola! Soy el asistente oficial de la Expo Región Estrella 2026. Puedes revisar el balance de cierre en Plaza Ñuñoa o agendar citas directas con nuestros expositores. ¿En qué te ayudo?</div>
     </div>
     <div class="chat-input-area">
       <input type="text" id="chat-input" class="chat-input" placeholder="Escribe tu consulta..." />
@@ -1319,25 +1571,25 @@
         const q = text.toLowerCase();
 
         if (q.includes('gracias') || q.includes('chao') || q.includes('hasta luego') || q.includes('adios') || q.includes('adiós') || q.includes('ok') || q.includes('vale')) {
-          botMsg.textContent = '¡De nada! Muchas gracias por consultar. Te esperamos del 6 al 8 de noviembre en Plaza Ñuñoa. ¡Saludos y que tengas un excelente día! ⭐';
+          botMsg.textContent = '¡De nada! Muchas gracias por visitar el portal oficial de Expo Región Estrella. ¡Saludos y que tengas un excelente día! ⭐';
         } 
         else if (q.includes('radio') || q.includes('musica') || q.includes('música') || q.includes('en vivo') || q.includes('cancion') || q.includes('canción')) {
           botMsg.textContent = 'Puedes escuchar nuestra programación continua de radio haciendo clic en el botón "Reproducir" de la barra inferior. ¡Contamos con la locución de Francis y Vicente!';
         } 
-        else if (q.includes('pisco') || q.includes('clase') || q.includes('sereno')) {
-          botMsg.textContent = 'El domingo a las 18:00 hrs se realizará la Masterclass de Pisco dictada por Sebastián Martínez de Sereno Bar.';
+        else if (q.includes('pisco') || q.includes('clase') || q.includes('sereno') || q.includes('almu')) {
+          botMsg.textContent = 'La feria contó con la Masterclass de Pisco dictada por Sebastián Martínez (Sereno Bar) y expositores como Pisco Almu del Valle del Limarí. Puedes agendar reuniones B2B desde el catálogo.';
         }
         else if (q.includes('nativa') || q.includes('joyas') || q.includes('orfebreria') || q.includes('orfebrería')) {
-          botMsg.textContent = 'Nativa Joyas del Elqui exhibe su orfebrería de autor en la sección destacada del sitio.';
+          botMsg.textContent = 'Nativa Joyas del Elqui exhibe su orfebrería de autor en la sección destacada del sitio y mantiene su agenda abierta.';
         }
-        else if (q.includes('fecha') || q.includes('cuando') || q.includes('cuándo') || q.includes('donde') || q.includes('dónde') || q.includes('lugar')) {
-          botMsg.textContent = 'La Expo Región Estrella se realizará del 6 al 8 de noviembre de 2026 en Plaza Ñuñoa, Santiago. ¡La entrada es liberada!';
+        else if (q.includes('balance') || q.includes('cierre') || q.includes('resumen') || q.includes('fecha') || q.includes('cuando') || q.includes('cuándo') || q.includes('donde') || q.includes('dónde')) {
+          botMsg.textContent = 'La Expo Región Estrella se realizó con gran éxito del 6 al 8 de noviembre de 2026 en Plaza Ñuñoa, Santiago, proyectando alianzas para el Verano 2027. Revisa la crónica completa en la sección Balance Post-Feria.';
         } 
         else if (q.includes('hola') || q.includes('buenas') || q.includes('buenos dias') || q.includes('buenas tardes')) {
-          botMsg.textContent = '¡Hola! Qué gusto saludarte. ¿En qué te puedo ayudar hoy respecto a los expositores, la radio o el evento?';
+          botMsg.textContent = '¡Hola! Qué gusto saludarte. ¿En qué te puedo ayudar hoy respecto al balance de cierre, los expositores o la radio?';
         } 
         else {
-          botMsg.textContent = 'Puedo ayudarte con información sobre la Expo, fechas, expositores, agendamiento de citas y nuestra radio en línea. ¿Tienes alguna otra duda?';
+          botMsg.textContent = 'Puedo ayudarte con el balance oficial post-feria, expositores, agendamiento de citas B2B y nuestra radio en línea. ¿Tienes alguna otra duda?';
         }
 
         chatBody.appendChild(botMsg);
